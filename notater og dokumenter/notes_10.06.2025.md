@@ -5,6 +5,7 @@
 * Deltakere og kapasitet i prosjektet. 
 * Sette opp ansvar og tasks (issues)
 * Statusmøter før sommerferie og etter.
+* KDD-søknad hos Digin
 
 ### Ideer
 * Internasjonal workshop i oktober? Special invite - men åpent for alle. Søke NFR for å dekke reisekost. Septima. Overture? Development Seed?
