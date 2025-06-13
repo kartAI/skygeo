@@ -28,19 +28,23 @@ _Etablere kompetanse og teknisk erfaring med anvendelser av STAC og Cloud Native
 # Usage
 
 ## Sånn konverterer du N50 til cloud native formater
-* Schema-utforskning
-    * N50-schema til Overture-schema
-    * N50-schema til OpenStreetMap-schema(?)
 * Geoparquet. 
     * Python notebooks. Basic, optimalisert, partisjonert
+    * Tools
     * gdal/ogr2ogr, geopandas, duckdb, sedona/spark, databricks
+* Validerings-tool på geoparquet
+    * Utvide eksisterende cli-tools
 * Flatgeobuf
     * Python notebooks
     * GDAL/ogr2ogr, geopandas
 * Apache Iceberg
     * Sedona, Databricks?
+* DuckLake
 * PMTiles
     * tippecanoe, planetiler?
+* Schema-utforskning
+    * N50-schema til Overture-schema
+    * N50-schema til OpenStreetMap-schema(?)
 
 ## Hvordan lage STAC metadata fra N50 datasettet
 * Python-notebook for å konvertere fra GeoNorge-metadata til STAC
