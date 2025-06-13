@@ -6,6 +6,7 @@
 * Sette opp ansvar og tasks (issues)
 * Statusmøter før sommerferie og etter.
     * Mandager - Alex: sett opp raske standups
+* KDD-søknad hos Digin
 
 ### Ideer
 * Internasjonal workshop i oktober? Special invite - men åpent for alle. Søke NFR for å dekke reisekost. Septima. Overture? Development Seed?
