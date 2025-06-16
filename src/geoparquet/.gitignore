@@ -1,0 +1,6 @@
+venv
+.venv
+**/*.gdb/
+**/*.gdb
+*.parquet
+__pycache__
