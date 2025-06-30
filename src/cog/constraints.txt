@@ -1,0 +1,9 @@
+affine==2.4.0
+attrs==25.3.0
+certifi==2025.6.15
+click==8.2.1
+click-plugins==1.1.1
+cligj==0.7.2
+numpy==2.3.0
+pyparsing==3.2.3
+rasterio==1.4.3
