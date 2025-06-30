@@ -1,0 +1,7 @@
+*/*.tif
+*/*.tfw
+
+Input/
+Output/
+
+__pycache__/
