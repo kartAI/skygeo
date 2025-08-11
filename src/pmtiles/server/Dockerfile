@@ -21,3 +21,4 @@ RUN echo 'server {\n\
 }' > /etc/nginx/conf.d/default.conf
 
 COPY vector/out/ /usr/share/nginx/html
+COPY raster/out/ /usr/share/nginx/html

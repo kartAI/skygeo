@@ -22,7 +22,7 @@ export default function App() {
           latitude: 58.1599,
           zoom: 11
         }}
-        style={{ width: 1920, height: 1080 }}
+        style={{ width: 600, height: 400 }}
         mapStyle={{
           version: 8,
           sources: {
@@ -34,9 +34,18 @@ export default function App() {
 
               type: "vector",
               url: "pmtiles://http://localhost:8000/N50_BygningerOgAnlegg_omrade.pmtiles"
+            },
+            N50_Raster: {
+              type: "raster",
+              url: "pmtiles://http://localhost:8000/N50_raster_2024.pmtiles"
             }
           },
           layers: [
+            {
+              id: "raster",
+              source: "N50_Raster",
+              type: "raster"
+            },
             {
               id: "veier",
               source: "N50_Vei",

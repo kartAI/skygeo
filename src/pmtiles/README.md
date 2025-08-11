@@ -39,3 +39,8 @@ docker-compose up --build
 ```
 
 Etter dette kan karttjenesten åpnes fra `localhost:3000/`
+
+
+## Raster data
+
+Samme formål som for vektordata, men for rasterdata.
