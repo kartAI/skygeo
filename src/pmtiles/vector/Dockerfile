@@ -27,8 +27,8 @@ RUN mv pmtiles /bin/pmtiles
 
 # Copy conversion script
 WORKDIR /app
-COPY gdb_to_pmtiles.sh .
-COPY all_layers_gdb_to_pmtiles.sh .
+COPY vector/gdb_to_pmtiles.sh .
+COPY vector/all_layers_gdb_to_pmtiles.sh .
 RUN chmod +x gdb_to_pmtiles.sh
 RUN chmod +x all_layers_gdb_to_pmtiles.sh
 
