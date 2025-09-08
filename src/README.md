@@ -48,4 +48,3 @@ For å installere pakkene gjør du følgende:
 Dette vil installere alle nødvendige avhengigheter slik at du kan kjøre notebookene uten problemer.
 
 > 💡 Tips: Hvis du får feilmeldinger under installasjonen, kan det være lurt å oppdatere `pip` først med `pip install --upgrade pip`.
-
