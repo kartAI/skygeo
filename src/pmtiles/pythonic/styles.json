@@ -1,0 +1,49 @@
+{
+    "layers": [
+        {
+            "id": "bg",
+            "paint": {
+                "background-color": "#fcfcfc"
+            },
+            "type": "background"
+        },
+        {
+            "id": "raster",
+            "layout": {
+                "visibility": "visible"
+            },
+            "source": "pmtiles-raster",
+            "type": "raster"
+        },
+        {
+            "id": "vector",
+            "paint": {
+                "circle-color": [
+                    "get",
+                    "color"
+                ],
+                "circle-radius": [
+                    "get",
+                    "radius"
+                ],
+                "circle-opacity": 0.65,
+                "circle-stroke-width": 1
+            },
+            "source": "pmtiles-vector",
+            "source-layer": "points",
+            "type": "circle"
+        }
+    ],
+    "sources": {
+        "pmtiles-vector": {
+            "type": "vector",
+            "url": "pmtiles://http://localhost:5173/vector.pmtiles"
+        },
+        "pmtiles-raster": {
+            "tileSize": 256,
+            "type": "raster",
+            "url": "pmtiles://http://localhost:5173/raster.pmtiles"
+        }
+    },
+    "version": 8
+}
