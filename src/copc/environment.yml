@@ -1,0 +1,12 @@
+name: copc_api
+channels:
+  - conda-forge
+  - defaults
+dependencies:
+  - python=3.11
+  - pip
+  - pdal
+  - pip:
+    - pandas
+    - pyarrow
+    - fastparquet
