@@ -1,2 +1,5 @@
 pythonic/main.js
 pythonic/*.pmtiles
+data/
+out/
+*node_modules/**
