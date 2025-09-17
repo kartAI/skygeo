@@ -1,0 +1,17 @@
+{
+  "name": "web",
+  "version": "1.0.0",
+  "scripts": {
+    "start": "vite",
+    "build": "vite build",
+    "test": "vite build --base skygeo",
+    "karttest": "scp -r -p dist/* karttest.nibio.no:/var/www/html/skygeo",
+    "serve": "vite preview"
+  },
+  "devDependencies": {
+    "vite": "latest"
+  },
+  "dependencies": {
+    "ol": "latest"
+  }
+}
