@@ -1,8 +1,9 @@
 import './style.css';
 import { Map, View } from 'ol';
 import TileLayer from 'ol/layer/WebGLTile';
-import OSM from 'ol/source/OSM';
-import GeoTIFF from 'ol/source/GeoTIFF.js';
+// import OSM from 'ol/source/OSM';
+import GeoTIFF from 'ol/source/GeoTIFF';
+import ImageTile from 'ol/source/ImageTile';
 
 const cog = new GeoTIFF({
   normalize: false,
@@ -16,7 +17,12 @@ const bonitet = ['band', 1];
 const map = new Map({
   target: 'map',
   layers: [
-    new TileLayer({ source: new OSM() }),
+    // new TileLayer({ source: new OSM() }),
+    new TileLayer({
+      source: new ImageTile({
+        url: 'https://cache.kartverket.no/v1/wmts/1.0.0/topograatone/default/webmercator/{z}/{y}/{x}.png'
+      })
+    }),
     new TileLayer({
       source: cog,
       style: { color:
