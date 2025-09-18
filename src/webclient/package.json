@@ -2,9 +2,11 @@
   "name": "web",
   "version": "1.0.0",
   "scripts": {
-    "start": "vite",
+    "prestart": "npm i",
+    "start": "vite --open",
+    "prebuild": "npm i",
     "build": "vite build",
-    "test": "vite build --base skygeo",
+    "test": "npm run build -- --base skygeo",
     "karttest": "scp -r -p dist/* karttest.nibio.no:/var/www/html/skygeo",
     "serve": "vite preview"
   },
