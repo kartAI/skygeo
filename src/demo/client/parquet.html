@@ -1,0 +1,31 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>DuckDB WASM Example</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+  <header id="navbar"></header>
+  <div class="rose-terminal">
+    <div class="terminal-window">
+      <div class="terminal-header">
+        <span class="title">DuckDB WASM Web Demo</span>
+      </div>
+
+      <div class="terminal-content">
+        <textarea id="output" class="terminal-output"></textarea>
+
+        <textarea id="sqlInput" class="terminal-input"
+          placeholder="Enter SQL query here..." >select ST_AsText(ST_GeomFromWKB(geometry)) as geom from read_parquet('http://localhost:8081/parquet/n50_samferdsel_senterlinje.snappy.parquet') limit 10;</textarea>
+
+        <button class="terminal-btn" onclick="runQuery()">Run</button>
+      </div>
+    </div>
+  </div>
+
+  <script src="app.js"></script>
+  <script src="parquet.js" type="module"></script>
+</body>
+</html>
