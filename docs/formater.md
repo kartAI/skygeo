@@ -1,12 +1,30 @@
 # Hva er egentlig Cloud Native?
-* Introduksojn
-* motivasjon
-* Problem og løsning
-* Hva menes med "cloud native"? "partial reads, parallell reads
-* Forholdet til andre standarder
-    * OGC standarder
-    * "web-standarder" (tilecache, vector tiles, geojson)
-* Hva med metadata => STAC
+Klart det. Her er et utkast du kan bruke som utgangspunkt for din `README.md`.
+
+---
+
+# Hva er egentlig Cloud Native Geospatial?
+
+### Introduksjon og Motivasjon
+
+"Cloud-Native Geospatial" (CNG) er et paradigmeskifte i hvordan vi håndterer og aksesserer geospatiale data. Glem den tradisjonelle arbeidsflyten med å finne en ZIP-fil på en FTP-server, laste ned 3 GB med GML-filer, pakke ut, og *så* endelig laste det inn i GIS-programvaren – bare for å oppdage at du ser på feil område. Motivasjonen bak CNG er å fjerne denne unødvendige dataoverføringen og ventetiden.
+
+### Problem og Løsning: "Partial" og "Parallel Reads"
+
+Det tradisjonelle problemet er at filformater som en standard GeoTIFF eller Shapefil er designet for å bli lest fra en rask, lokal harddisk. De er ikke "stream-bare". Hvis du trenger pikslene i nedre høyre hjørne av en 10 GB GeoTIFF, må du kanskje lese gjennom nesten hele filen for å finne dem.
+
+"Cloud-native"-løsningen er å internt strukturere filene slik at de kan leses effektivt over HTTP. "Magien" ligger i å utnytte **HTTP Range Requests**. Tenk på det som å streame en 80GB 4K-film: du trenger ikke laste ned hele filen for å hoppe til de siste fem minuttene. En CNG-fil (som en **Cloud Optimized GeoTIFF, COG**) har en intern indeks i starten. En klient (som QGIS) leser denne lille indeksen først, og ber deretter serveren om *kun* de spesifikke bytene den trenger for å vise kartutsnittet ditt. Dette muliggjør:
+
+* **Partial Reads:** Hente bare en del av filen (f.eks. ett zoom-nivå, ett tidssteg).
+* **Parallel Reads:** Flere prosesser som henter forskjellige deler av samme fil samtidig, noe som er kritisk for høy ytelse
+
+### Forholdet til andre standarder
+
+CNG-formater erstatter ikke nødvendigvis tradisjonelle OGC-tjenester (som WMS/WFS), men de tilbyr et kraftig, "server-løst" alternativ. I stedet for å vedlikeholde en aktiv server-applikasjon (som MapServer/GeoServer) som dynamisk genererer bilder eller features, kan du legge en statisk COG- eller FlatGeobuf-fil i en "dum" skylagringsbøtte (som S3 eller Azure Blob). Klienten (QGIS, MapLibre, OpenLayers) gjør jobben. Dette er ofte dramatisk billigere, mer skalerbart og enklere å vedlikeholde. Web-standarder som GeoJSON og Vector Tiles er nært beslektet; PMTiles er for eksempel en måte å samle `vector tiles` i én enkelt, cloud native fil.
+
+### Hva med Metadata? => STAC
+
+Et siste, kritisk poeng: Hvis alle dataene dine bare er statiske filer, hvordan kan brukere *finne* dem? Svaret er **STAC (SpatioTemporal Asset Catalog)**. STAC er en enkel, standardisert JSON-spesifikasjon som fungerer som "limet" i dette økosystemet. Det er en metadata-standard som beskriver *hva* dataene er, *hvor* de dekker, *når* de er fra, og viktigst av alt: lenker direkte til de sky-native filene (f.eks. COG, GeoParquet, Zarr) som utgjør ressursen.
 
 ## Formater
 ### Oversikt over aktuelle formater
@@ -32,3 +50,4 @@
 ### PMTiles
 
 ## Referanser
+
