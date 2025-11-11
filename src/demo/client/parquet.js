@@ -50,7 +50,9 @@ window.runQuery = async function () {
   try {
     const result = await conn.query(sql);
     const data = result.toArray();
-    outputDiv.innerHTML = `<pre>${JSON.stringify(data, null, 2)}</pre>`;
+    outputDiv.innerHTML = `<pre>${JSON.stringify(data, (_, value) =>
+      typeof value === 'bigint' ? value.toString() : value
+    )}</pre>`;
   } catch (err) {
     outputDiv.innerHTML = `<pre style="color:red;">${err.message}</pre>`;
   }
