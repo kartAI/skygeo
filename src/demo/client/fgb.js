@@ -3,8 +3,10 @@ document.addEventListener("DOMContentLoaded", async () => {
   let map = L.map('map').setView([58.15, 8], 12);
     L.tileLayer('https://cache.kartverket.no/v1/wmts/1.0.0/topograatone/default/webmercator/{z}/{y}/{x}.png', {
         maxZoom: 18,
-        minZoom: 10
+        minZoom: 5
     }).addTo(map);
+
+    map.getContainer().style.cursor = 'default';
 
     // optionally show some meta-data about the FGB file
     function handleHeaderMeta(headerMeta) {
@@ -36,7 +38,7 @@ document.addEventListener("DOMContentLoaded", async () => {
     }
 
     // show a leaflet rect corresponding to our bounding box
-    let rectangle = L.rectangle(getBoundForRect(), { interactive: false, color: "blue", fillOpacity: 0.0, opacity: 1.0 }).addTo(map);
+    let rectangle = L.rectangle(getBoundForRect(), { interactive: false, color: "red", fillOpacity: 0.0, opacity: 1.0 }).addTo(map);
 
     // track the previous results so we can remove them when adding new results
     let previousResults = L.layerGroup().addTo(map);
@@ -49,43 +51,51 @@ document.addEventListener("DOMContentLoaded", async () => {
         // Use flatgeobuf JavaScript API to iterate features as geojson.
         // Because we specify a bounding box, flatgeobuf will only fetch the relevant subset of data,
         // rather than the entire file.
-    const iter = flatgeobuf.deserialize('http://localhost:8081/fgb/n50_samferdsel_senterlinje.fgb', fgBoundingBox(), handleHeaderMeta);
-
-        const colorScale = ((d) => {
-            return d > 750 ? '#800026' :
-                d > 500 ? '#BD0026' :
-                d > 250  ? '#E31A1C' :
-                d > 100 ? '#FC4E2A' :
-                d > 50   ? '#FD8D3C' :
-                d > 25  ? '#FEB24C' :
-                d > 10   ? '#FED976' :
-                '#FFEDA0'
-        });
+    const iter = flatgeobuf.deserialize(
+            'http://localhost:8081/fgb/n50_samferdsel_senterlinje.fgb', 
+            // 'http://localhost:8081/fgb/hurtigurten.fgb', 
+            fgBoundingBox(), handleHeaderMeta);
 
         for await (const feature of iter) {
             // Leaflet styling
-            console.log(feature)
             const defaultStyle = { 
-                color: colorScale(feature.properties["sporantall"]), 
-                weight: 1, 
+                color: "blue",
+                weight: 1,
                 fillOpacity: 1,
             };
-            L.geoJSON(feature)
-      // , {
-                // style: defaultStyle,
-           //  }).on({
-           //      'mouseover': function(e) {
-           //          const layer = e.target;
-           //          layer.setStyle({
-           //              weight: 4,
-           //              fillOpacity: 0.8,
-           //          });
-           //      },
-           //      'mouseout': function(e) {
-           //          const layer = e.target;
-           //          layer.setStyle(defaultStyle);
-           //      }
-           // }).bindPopup(`${feature.properties["sporantall"]} people live in this census block.</h1>`)
+            L.geoJSON(feature, {
+                style: defaultStyle,
+            })
+                 .on({
+                'mouseover': function(e) {
+                    const layer = e.target;
+                    layer.setStyle({
+                        weight: 4,
+                        color: "green",
+                        fillOpacity: 0.8,
+                    });
+                },
+                'mouseout': function(e) {
+                    const layer = e.target;
+                    layer.setStyle(defaultStyle);
+                }
+           }).bindPopup(() => {
+              const properties = feature.properties;
+              let popupContent = '<h3>Feature Info</h3><ul>';
+
+              for (const key in properties) {
+                if (key.includes('geometry')){
+                    // Skip geometry fields.
+                    continue;
+                }
+                if (properties.hasOwnProperty(key)) {
+                  popupContent += `<li><strong>${key}:</strong> ${properties[key]}</li>`;
+                }
+              }
+
+              popupContent += '</ul>';
+              return popupContent;
+            })
            .addTo(nextResults);
         }
         rectangle.bringToFront();
@@ -99,5 +109,7 @@ document.addEventListener("DOMContentLoaded", async () => {
     map.on("moveend", function(s){
         rectangle.setBounds(getBoundForRect());
         updateResults();
+        const bar = document.getElementById('fileBar');
+        bar.innerHTML = '';
     });
 });

@@ -104,3 +104,29 @@ footer { padding: 10px; background: #f0f0f0; text-align: center; }
 .terminal-btn:hover {
   background: var(--foam);
 }
+#fileBar {
+  position: relative;
+  width: 90%;
+  height: 30px;
+  background-color: #eee;
+  border: 1px solid #ccc;
+  margin-top: 20px;
+}
+
+.fileBarItem {
+  margin-top: 20px;
+  align-self: flex-end;
+  margin-left: 5px;
+  margin-right: 5px;
+}
+
+.range {
+  position: absolute;
+  height: 100%;
+  background-color: blue;
+  opacity: 0.8;
+}
+
+.fileBarContainer {
+  display: flex;           /* Enable flexbox */
+}
