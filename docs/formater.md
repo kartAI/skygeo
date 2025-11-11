@@ -19,7 +19,7 @@ CNG-formater erstatter ikke nødvendigvis tradisjonelle OGC-tjenester (som WMS/W
 
 ### Hva med Metadata? => STAC
 
-Et siste, kritisk poeng: Hvis alle dataene dine bare er statiske filer, hvordan kan brukere _finne_ dem? Svaret er **STAC (SpatioTemporal Asset Catalog)**. STAC er en enkel, standardisert JSON-spesifikasjon som fungerer som "limet" i dette økosystemet. Det er en metadata-standard som beskriver _hva_ dataene er, _hvor_ de dekker, _når_ de er fra, og viktigst av alt: lenker direkte til de sky-native filene (f.eks. COG, GeoParquet, Zarr) som utgjør ressursen.
+Et siste, kritisk poeng: Hvis alle dataene dine bare er statiske filer, hvordan kan brukere finne dem? Svaret er **STAC (SpatioTemporal Asset Catalog)**. STAC er en enkel, standardisert JSON-spesifikasjon som fungerer som "limet" i dette økosystemet. Det er en metadata-standard som beskriver hva dataene er, hvor de dekker, når de er fra, og viktigst av alt: lenker direkte til de sky-native filene (f.eks. COG, GeoParquet, Zarr) som utgjør ressursen.
 
 ## Formater
 
@@ -54,6 +54,5 @@ Et siste, kritisk poeng: Hvis alle dataene dine bare er statiske filer, hvordan 
 
 ## Referanser
 
-https://guide.cloudnativegeo.org\
+https://guide.cloudnativegeo.org <br>
 https://forrest.nyc/cloud-native-geospatial-formats-geoparquet-zarr-cog-and-pmtiles-explained/
-
