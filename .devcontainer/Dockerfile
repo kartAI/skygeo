@@ -5,10 +5,10 @@ RUN apt-get update && apt-get install -y \
     git \
     wget \
     unzip \
+    ca-certificates \
     libgdal-dev \
     gdal-bin \
-    libspatialindex-dev \
-    && rm -rf /var/lib/apt/lists/*
+    libspatialindex-dev 
 
 # Upgrade pip
 RUN pip install --upgrade pip
@@ -26,6 +26,7 @@ RUN pip install --no-cache-dir \
     shapely \
     pyarrow \
     matplotlib \
+    python-dotenv \
     seaborn
 
 # Install DuckDB CLI
