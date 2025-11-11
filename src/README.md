@@ -1,4 +1,4 @@
-# ⛅ SkyGeo 🗺️
+# Eksperimenter og kodeeksempler
 
 Utforskning av cloud-native formater og STAC-metadata for norske geografiske datasett.
 

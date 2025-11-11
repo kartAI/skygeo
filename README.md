@@ -22,6 +22,7 @@ Se ulike måter å produsere, konvertere og bruke Cloud Native Geo-formater på 
 
 
 ## Hva er egentlig Cloud Native Geospatial?
+Les mer utdypende introduksjon til [cloud native formater](docs\formater.md)
 
 ### Introduksjon og Motivasjon
 
