@@ -14,6 +14,13 @@ FGDB_FILE = os.getenv(
 FILE_PATH = Path(DATA_DIR, FGDB_FILE)
 
 
+def reproject_flatgeobuf(src_path, dst_path, target_epsg, src_epsg=None):
+    import subprocess
+    cmd = ["ogr2ogr", "-f", "FlatGeobuf", dst_path, src_path, "-t_srs", f"EPSG:{target_epsg}"]
+    if src_epsg:
+        cmd.extend(["-s_srs", f"EPSG:{src_epsg}"])
+    subprocess.run(cmd, check=True)
+
 def transform_crs(input_file: Path, output_file: Path):
     target_crs = "EPSG:4326"
 
@@ -50,15 +57,25 @@ def main():
         #     write_covering_bbox=True,
         # )
 
-        gdf.to_file(
-            filename=dirs["temp"] / f"_{layer_name}.fgb",
-            driver="FlatGeoBuf"
+        temp_file = dirs["temp"] / f"_{layer_name}.fgb"
+        fgb_file = dirs["fgb"] / f"{layer_name}.fgb"
+        # gdf.to_file(
+        #     filename=temp_file,
+        #     driver="FlatGeoBuf"
+        # )
+
+        reproject_flatgeobuf(
+            src_path=temp_file,
+            dst_path=fgb_file,
+            target_epsg="4326"
         )
-        # Memory efficient crs transform to support leaflet
-        transform_crs(
-            dirs["temp"] / f"_{layer_name}.fgb",
-            dirs["fgb"] / f"{layer_name}.fgb",
-        )
+
+
+        # # Memory efficient crs transform to support leaflet
+        # transform_crs(
+        #     dirs["temp"] / f"_{layer_name}.fgb",
+        #     dirs["fgb"] / f"{layer_name}.fgb",
+        # )
 
 if __name__ == "__main__":
     main()

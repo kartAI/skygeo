@@ -34,6 +34,7 @@ async function initDB() {
   conn = await db.connect();
   await conn.query("INSTALL spatial;");
   await conn.query("LOAD spatial;");
+  await conn.query("CREATE VIEW samferdsel_senterlinje AS select * from read_parquet('http://localhost:8081/parquet/n50_samferdsel_senterlinje.snappy.parquet');")
   console.log("DB Ready!");
 }
 

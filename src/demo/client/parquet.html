@@ -18,7 +18,7 @@
         <textarea id="output" class="terminal-output"></textarea>
 
         <textarea id="sqlInput" class="terminal-input"
-          placeholder="Enter SQL query here..." >select ST_AsText(ST_GeomFromWKB(geometry)) as geom from read_parquet('http://localhost:8081/parquet/n50_samferdsel_senterlinje.snappy.parquet') limit 10;</textarea>
+          placeholder="Enter SQL query here..." >select * from samferdsel_senterlinje limit 10;</textarea>
 
         <button class="terminal-btn" onclick="runQuery()">Run</button>
       </div>

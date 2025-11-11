@@ -49,7 +49,7 @@ document.addEventListener("DOMContentLoaded", async () => {
         // Use flatgeobuf JavaScript API to iterate features as geojson.
         // Because we specify a bounding box, flatgeobuf will only fetch the relevant subset of data,
         // rather than the entire file.
-    const iter = flatgeobuf.deserialize('http://localhost:8081/fgb/n50_restriksjonsområder_grense.fgb', fgBoundingBox(), handleHeaderMeta);
+    const iter = flatgeobuf.deserialize('http://localhost:8081/fgb/n50_samferdsel_senterlinje.fgb', fgBoundingBox(), handleHeaderMeta);
 
         const colorScale = ((d) => {
             return d > 750 ? '#800026' :
