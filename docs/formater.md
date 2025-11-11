@@ -52,7 +52,7 @@ Et siste, kritisk poeng: Hvis alle dataene dine bare er statiske filer, hvordan 
 
 ### FlatGeobuf (FGB)
 
-![FGB](./img/FlatGeoBuf.png)
+![FGB](./img/FlatGeobuf.png)
 
 ### PMTiles
 
