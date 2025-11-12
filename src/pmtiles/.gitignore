@@ -1,3 +1,7 @@
+tiles/*
+!tiles/index.html
+!tiles/filters.json
+!tiles/styles.json
 pythonic/main.js
 pythonic/*.pmtiles
 data/

@@ -1,0 +1,52 @@
+{
+    "layers": [
+        {
+            "id": "bg",
+            "paint": {
+                "background-color": "#e7f6fd"
+            },
+            "type": "background"
+        },
+        {
+            "id": "basemap",
+            "paint": {
+                "raster-brightness-min": 0.5
+            },
+            "source": "basemap",
+            "type": "raster"
+        },
+        {
+            "id": "europaveg",
+            "paint": {
+                "line-color": [
+                    "match",
+                    ["get", "vegkategori"],
+                    "E", "#ff0000",
+                    "R", "#191970",
+                    "F", "#006400",
+                    "K", "#ffd700",
+                    "S", "#00ff00",
+                    "P", "#ff00ff",
+                    "#333333"
+                ],
+                "line-width": 1.5
+            },
+            "source": "vegnett",
+            "source-layer": "veglenke",
+            "type": "line"
+        }
+    ],
+    "sources": {
+        "basemap": {
+            "tiles": [
+                "https://tile.openstreetmap.org/{z}/{x}/{y}.png"
+            ],
+            "type": "raster"
+        },
+        "vegnett": {
+            "url": "pmtiles://http://localhost:5173/vegnett.pmtiles",
+            "type": "vector"
+        }
+    },
+    "version": 8
+}
