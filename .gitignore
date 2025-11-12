@@ -1,1 +1,5 @@
+# Dont sync these files, they are only for local development
 *.env
+*.db
+*.parquet
+*.pmtiles
