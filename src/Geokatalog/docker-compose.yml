@@ -1,0 +1,49 @@
+version: '3.8'
+
+services:
+  backend:
+    build:
+      context: ./backend
+      dockerfile: Dockerfile
+    container_name: stac-backend
+    ports:
+      - "8000:8000"
+    environment:
+      - DATA_DIRECTORY=/app/data
+      - CATALOG_TITLE=STAC Catalog
+      - CATALOG_DESCRIPTION=Dynamic STAC catalog for geospatial data
+      - API_HOST=0.0.0.0
+      - API_PORT=8000
+    volumes:
+      # Data directory - mount your geospatial files here
+      # Any files in ./backend/data/ on host are accessible in /app/data in container
+      - ./backend/data:/app/data
+      # Application code (for development hot reload - remove in production)
+      - ./backend/app:/app/app
+    restart: unless-stopped
+    healthcheck:
+      test: ["CMD", "python", "-c", "import urllib.request; urllib.request.urlopen('http://localhost:8000/health')"]
+      interval: 30s
+      timeout: 10s
+      retries: 3
+      start_period: 40s
+
+  frontend:
+    build:
+      context: ./frontend
+      dockerfile: Dockerfile
+      args:
+        - NEXT_PUBLIC_STAC_API_URL=http://localhost:8000
+    container_name: stac-frontend
+    ports:
+      - "3000:3000"
+    environment:
+      - NEXT_PUBLIC_STAC_API_URL=http://backend:8000
+    depends_on:
+      - backend
+    restart: unless-stopped
+
+# Named volumes (not currently used - bind mounts above are used instead)
+# volumes:
+#   data:
+

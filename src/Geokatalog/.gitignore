@@ -1,0 +1,42 @@
+# Plan file
+*.plan.md
+
+# Docker
+docker-compose.override.yml
+
+# Python
+__pycache__/
+*.py[cod]
+*$py.class
+backend/venv/
+backend/env/
+backend/.env
+backend/data/
+
+# Node
+frontend/node_modules/
+frontend/.next/
+frontend/out/
+frontend/.env.local
+frontend/.env
+
+# IDE
+.vscode/
+.idea/
+*.swp
+*.swo
+
+# OS
+.DS_Store
+Thumbs.db
+
+# Data files
+*.tif
+*.tiff
+*.parquet
+*.geoparquet
+*.fgb
+*.pmtiles
+*.laz
+*.copc.laz
+
