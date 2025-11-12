@@ -22,7 +22,51 @@ beregningskavlitet enn skredfaresonene.
 ## Getting started
 OBS: Hardkodede stier for destinasjon og lesing i steg 2, dette rakk vi ikke å fikse :-)
 - Kjør fila cli_skred_workshop.py - oppgi uuid i påkrevd parameter --dataset-uuid. Kjør fila en gang for hvert datasett, Se 'grunnlag' over for verdi. Filene lagres til geoparquet(optimized, tilesize 10000)
-- Kjør så fila skred2duckdb.py. Begge filene leses direkte fra parquet gjennom duckdb, som utfører overlay mellom Analyseområder og alle data i aktsomhetskartet.
+- Kjør så fila skred2duckdb.py. Begge filene leses direkte fra parquet gjennom duckdb, som utfører overlay mellom Analyseområder og alle data i aktsomhetskartet. Overlayspørringen kjører uten geografisk index i duckdb og tar ca 20 sekunder. Selve overlayqueryet ser slik ut:
+
+## Overlay query
+WITH analyseomrade_union AS (
+                SELECT ST_Union_Agg(geometry) as clip_geom
+                FROM read_parquet('{skredfaresoner_path}')
+                WHERE source_layer = 'Analyseområde'
+            ),
+            clipped_aktsomhet AS (
+                SELECT 
+                    {aktsom_non_geom_str},
+                    CASE 
+                        WHEN ST_Intersects(a.geometry, ao.clip_geom) 
+                        THEN ST_Difference(a.geometry, ao.clip_geom)
+                        ELSE a.geometry
+                    END as clipped_geometry
+                FROM read_parquet('{aktsomhetskart_path}') a
+                CROSS JOIN analyseomrade_union ao
+            )
+            SELECT 
+                NULL as skredStatistikkSannsynlighet,
+                source_layer,
+                clipped_geometry as geometry,
+                skogeffekt,
+                sikkerhetsklasse,
+                CASE 
+                    WHEN source_layer = 'PotensieltSkredfareOmr' AND sikkerhetsklasse = 'S3' THEN 1
+                    WHEN source_layer = 'PotensieltSkredfareOmr' AND sikkerhetsklasse = 'S2' AND skogeffekt = 'Ja' THEN 2
+                    WHEN source_layer = 'PotensieltSkredfareOmr' AND sikkerhetsklasse = 'S2' AND skogeffekt = 'Nei' THEN 3
+                    ELSE NULL
+                END as risk_factor,
+                CASE 
+                    WHEN source_layer = 'PotensieltSkredfareOmr' AND sikkerhetsklasse = 'S3' THEN 'Automatisk beregnet'
+                    WHEN source_layer = 'PotensieltSkredfareOmr' AND sikkerhetsklasse = 'S2' AND skogeffekt = 'Ja' THEN 'Automatisk beregnet med skogeffekt'
+                    WHEN source_layer = 'PotensieltSkredfareOmr' AND sikkerhetsklasse = 'S2' AND skogeffekt = 'Nei' THEN 'Automatisk beregnet uten skogeffekt'
+                    ELSE NULL
+                END as data_quality,
+                'aktsomhetskart_clipped' as data_source
+            FROM clipped_aktsomhet
+            WHERE clipped_geometry IS NOT NULL 
+            AND ST_Area(clipped_geometry) > 0
+            
+
+
+
 Alle filer leses og skrives lokalt: /temp_debug/workshop
 
 ## Struktur
