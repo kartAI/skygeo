@@ -1,0 +1,469 @@
+# STAC Katalog - AI Assistant Instructions
+
+## Project Overview
+
+STAC Katalog is a complete SpatioTemporal Asset Catalog (STAC) system built with:
+- **Backend**: Python FastAPI serving STAC 1.0.0 API
+- **Frontend**: Next.js 14 with TypeScript, React, and Tailwind CSS
+- **Deployment**: Docker Compose
+- **Integration**: QGIS support with HTTP Range Requests for COG streaming
+
+### Primary Language
+- **Documentation**: Norwegian (Norsk)
+- **Code**: English (comments and docstrings can be in English or Norwegian)
+- **UI**: Norwegian
+
+## Architecture
+
+```
+Frontend (Next.js) <-> Backend (FastAPI) <-> File System
+                          |
+                          v
+                    STAC Catalog
+                    (Collections & Items)
+```
+
+## Technology Stack
+
+### Backend
+- **Framework**: FastAPI 0.104.1
+- **STAC Library**: pystac 1.9.0
+- **Geospatial**: rasterio, geopandas, fiona, laspy, pmtiles
+- **Server**: uvicorn
+- **Config**: pydantic-settings, python-dotenv
+
+### Frontend
+- **Framework**: Next.js 14 (App Router)
+- **Language**: TypeScript
+- **Styling**: Tailwind CSS
+- **UI Components**: shadcn/ui (Radix UI)
+- **Map**: Leaflet with react-leaflet
+- **Icons**: lucide-react
+- **Theme**: next-themes (dark/light mode)
+
+### Supported File Formats
+- COG (Cloud Optimized GeoTIFF): `.tif`, `.tiff`
+- FlatGeobuf: `.fgb`
+- GeoParquet: `.parquet`, `.geoparquet`
+- PMTiles: `.pmtiles`
+- COPC (Cloud Optimized Point Cloud): `.laz`, `.copc.laz`
+
+## Code Style & Conventions
+
+### Python (Backend)
+- **Style**: PEP 8
+- **Type hints**: Use type hints for function parameters and return values
+- **Docstrings**: Use triple-quoted docstrings for functions and classes
+- **Async**: Use async/await for I/O operations where appropriate
+- **Error handling**: Use HTTPException from FastAPI for API errors
+- **Logging**: Use Python's logging module with INFO level
+
+Example:
+```python
+from typing import Optional, List
+from fastapi import HTTPException
+import logging
+
+logger = logging.getLogger(__name__)
+
+async def get_collection(collection_id: str) -> Optional[dict]:
+    """
+    Get a STAC collection by ID.
+    
+    Args:
+        collection_id: The collection identifier
+        
+    Returns:
+        Collection dict or None if not found
+    """
+    try:
+        collection = catalog_generator.get_collection(collection_id)
+        if not collection:
+            raise HTTPException(status_code=404, detail=f"Collection {collection_id} not found")
+        return collection.to_dict()
+    except Exception as e:
+        logger.error(f"Error fetching collection: {e}")
+        raise
+```
+
+### TypeScript (Frontend)
+- **Style**: Airbnb-inspired with Next.js conventions
+- **Components**: Use functional components with hooks
+- **Types**: Define interfaces for props and API responses
+- **File naming**: Use PascalCase for components, camelCase for utilities
+- **CSS**: Use Tailwind utility classes, avoid custom CSS when possible
+
+Example:
+```typescript
+interface CollectionCardProps {
+  collection: {
+    id: string;
+    title: string;
+    description: string;
+  };
+}
+
+export default function CollectionCard({ collection }: CollectionCardProps) {
+  return (
+    <div className="rounded-lg border p-4 hover:shadow-lg transition-shadow">
+      <h3 className="text-xl font-bold">{collection.title}</h3>
+      <p className="text-muted-foreground">{collection.description}</p>
+    </div>
+  );
+}
+```
+
+## Key Components & Their Responsibilities
+
+### Backend
+
+#### `app/main.py`
+- FastAPI application setup
+- STAC API endpoints (/, /collections, /search, etc.)
+- Admin endpoints (/refresh, /health)
+- **Custom file serving with HTTP Range Request support** (critical for COG streaming)
+- CORS configuration
+
+#### `app/scanner/file_scanner.py`
+- Scan file system for geospatial files
+- Extract metadata from files using gdal/rasterio/geopandas
+- Generate STAC-compliant metadata
+- **Important**: Uses `_get_file_url()` to convert file paths to HTTP URLs
+
+#### `app/stac/catalog.py`
+- Generate STAC Catalog
+- Manage collections
+- Search and filter items
+- Handle catalog refresh
+
+#### `app/stac/collection.py`
+- Create STAC Collections
+- Group items by file format
+- Compute spatial and temporal extents
+
+#### `app/stac/item.py`
+- Create STAC Items from files
+- Define assets
+- Extract geometry and properties
+
+#### `app/models/config.py`
+- Application settings using pydantic-settings
+- Environment variable loading
+- Data directory management
+
+### Frontend
+
+#### `app/page.tsx`
+- Main page: Collections list
+- Catalog refresh button
+- Dark/light mode toggle
+
+#### `app/collections/[id]/page.tsx`
+- Collection detail page
+- Display items in collection
+- Interactive map with items
+- Item metadata display
+
+#### `app/search/page.tsx`
+- Search interface
+- Spatial search with bbox
+- Map-based search
+
+#### `components/MapView.tsx`
+- Leaflet map component
+- Display item geometries
+- Bounding box drawing
+- Zoom to features
+
+#### `lib/stac-client.ts`
+- API client for STAC endpoints
+- Type-safe API calls
+- Error handling
+
+## Important Implementation Details
+
+### HTTP Range Request Support (Critical for COG)
+The backend implements custom file serving with Range Request support:
+```python
+@app.get("/data/{file_path:path}")
+async def get_data_file(request: Request, file_path: str):
+    """Serve data files with range request support"""
+    return await serve_file_with_range(request, file_path)
+```
+
+**Do NOT** use FastAPI's `StaticFiles` for data serving - it doesn't support Range Requests needed for GDAL's /vsicurl/ driver.
+
+### Asset URL Generation
+All asset hrefs MUST use HTTP URLs, not file paths:
+```python
+# CORRECT
+"href": "http://localhost:8000/data/example.tif"
+
+# WRONG
+"href": "/app/data/example.tif"
+```
+
+### Async Catalog Refresh
+Catalog refresh is asynchronous to avoid blocking:
+```python
+@app.post("/refresh")
+async def refresh_catalog(background_tasks: BackgroundTasks):
+    background_tasks.add_task(refresh_catalog_background)
+    return {"status": "started"}
+```
+
+### Frontend API Calls
+Always use environment variable for API URL:
+```typescript
+const API_URL = process.env.NEXT_PUBLIC_STAC_API_URL || 'http://localhost:8000';
+```
+
+## Common Tasks
+
+### Adding Support for a New File Format
+
+1. **Update FileScanner** (`backend/app/scanner/file_scanner.py`):
+   - Add extension to `SUPPORTED_EXTENSIONS`
+   - Add method `_scan_newformat(file_path)` to extract metadata
+   - Update `_scan_file()` to handle new extension
+
+2. **Update MIME types** (`backend/app/main.py`):
+   ```python
+   mimetypes.add_type('application/custom-format', '.ext')
+   ```
+
+3. **Test**:
+   - Add test file to `backend/data/`
+   - Call `/refresh` endpoint
+   - Verify item appears in appropriate collection
+
+### Adding a New API Endpoint
+
+1. **Backend** (`backend/app/main.py`):
+   ```python
+   @app.get("/my-endpoint")
+   async def my_endpoint():
+       """Endpoint description"""
+       return {"data": "value"}
+   ```
+
+2. **Frontend Client** (`frontend/lib/stac-client.ts`):
+   ```typescript
+   export async function fetchMyData() {
+     const response = await fetch(`${API_URL}/my-endpoint`);
+     return response.json();
+   }
+   ```
+
+3. **Use in Component**:
+   ```typescript
+   const data = await fetchMyData();
+   ```
+
+### Adding a New Frontend Page
+
+1. Create file in `frontend/app/`:
+   ```typescript
+   // app/my-page/page.tsx
+   export default function MyPage() {
+     return <div>My Page</div>;
+   }
+   ```
+
+2. Add navigation link in layout or component
+
+3. Create components in `frontend/components/` if needed
+
+### Debugging Tips
+
+#### Backend Issues
+```powershell
+# Check logs
+docker-compose logs -f backend
+
+# Test endpoint
+Invoke-WebRequest -Uri http://localhost:8000/health
+
+# Access container
+docker exec -it stac-backend bash
+```
+
+#### Frontend Issues
+```powershell
+# Check logs
+docker-compose logs -f frontend
+
+# Check build
+cd frontend
+npm run build
+```
+
+#### File Access Issues
+```powershell
+# Verify file in container
+docker exec stac-backend ls -la /app/data/
+
+# Test HTTP access
+Invoke-WebRequest -Uri http://localhost:8000/data/yourfile.fgb -Method Head
+```
+
+## Testing
+
+### Backend Testing
+```powershell
+cd backend
+python test_api.py
+```
+
+### Manual API Testing
+```powershell
+# Health check
+Invoke-RestMethod -Uri http://localhost:8000/health
+
+# Get collections
+Invoke-RestMethod -Uri http://localhost:8000/collections
+
+# Search with bbox
+$bbox = "10,59,11,60"
+Invoke-RestMethod -Uri "http://localhost:8000/search?bbox=$bbox"
+```
+
+### Frontend Testing
+- Run `npm run build` to check for TypeScript errors
+- Test in browser with DevTools console open
+- Check Network tab for API calls
+
+## Docker
+
+### Development
+- Volumes are mounted for hot reload
+- Backend: `./backend/app:/app/app`
+- Frontend: code is rebuilt on container start
+
+### Production
+- Remove volume mounts for application code
+- Use built images without hot reload
+- Configure proper CORS origins
+
+## Environment Variables
+
+### Backend (.env)
+```
+DATA_DIRECTORY=./data
+CATALOG_TITLE=STAC Catalog
+CATALOG_DESCRIPTION=Dynamic STAC catalog
+API_HOST=0.0.0.0
+API_PORT=8000
+```
+
+### Frontend (.env.local)
+```
+NEXT_PUBLIC_STAC_API_URL=http://localhost:8000
+```
+
+## QGIS Integration Notes
+
+### FlatGeobuf
+Direct HTTP loading works:
+```
+http://localhost:8000/data/file.fgb
+```
+
+### COG (GeoTIFF)
+Use /vsicurl/ for streaming:
+```
+/vsicurl/http://localhost:8000/data/file.tif
+```
+
+### GeoParquet
+Requires GDAL 3.5+, may need to download first
+
+### PMTiles
+Requires PMTiles QGIS plugin
+
+## Security Considerations
+
+- **Path traversal**: File serving validates paths are within data directory
+- **CORS**: Currently allows all origins (`*`) - restrict in production
+- **Authentication**: Not implemented - add if handling sensitive data
+- **Input validation**: Validate bbox, datetime, and other user inputs
+
+## Performance Considerations
+
+- **Large files**: COG and FlatGeobuf support streaming
+- **Many files**: Catalog refresh is async to avoid blocking
+- **Metadata caching**: Consider caching metadata to speed up catalog generation
+- **Pagination**: Implemented in `/collections/{id}/items` endpoint
+
+## Common Pitfalls
+
+1. **StaticFiles**: Don't use for data serving (no Range Request support)
+2. **File paths vs URLs**: Always use HTTP URLs in asset hrefs
+3. **Windows paths**: Use `str(path).replace('\\', '/')` for URLs
+4. **CORS**: Remember to configure for production
+5. **Async refresh**: Don't forget background_tasks for long operations
+6. **TypeScript errors**: Check `npm run build` before committing
+7. **Environment variables**: Frontend needs `NEXT_PUBLIC_` prefix
+
+## Useful Commands
+
+```powershell
+# Start everything
+docker-compose up -d
+
+# Rebuild and start
+docker-compose up -d --build
+
+# View logs
+docker-compose logs -f backend
+docker-compose logs -f frontend
+
+# Restart service
+docker-compose restart backend
+
+# Stop all
+docker-compose down
+
+# Add data and refresh
+copy C:\data\*.tif backend\data\
+Invoke-WebRequest -Uri http://localhost:8000/refresh -Method POST
+
+# List QGIS URLs
+.\list-qgis-urls.ps1
+```
+
+## When Making Changes
+
+1. **Understand the flow**: Request → API → Catalog Generator → File Scanner
+2. **Test locally**: Use `docker-compose up` or local dev servers
+3. **Check logs**: Always check logs for errors
+4. **Test with real files**: Use various geospatial formats
+5. **Update documentation**: Update README.md if adding features
+6. **Type safety**: Use type hints in Python, interfaces in TypeScript
+7. **Error handling**: Handle errors gracefully with proper HTTP status codes
+
+## Code Review Checklist
+
+- [ ] Type hints/interfaces added
+- [ ] Error handling implemented
+- [ ] Logging added where appropriate
+- [ ] Environment variables used (not hardcoded)
+- [ ] HTTP URLs (not file paths) for assets
+- [ ] Async for I/O operations
+- [ ] CORS considered
+- [ ] Security validated (path traversal, input validation)
+- [ ] Tested with Docker
+- [ ] Documentation updated if needed
+
+## Resources
+
+- **STAC Spec**: https://stacspec.org/
+- **FastAPI Docs**: https://fastapi.tiangolo.com/
+- **Next.js Docs**: https://nextjs.org/docs
+- **pystac Docs**: https://pystac.readthedocs.io/
+- **Leaflet Docs**: https://leafletjs.com/reference.html
+
+---
+
+**Remember**: This system is designed to be simple and maintainable. Prefer clarity over cleverness. When in doubt, follow existing patterns in the codebase.
+
