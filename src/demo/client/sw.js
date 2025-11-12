@@ -5,7 +5,7 @@ self.addEventListener('fetch', event => {
   const req = event.request;
 
   // Only care about .fgb files from unpkg
-  if (req.url.includes('localhost') && req.url.endsWith('.fgb')) {
+  if (req.url.includes('localhost') && (req.url.endsWith('.fgb')) || req.url.endsWith('.parquet')) {
     const range = req.headers.get('range') || null;
     if (range) {
       let [start, end] = range.split("=")[1].split("-").map(Number)

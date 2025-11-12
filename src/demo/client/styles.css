@@ -24,7 +24,7 @@ footer { padding: 10px; background: #f0f0f0; text-align: center; }
 }
 
 .rose-terminal {
-  background: var(--base);
+  /* background: var(--base); */
   color: var(--text);
   font-family: "Fira Code", monospace;
   margin: 0;
@@ -68,7 +68,7 @@ footer { padding: 10px; background: #f0f0f0; text-align: center; }
   width: 100%;
   background: var(--surface);
   padding: 10px;
-  min-height: 70vh;
+  min-height: 50vh;
   border: 1px solid var(--overlay);
   border-radius: 6px;
   margin-bottom: 20px;
@@ -79,6 +79,7 @@ footer { padding: 10px; background: #f0f0f0; text-align: center; }
 
 .terminal-input {
   width: 100%;
+  min-height: 30vh;
   background: var(--overlay);
   color: var(--text);
   border: 1px solid var(--overlay);
@@ -111,10 +112,12 @@ footer { padding: 10px; background: #f0f0f0; text-align: center; }
   background-color: #eee;
   border: 1px solid #ccc;
   margin-top: 20px;
+  margin-bottom: 20px;
 }
 
 .fileBarItem {
   margin-top: 20px;
+  margin-bottom: 20px;
   align-self: flex-end;
   margin-left: 5px;
   margin-right: 5px;

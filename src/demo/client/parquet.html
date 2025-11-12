@@ -8,6 +8,28 @@
 </head>
 <body>
   <header id="navbar"></header>
+
+    <main>
+  <h2> N50_samferdsel_senterlinje.snappy.parquet </h2>
+  <p>
+        Under kan du se hvilke deler av parquet filen som trenger som leses
+        for å hente ut dataen som trengs i analysen.
+  </p>
+  <div class="fileBarContainer">
+    <div class="fileBarItem">0 B</div>
+    <div id="fileBar"></div>
+    <div id="fileSize" class="fileBarItem"></div>
+  </div>
+  <h2> Er E6 "den strakaste vegan" ?</h2>
+  <p>
+    I dette eksempelet prøver vi å sjekke om det stemmer som DDE påstår
+    at E6 er den strakaste vegan. Vi estimerer en "retthet" ved å se
+    på forholdet mellom den totale geometri lengden og avstanden mellom
+    startpunktet og sluttpunktet på geometrien.
+
+    Formålet er ikke å finne et nøyaktig svar men å demonstrere hvordan
+    klienten kan strømme de dataene som behøves for å gjøre analysen.
+  </p>
   <div class="rose-terminal">
     <div class="terminal-window">
       <div class="terminal-header">
@@ -15,15 +37,38 @@
       </div>
 
       <div class="terminal-content">
-        <textarea id="output" class="terminal-output"></textarea>
-
         <textarea id="sqlInput" class="terminal-input"
-          placeholder="Enter SQL query here..." >select * from samferdsel_senterlinje limit 10;</textarea>
-
-        <button class="terminal-btn" onclick="runQuery()">Run</button>
+          placeholder="Enter SQL query here..." >
+SELECT
+   sum(straightness * path_length) / sum(path_length) as straightness_score
+  FROM (
+  SELECT
+    ST_LineMerge(ST_GeomFromWKB(geometry)) as geom,
+    ST_GeometryType(geom) as gt,
+    ST_Length(geom) AS path_length,
+    ST_StartPoint(geom) as start_point,
+    ST_EndPoint(geom) as end_point,
+    ST_Distance(
+      start_point,
+      end_point
+    ) AS chord_length,
+    chord_length / path_length AS straightness
+  FROM samferdsel_senterlinje where vegnummer = 6 and vegkategori = 'E'
+);
+        </textarea>
+        <button 
+            id="queryButton" 
+            class="terminal-btn" 
+            onclick="runQuery()" 
+            disabled
+        >
+            Loading...
+        </button>
+        <textarea id="output" class="terminal-output"></textarea>
       </div>
     </div>
   </div>
+  </main>
 
   <script src="app.js"></script>
   <script src="parquet.js" type="module"></script>
