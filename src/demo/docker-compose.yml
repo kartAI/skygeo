@@ -1,0 +1,17 @@
+services:
+  web:
+    image: nginx:alpine
+    container_name: web-client
+    ports:
+      - "8080:80"
+    volumes:
+      - ./client:/usr/share/nginx/html:ro
+  storage:
+    image: nginx:alpine
+    container_name: object-storage
+    ports:
+      - "8081:80"
+    volumes:
+      - ./data/out/:/usr/share/nginx/html:ro
+      - ./default.conf:/etc/nginx/conf.d/default.conf:ro
+    restart: unless-stopped

@@ -16,13 +16,15 @@ export default function App() {
 
   return (
     <div className="App">
+      <h1>Cloud Native Demo</h1>
       <Map
         initialViewState={{
           longitude: 8.0182,
           latitude: 58.1599,
           zoom: 11
         }}
-        style={{ width: 600, height: 400 }}
+        style={{ width: 800, height: 600 }}
+        cursor="default"
         mapStyle={{
           version: 8,
           sources: {
@@ -68,6 +70,11 @@ export default function App() {
         }}
         mapLib={maplibregl}
       />
+      <div>Eksempelet viser tre datalag som hentes fra .pmtiles filer</div>
+      <div>Alle data er hentet fra det åpne datasettet N50.</div>
+      <div style={{color:"#999"}}>Samferdsel senterlinje</div>
+      <div style={{color:"#fcba03"}}>Bygninger og anlegg område</div>
+      <div>Raster kartdata</div>
     </div>
   );
 }
