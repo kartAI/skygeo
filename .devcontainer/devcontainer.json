@@ -1,0 +1,17 @@
+{
+  "name": "GIS-søk DuckDB",
+  "build": {
+    "dockerfile": "Dockerfile"
+  },
+  "customizations": {
+    "vscode": {
+      "extensions": [
+        "ms-python.python",
+        "ms-toolsai.jupyter",
+        "ms-toolsai.datawrangler"
+      ]
+    }
+  },
+  "forwardPorts": [8888]
+}
+
