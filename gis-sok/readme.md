@@ -1,43 +1,65 @@
 # GIS-søk
 
-Dette prosjektet prøver å løse problemet beskrevet i [GitHub Issue #36](https://github.com/kartAI/skygeo/issues/36):
+Dette prosjektet adresserer [GitHub Issue #36](https://github.com/kartAI/skygeo/issues/36) og har som mål å:
 
-**Hvordan finne samme polygon (med små variasjoner) fra to store datasett på en effektiv måte**
+- Finne en rask måte å søke i store Parquet-datasett som ligger i skyen
+- Lage et sammenslått byggdatasett som kombinerer bygninger fra både FKB åpen og OSM
+- Gi best mulig utgangspunkt for videre analyser (kvalitet, dekning, avvik, tidsserier m.m.)
 
-## Løsningsmetode
+## Kom i gang (raskt)
 
-Prosjektet benytter:
-- **DuckDB** - For effektiv håndtering og spørring av store geodatasett
-- **Dev Containers** - For reproduserbar utviklingsmiljø
-
-## Problemstilling
-
-Når man jobber med GIS-data fra ulike kilder, er det ofte behov for å identifisere polygoner som representerer det samme geografiske objektet, selv om de kan ha små variasjoner i form av:
-- Litt forskjellige koordinater
-- Forskjellig oppløsning/detaljnivå
-- Små forskjeller i grensedragning
-
-Dette prosjektet utforsker metoder for å gjøre dette på en effektiv måte, spesielt når datasettene er store.
-
-## Utviklingsmiljø
-
-Prosjektet bruker en Dev Container basert på `duckdb/duckdb` med følgende verktøy installert:
-- **Python 3** - For databehandling og scripting
-- **Jupyter Notebook/Lab** - For interaktiv utvikling og analyse
-- **DuckDB Python library** - For å jobbe med DuckDB fra Python
-- **Kepler.gl** - For visualisering av geodata
-- **GeoPandas** - For GIS-databehandling
-
-### Kom i gang
-
-1. Åpne prosjektet i Visual Studio Code
-2. Installer "Dev Containers" extension hvis du ikke har det
-3. Trykk `F1` og velg "Dev Containers: Reopen in Container"
-4. Vent til containeren er bygget og startet
-5. Start Jupyter med kommandoen:
+1) Krav:
+   - VS Code eller Cursor (VS Code-fork)
+   - Docker + "Dev Containers"-utvidelsen
+2) Åpne i Dev Container:
+   - Trykk F1 → "Dev Containers: Reopen in Container"
+3) Legg til `.env` i prosjektroten med:
+   ```env
+   BLOB_STORAGE_CONNECTION_STRING="AccountName=...;AccountKey=...;EndpointSuffix=core.windows.net"
+   ```
+   Merk: Datasettene er åpne; dokumentasjonen vil forenkles slik at dette ikke blir nødvendig på sikt.
+4) Start Jupyter:
    ```bash
    jupyter notebook --ip=0.0.0.0 --port=8888 --no-browser --allow-root
    ```
+   Jupyter: `http://localhost:8888`
+5) Åpne og kjør `gis-sok/sok-testing.ipynb`.
 
-Jupyter vil være tilgjengelig på `http://localhost:8888`
+Diskplass: Rutinen oppretter flere lokale DB- og Parquet-filer. Ha 4–5 GB ledig. Eksempler:
+- `gis-sok/buildings.db`
+- `gis-sok/buildings.parquet`
+- `gis-sok/osm.parquet`
+- `gis-sok/fkb.parquet`
+- `.pmtiles` og midlertidige filer
 
+## Overordnet beskrivelse
+
+Vi bruker DuckDB til å lese/spørre mot store Parquet-datasett i skyen (via tilkoblingsstreng), og bygger et sammenslått byggdatasett som forener bygninger fra FKB åpen og OSM. Målet er høy dekningsgrad og kvalitet, med robust deduplisering og sammenslåing av "samme" bygg selv ved små geometriavvik, slik at videre analyser kan gjøres effektivt.
+
+## Løsningsmetode
+
+- Effektive skyspørringer: DuckDB mot Parquet i objektlagring
+- Kandidatmatching av polygoner (bygninger) med små variasjoner
+- Sammenslåing og deduplisering til ett samlet `buildings`-datasett
+- Lokal persistens til Parquet/DB for rask interaktiv analyse og visualisering
+
+## Utviklingsmiljø
+
+Prosjektet bruker Dev Containers for å gjøre det enkelt å komme i gang og få alle verktøy på plass uten lokal installasjon (Windows, macOS og Linux). VS Code eller Cursor anbefales, men andre IDE-er kan fungere.
+
+Containeren er basert på `duckdb/duckdb` og inkluderer:
+- **Python 3** – scripting og databehandling
+- **Jupyter Notebook/Lab** – interaktiv utvikling og analyse
+- **DuckDB (Python)** – spørring og prosessering av store datasett
+- **GeoPandas** – GIS-databehandling
+- **PyArrow** – Parquet/kolonneformater
+- **Kepler.gl** – visualisering av geodata
+
+## Problemstilling
+
+Når man jobber med GIS-data fra ulike kilder, er det ofte behov for å identifisere polygoner som representerer samme geografiske objekt, selv om de kan ha små variasjoner i:
+- Koordinater
+- Oppløsning/detaljnivå
+- Grensedragning
+
+Dette prosjektet utforsker metoder for å gjøre dette effektivt når datasettene er store, og å produsere et sammenslått byggdatasett som grunnlag for videre analyser.

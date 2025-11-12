@@ -3,3 +3,4 @@
 *.db
 *.parquet
 *.pmtiles
+*.mbtiles
