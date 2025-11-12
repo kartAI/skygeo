@@ -13,11 +13,17 @@ Dette prosjektet adresserer [GitHub Issue #36](https://github.com/kartAI/skygeo/
    - Docker + "Dev Containers"-utvidelsen
 2) Åpne i Dev Container:
    - Trykk F1 → "Dev Containers: Reopen in Container"
-3) Legg til `.env` i prosjektroten med:
-   ```env
-   BLOB_STORAGE_CONNECTION_STRING="AccountName=...;AccountKey=...;EndpointSuffix=core.windows.net"
-   ```
-   Merk: Datasettene er åpne; dokumentasjonen vil forenkles slik at dette ikke blir nødvendig på sikt.
+3) Azure-tilgang (offentlig, uten connection string):
+   - Vi bruker DuckDB SECRET med kun kontonavn (offentlig lesetilgang), som i `sok-testing.ipynb`:
+     ```sql
+     CREATE SECRET secret (
+         TYPE azure,
+         PROVIDER config,
+         ACCOUNT_NAME 'doppablobstorage'
+     );
+     SET azure_transport_option_type = curl;
+     ```
+   - Deretter kan du lese fra `az://...` direkte uten nøkler.
 4) Start Jupyter:
    ```bash
    jupyter notebook --ip=0.0.0.0 --port=8888 --no-browser --allow-root
@@ -63,3 +69,37 @@ Når man jobber med GIS-data fra ulike kilder, er det ofte behov for å identifi
 - Grensedragning
 
 Dette prosjektet utforsker metoder for å gjøre dette effektivt når datasettene er store, og å produsere et sammenslått byggdatasett som grunnlag for videre analyser.
+
+## OSM vs FKB: forskjeller og eksempel
+
+Denne seksjonen viser kort hvordan OSM og FKB kan avvike, og hvorfor en sammenslått tilnærming gir et mer komplett resultat.
+
+### Visuelle sammenligninger
+
+- OSM (eksempel):
+  
+  ![OSM-bygg (eksempel)](./bilder_og_gifs/osm.png)
+
+- FKB (eksempel):
+  
+  ![FKB-bygg (eksempel)](./bilder_og_gifs/fkb.png)
+
+- Differanse (områder der datasettene er ulike):
+  
+  ![Differanse mellom OSM og FKB](./bilder_og_gifs/diff_osm_fkb.png)
+
+- Animasjon (stegvis visning av forskjeller):
+  
+  ![OSM vs FKB – animasjon](./bilder_og_gifs/fkb_osm_diff.gif)
+
+### Kristiansand-eksempelet (manglende bygg i FKB)
+
+I et område i Kristiansand manglet FKB noen bygg. Trolig skjedde eksporten av FKB på et tidspunkt før disse byggene var registrert der. OSM hadde dem registrert, så ved å kombinere datasettene fikk vi et mer komplett byggdatasett til slutt.
+
+### Kjent avvik og videre arbeid
+
+- Eksempel: Ett bygg er delt i to polygoner i OSM, men ligger som én sammenhengende flate i FKB. Dette blir markert som “avvikende”.
+- Slike tilfeller bør håndteres i videre arbeid (f.eks. med en pull request) ved å:
+  - slå sammen nærliggende/tilstøtende OSM‑polygoner som åpenbart beskriver samme bygg,
+  - bruke regler for delt geometri (delt kant/overlapp) og rimelige terskler,
+  - kvalitetssikre mot metadata (bygg‑ID, navn, type) der det finnes.
