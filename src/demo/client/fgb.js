@@ -76,7 +76,7 @@ document.addEventListener("DOMContentLoaded", async () => {
   let map = L.map('map').setView([58.15, 8], 12);
     L.tileLayer('https://cache.kartverket.no/v1/wmts/1.0.0/topograatone/default/webmercator/{z}/{y}/{x}.png', {
         maxZoom: 18,
-        minZoom: 5
+        minZoom: 10
     }).addTo(map);
 
     map.getContainer().style.cursor = 'default';

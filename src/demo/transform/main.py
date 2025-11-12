@@ -36,7 +36,7 @@ def transform_crs(input_file: Path, output_file: Path):
 
 def main():
     dirs = {"parquet":None, "fgb":None, "temp":None}
-    include_layers = ["N50_samferdsel_senterlinje"]
+    include_layers = ["N50_Samferdsel_senterlinje"]
     for dir in dirs.keys():
         dirs[dir] = Path(DATA_DIR, "out", dir)
         dirs[dir].mkdir(exist_ok=True)
@@ -47,6 +47,7 @@ def main():
             layer_name = layer.lower()
 
             gdf = gpd.read_file(FILE_PATH, layer=layer)
+            gdf.sort_values(['vegkategori', 'vegnummer'])
 
             gdf.to_parquet(
                 path= dirs["parquet"]/f"{layer_name}.snappy.parquet",
