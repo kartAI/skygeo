@@ -16,15 +16,15 @@ Aktsomhetskart for snøskred https://kartkatalog.geonorge.no/api/getdata/b2d5aaf
 
 
 ## Formål
-Unngå overlaps mellom Aktsomhetskartet og Skredfaresonene. Der det finnes Skredfaresonener (Definert av objekttype = Analyseområde) skal ikke aktsomhetskartet benyttes
+Unngå overlaps mellom Aktsomhetskartet og Skredfaresonene. Der det finnes Skredfaresonener (Definert av objekttype = Analyseområde) skal ikke aktsomhetskartet benyttes. Dette er et automatisk generert datasett med lavere
+beregningskavlitet enn skredfaresonene.
 
 ## Getting started
-- Installer avhengigheter: `pip install -r requirements.txt`
-- Last ned N50-data fra Geonorge og pakk ut i `src/geoparquet`
-- Åpne `main.ipynb` for stegvis konvertering og analyse
+OBS: Hardkodede stier for destinasjon og lesing i steg 2, dette rakk vi ikke å fikse :-)
+- Kjør fila cli_skred_workshop.py - oppgi uuid i påkrevd parameter --dataset-uuid. Kjør fila en gang for hvert datasett, Se 'grunnlag' over for verdi. Filene lagres til geoparquet(optimized, tilesize 10000)
+- Kjør så fila skred2duckdb.py. Begge filene leses direkte fra parquet gjennom duckdb, som utfører overlay mellom Analyseområder og alle data i aktsomhetskartet.
+Alle filer leses og skrives lokalt: /temp_debug/workshop
 
 ## Struktur
-- `main.ipynb`: Notebook for konvertering og demo
-- `requirements.txt`: Python-avhengigheter
-- `utils.py`: Hjelpefunksjoner
+
 - `img/`: Bilder og illustrasjoner
