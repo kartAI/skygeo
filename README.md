@@ -22,6 +22,9 @@ Se ulike måter å produsere, konvertere og bruke Cloud Native Geo-formater på 
 | N50 til STAC                  | `\src\N50TilSTAC\` | Generering av STAC metadata fra N50 GeoTIFF. Automatisert katalog for rasterkartblader.          |
 | PMTiles                       | `\src\pmtiles\`    | Konvertering av N50 vektordata til PMTiles. Demo med Docker, Maplibre, og webklient for visning. |
 | Webklienter                   | `\src\webclient\`  | Demo på bruk av OpenLayers for visning av COG-data i nettleser.                                  |
+| Demo-webapp                   | `\src\demo\`        | Webapp som demonstrerer CloudNative-formater (Parquet, Flatgeobuf) med DuckDB og streaming til kart. |
+| GeoNorge2GeoParquet Skred     | `\src\geonorge2geoparquet_skred\` | Sammenstilling og analyse av skreddata fra GeoNorge til GeoParquet. Python, DuckDB, overlay-spørringer. |
+| GIS-søk                       | `\src\gis-sok\`     | Rask algoritme for sammenstilling av bygninger mellom OSM og FKB i store Parquet-datasett fra skyen. |
 
 ## Hva er egentlig Cloud Native Geospatial?
 Les mer utdypende introduksjon til [cloud native formater](docs\formater.md)
