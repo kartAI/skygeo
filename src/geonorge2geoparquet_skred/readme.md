@@ -11,8 +11,8 @@ og som forsøker å vise alvorlighetsgrad med en kvantifisert verdi fra 1-5.
 
 ## Grunnlag
 GeoNorge API: 
-Skredfaresoner:https://kartkatalog.geonorge.no/api/getdata/b2d5aaf8-79ac-40f3-9cd6-fdc30bc42ea1
-Aktsomhetskart for snøskred https://kartkatalog.geonorge.no/api/getdata/b2d5aaf8-79ac-40f3-9cd6-fdc30bc42ea1
+* Skredfaresoner:https://kartkatalog.geonorge.no/api/getdata/b2d5aaf8-79ac-40f3-9cd6-fdc30bc42ea1
+* Aktsomhetskart for snøskred https://kartkatalog.geonorge.no/api/getdata/b2d5aaf8-79ac-40f3-9cd6-fdc30bc42ea1
 
 
 ## Formål
@@ -21,6 +21,7 @@ beregningskavlitet enn skredfaresonene.
 
 ## Getting started
 OBS: Hardkodede stier for destinasjon og lesing i steg 2, dette rakk vi ikke å fikse :-)
+
 - Kjør fila cli_skred_workshop.py - oppgi uuid i påkrevd parameter --dataset-uuid. Kjør fila en gang for hvert datasett, Se 'grunnlag' over for verdi. Filene lagres til geoparquet(optimized, tilesize 10000)
 - Kjør så fila skred2duckdb.py. Begge filene leses direkte fra parquet gjennom duckdb, som utfører overlay mellom Analyseområder og alle data i aktsomhetskartet. Overlayspørringen kjører uten geografisk index i duckdb og tar ca 20 sekunder. Selve overlayqueryet ser slik ut:
 
@@ -64,7 +65,7 @@ WITH analyseomrade_union AS (
             FROM clipped_aktsomhet
             WHERE clipped_geometry IS NOT NULL 
             AND ST_Area(clipped_geometry) > 0
-            ```
+```
 
 
 
