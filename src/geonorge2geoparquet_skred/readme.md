@@ -25,6 +25,7 @@ OBS: Hardkodede stier for destinasjon og lesing i steg 2, dette rakk vi ikke å 
 - Kjør så fila skred2duckdb.py. Begge filene leses direkte fra parquet gjennom duckdb, som utfører overlay mellom Analyseområder og alle data i aktsomhetskartet. Overlayspørringen kjører uten geografisk index i duckdb og tar ca 20 sekunder. Selve overlayqueryet ser slik ut:
 
 ## Overlay query
+```sql
 WITH analyseomrade_union AS (
                 SELECT ST_Union_Agg(geometry) as clip_geom
                 FROM read_parquet('{skredfaresoner_path}')
@@ -63,7 +64,7 @@ WITH analyseomrade_union AS (
             FROM clipped_aktsomhet
             WHERE clipped_geometry IS NOT NULL 
             AND ST_Area(clipped_geometry) > 0
-            
+            ```
 
 
 
