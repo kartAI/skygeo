@@ -36,46 +36,49 @@ def transform_crs(input_file: Path, output_file: Path):
 
 def main():
     dirs = {"parquet":None, "fgb":None, "temp":None}
-    ignored_layers = ["N50_Arealdekke_omrade"]
+    include_layers = ["N50_samferdsel_senterlinje"]
     for dir in dirs.keys():
         dirs[dir] = Path(DATA_DIR, "out", dir)
         dirs[dir].mkdir(exist_ok=True)
 
     for layer in fiona.listlayers(FILE_PATH):
         print(layer)
-        if layer in ignored_layers:
-            print("layer is ignored..")
-            continue
-        layer_name = layer.lower()
+        if layer in include_layers:
+            layer_name = layer.lower()
 
-        gdf = gpd.read_file(FILE_PATH, layer=layer)
+            gdf = gpd.read_file(FILE_PATH, layer=layer)
 
-        # gdf.to_parquet(
-        #     path= dirs["parquet"]/f"{layer_name}.snappy.parquet",
-        #     compression="snappy",
-        #     geometry_encoding="WKB",
-        #     write_covering_bbox=True,
-        # )
+            gdf.to_parquet(
+                path= dirs["parquet"]/f"{layer_name}.snappy.parquet",
+                compression="snappy",
+                geometry_encoding="WKB",
+                write_covering_bbox=True,
+            )
 
-        temp_file = dirs["temp"] / f"_{layer_name}.fgb"
-        fgb_file = dirs["fgb"] / f"{layer_name}.fgb"
-        # gdf.to_file(
-        #     filename=temp_file,
-        #     driver="FlatGeoBuf"
-        # )
+            # fgb needs to be reprojected to EPSG:4326 for leaflet support
+            temp_file = dirs["temp"] / f"_{layer_name}.fgb"
+            fgb_file = dirs["fgb"] / f"{layer_name}.fgb"
 
-        reproject_flatgeobuf(
-            src_path=temp_file,
-            dst_path=fgb_file,
-            target_epsg="4326"
-        )
+            gdf.to_file(
+                filename=temp_file,
+                driver="FlatGeoBuf"
+            )
 
+            # Pythonic transform
+            transform_crs(
+                input_file=temp_file,
+                output_file=fgb_file
+            )
 
-        # # Memory efficient crs transform to support leaflet
-        # transform_crs(
-        #     dirs["temp"] / f"_{layer_name}.fgb",
-        #     dirs["fgb"] / f"{layer_name}.fgb",
-        # )
+            # # Using this function is faster and more memmory efficient,
+            # # but it requires ogr2ogr in your Path.
+            # reproject_flatgeobuf(
+            #     src_path=temp_file,
+            #     dst_path=fgb_file,
+            #     target_epsg="4326"
+            # )
+        else:
+            print("layer is ignored")
 
 if __name__ == "__main__":
     main()
