@@ -1,4 +1,8 @@
-
+# Steps
+1. Convert N5000 to geopackage
+1. Use `N5000_dynamic_yaml.yml` or generate a yaml schema using `create_planetiler_yaml.py`
+1. Run planetiler docker command. Check paths in yml... 
+1. Run http server and test with `demo_n5000_tiles.html` 
 
 # notes
 Planetiler custom schema
