@@ -13,106 +13,73 @@
     <style>
         body { margin: 0; padding: 0; }
         #map { position: absolute; top: 0; bottom: 0; width: 100%; }
+
+        /* Inspect feature popup styles */
+        .inspect-popup {
+            position: absolute;
+            pointer-events: none;
+            background: rgba(30,30,30,0.95);
+            color: #fff;
+            padding: 8px 12px;
+            border-radius: 6px;
+            box-shadow: 0 2px 8px rgba(0,0,0,0.3);
+            font-size: 14px;
+            z-index: 9999;
+            max-width: 320px;
+            white-space: pre-wrap;
+            border: 1px solid #00ffff;
+            display: none;
+            overflow-y: hidden;
+        }
     </style>
 </head>
 <body>
 
 <div id="map"></div>
+<div id="inspect-popup" class="inspect-popup"></div>
 
 <script>
     // 1. Initialize the PMTiles protocol
-    // This allows MapLibre to understand "pmtiles://..." URLs
     let protocol = new pmtiles.Protocol();
     maplibregl.addProtocol("pmtiles", protocol.tile);
 
-    // 2. Define the Carto Positron-inspired Style
-    const mapStyle = {
-        version: 8,
-        name: "N5000 Positron Light",
-        sources: {
-            "n5000-source": {
-                type: "vector",
-                // *** IMPORTANT: Change this to the path of your PMTiles file ***
-                url: "pmtiles://http://127.0.0.1:8080/data/n5000_dynamic.pmtiles", 
-                attribution: '<a href="https://www.openstreetmap.org/copyright" target="_blank">&copy; OpenStreetMap contributors</a>'
-            }
-        },
-        layers: [
-            {
-                // Map background (acts as the "water" or base color)
-                id: "background",
-                type: "background",
-                paint: {
-                    "background-color": "#f2f4f6" // Very light blue-grey
-                }
-            },
-            {
-                // Land fill from your Arealdekke layer
-                id: "land-fill",
-                type: "fill",
-                source: "n5000-source",
-                "source-layer": "N5000_Arealdekke_omrade",
-                paint: {
-                    "fill-color": "#f9f9f9" // Almost white, slightly off-white
-                }
-            },
-            {
-                // Restriction areas (styled as a subtle dashed outline)
-                id: "restrictions-outline",
-                type: "line",
-                source: "n5000-source",
-                "source-layer": "N5000_Restriksjonsområder_omrade",
-                paint: {
-                    "line-color": "#d9d9d9",
-                    "line-dasharray": [4, 2],
-                    "line-width": 1,
-                    "line-opacity": 0.8
-                }
-            },
-            {
-                // Transportation lines (roads)
-                id: "transportation",
-                type: "line",
-                source: "n5000-source",
-                "source-layer": "N5000_Samferdsel_senterlinje",
-                layout: {
-                    "line-join": "round",
-                    "line-cap": "round"
-                },
-                paint: {
-                    "line-color": "#cccccc", // Light grey
-                    "line-width": [ // Thin lines, slightly wider on zoom
-                        "interpolate", ["linear"], ["zoom"],
-                        10, 0.5,
-                        16, 2
-                    ]
-                }
-            },
-            {
-                // Admin boundaries (dashed)
-                id: "admin-boundaries",
-                type: "line",
-                source: "n5000-source",
-                "source-layer": "N5000_AdministrativeOmråder_omrade",
-                paint: {
-                    "line-color": "#bbbbbb", // Slightly darker grey
-                    "line-dasharray": [3, 3],
-                    "line-width": 1
-                }
-            }
-        ]
-    };
-
-    // 3. Initialize the Map
+    // 2. Initialize the MapLibre map using style.json
     const map = new maplibregl.Map({
         container: "map",
-        style: mapStyle,
-        center: [10.75, 59.91], // Centered on Oslo (adjust as needed)
-        zoom: 9 // Adjust zoom as needed
+        style: "style_all.json"
+        // center and zoom are set in style.json
     });
 
     // Add navigation controls
     map.addControl(new maplibregl.NavigationControl());
+
+    // --- Inspect Feature Popup ---
+    const popup = document.getElementById('inspect-popup');
+
+    map.on('mousemove', (e) => {
+        const features = map.queryRenderedFeatures(e.point);
+        if (features.length > 0) {
+            let props = '';
+            features.forEach((feature, idx) => {
+                props += `<div style='margin-bottom:8px;'>`;
+                props += `<b>Layer:</b> ${feature.layer.id}<br/>`;
+                for (const key in feature.properties) {
+                    props += `<b>${key}</b>: ${feature.properties[key]}<br/>`;
+                }
+                props += `</div>`;
+            });
+            popup.innerHTML = props;
+            popup.style.display = 'block';
+            popup.style.left = (e.originalEvent.clientX + 15) + 'px';
+            popup.style.top = (e.originalEvent.clientY + 15) + 'px';
+        } else {
+            popup.style.display = 'none';
+        }
+    });
+
+    map.on('mouseout', () => {
+        popup.style.display = 'none';
+    });
 
 </script>
 

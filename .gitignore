@@ -224,3 +224,6 @@ __marimo__/
 *.parquet
 *.pmtiles
 *.mbtiles
+
+#include explicit pmtiles for planetiles2pmtiles project
+!src/planetiles2pmtiles/*/*.pmtiles
