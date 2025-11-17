@@ -42,3 +42,10 @@ docker run --rm -v "${PWD}:/data" ghcr.io/osgeo/gdal:ubuntu-full-latest `
 ogr2ogr -f Parquet /data/parquet_out /data/Basisdata_0000_Norge_25833_N5000Kartdata_FGDB.gdb `
 -lco GEOMETRY_NAME=geom -progress -skipfailures
 ```
+
+Convert to geopackage with high performance - but no skipfailures
+```sh
+docker run --rm -v "${PWD}:/data" ghcr.io/osgeo/gdal:ubuntu-full-latest `
+ogr2ogr -gt 65536 -f GPKG /data/Basisdata_0000_Norge_25833_N250Kartdata.gpkg /data/Basisdata_0000_Norge_25833_N250Kartdata_FGDB.gdb `
+-lco SPATIAL_INDEX=YES -lco GEOMETRY_NAME=geom -progress
+```
