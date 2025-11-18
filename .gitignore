@@ -227,3 +227,4 @@ __marimo__/
 
 #include explicit pmtiles for planetiles2pmtiles project
 !src/planetiles2pmtiles/*/*.pmtiles
+src/planetiles2pmtiles/data/sources/Basisdata_0000_Norge_25833_N250Kartdata.gpkg
