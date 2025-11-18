@@ -43,16 +43,19 @@
     let protocol = new pmtiles.Protocol();
     maplibregl.addProtocol("pmtiles", protocol.tile);
 
+    
     // 2. Initialize the MapLibre map using style.json
     const map = new maplibregl.Map({
         container: "map",
-        style: "style_all.json"
-        // center and zoom are set in style.json
+        style: "style_all.json",
+        // set explicit center
+        center: [8.861573681786354, 61.87774254585082],
+        zoom: 5.631333431788067
     });
-    map.setZoom(6);
+
+
     // Add navigation controls
     map.addControl(new maplibregl.NavigationControl());
-
     // --- Inspect Feature Popup ---
     const popup = document.getElementById('inspect-popup');
 
