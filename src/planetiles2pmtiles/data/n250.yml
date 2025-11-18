@@ -1,0 +1,302 @@
+schema_name: Basisdata_0000_Norge_25833_N250Kartdata
+schema_description: Basisdata_0000_Norge_25833_N250Kartdata
+args:
+  minzoom: 0
+  maxzoom: 5
+sources:
+  dataset:
+    type: geopackage
+    url: Basisdata_0000_Norge_25833_N250Kartdata.gpkg
+    projection: EPSG:25833
+layers:
+- id: N250_Arealdekke_posisjon
+  features:
+  - source: dataset
+    include_when:
+      ${ feature.source_layer }:
+      - N250_Arealdekke_posisjon
+    attributes:
+    - key: objtype
+    - key: retningsverdi
+    - key: retningsenhet
+    - key: retningsreferanse
+    - key: malemetode
+    - key: noyaktighet
+    - key: tettstednummer
+    - key: navn
+    - key: lufthavntype
+    - key: trafikktype
+    - key: iatakode
+    - key: icaokode
+    - key: lufthavneier
+    - key: oppdateringsdato
+- id: N250_Samferdsel_senterlinje
+  features:
+  - source: dataset
+    include_when:
+      ${ feature.source_layer }:
+      - N250_Samferdsel_senterlinje
+    attributes:
+    - key: objtype
+    - key: typeveg
+    - key: vegkategori
+    - key: vegfase
+    - key: vegnummer
+    - key: sporantall
+    - key: motorvegtype
+    - key: anleggstype
+    - key: banestatus
+    - key: medium
+    - key: rutemerking
+    - key: vedlikeholdsansvarlig
+    - key: malemetode
+    - key: noyaktighet
+    - key: oppdateringsdato
+    - key: SHAPE_Length
+- id: N250_Arealdekke_omrade
+  features:
+  - source: dataset
+    include_when:
+      ${ feature.source_layer }:
+      - N250_Arealdekke_omrade
+    attributes:
+    - key: objtype
+    - key: oppdateringsdato
+    - key: retningsverdi
+    - key: retningsenhet
+    - key: retningsreferanse
+    - key: vannbredde
+    - key: vatnlopenummer
+    - key: hoyde
+    - key: SHAPE_Length
+    - key: SHAPE_Area
+- id: N250_Arealdekke_grense
+  features:
+  - source: dataset
+    include_when:
+      ${ feature.source_layer }:
+      - N250_Arealdekke_grense
+    attributes:
+    - key: objtype
+    - key: oppdateringsdato
+    - key: malemetode
+    - key: noyaktighet
+    - key: SHAPE_Length
+- id: N250_BygningerOgAnlegg_posisjon
+  features:
+  - source: dataset
+    include_when:
+      ${ feature.source_layer }:
+      - N250_BygningerOgAnlegg_posisjon
+    attributes:
+    - key: objtype
+    - key: bygningskategori
+    - key: oppdateringsdato
+    - key: malemetode
+    - key: noyaktighet
+    - key: navn
+    - key: retningsverdi
+    - key: retningsenhet
+    - key: retningsreferanse
+    - key: betjeningsgrad
+    - key: hytteeier
+    - key: tilgjengelighet
+- id: N250_BygningerOgAnlegg_senterlinje
+  features:
+  - source: dataset
+    include_when:
+      ${ feature.source_layer }:
+      - N250_BygningerOgAnlegg_senterlinje
+    attributes:
+    - key: objtype
+    - key: oppdateringsdato
+    - key: malemetode
+    - key: noyaktighet
+    - key: SHAPE_Length
+- id: N250_Arealdekke_senterlinje
+  features:
+  - source: dataset
+    include_when:
+      ${ feature.source_layer }:
+      - N250_Arealdekke_senterlinje
+    attributes:
+    - key: objtype
+    - key: oppdateringsdato
+    - key: vannbredde
+    - key: malemetode
+    - key: noyaktighet
+    - key: SHAPE_Length
+- id: N250_Høyde_senterlinje
+  features:
+  - source: dataset
+    include_when:
+      ${ feature.source_layer }:
+      - N250_Høyde_senterlinje
+    attributes:
+    - key: objtype
+    - key: hoyde
+    - key: oppdateringsdato
+    - key: medium
+    - key: malemetode
+    - key: noyaktighet
+    - key: SHAPE_Length
+- id: N250_AdministrativeOmråder_grense
+  features:
+  - source: dataset
+    include_when:
+      ${ feature.source_layer }:
+      - N250_AdministrativeOmråder_grense
+    attributes:
+    - key: objtype
+    - key: oppdateringsdato
+    - key: malemetode
+    - key: noyaktighet
+    - key: SHAPE_Length
+- id: N250_AdministrativeOmråder_posisjon
+  features:
+  - source: dataset
+    include_when:
+      ${ feature.source_layer }:
+      - N250_AdministrativeOmråder_posisjon
+    attributes:
+    - key: objtype
+    - key: grensepunkttype
+    - key: grensepunktnummer
+    - key: oppdateringsdato
+    - key: malemetode
+    - key: noyaktighet
+    - key: grunnlinjepunktnavn
+    - key: grunnlinjepunktnummer
+- id: N250_Høyde_omrade
+  features:
+  - source: dataset
+    include_when:
+      ${ feature.source_layer }:
+      - N250_Høyde_omrade
+    attributes:
+    - key: objtype
+    - key: oppdateringsdato
+    - key: minhoyde
+    - key: makshoyde
+    - key: SHAPE_Length
+    - key: SHAPE_Area
+- id: N250_AdministrativeOmråder_omrade
+  features:
+  - source: dataset
+    include_when:
+      ${ feature.source_layer }:
+      - N250_AdministrativeOmråder_omrade
+    attributes:
+    - key: objtype
+    - key: kommunenummer
+    - key: kommunenavn
+    - key: fylkesnummer
+    - key: fylkesnavn
+    - key: oppdateringsdato
+    - key: SHAPE_Length
+    - key: SHAPE_Area
+- id: N250_Restriksjonsområder_grense
+  features:
+  - source: dataset
+    include_when:
+      ${ feature.source_layer }:
+      - N250_Restriksjonsområder_grense
+    attributes:
+    - key: objtype
+    - key: oppdateringsdato
+    - key: malemetode
+    - key: noyaktighet
+    - key: SHAPE_Length
+- id: N250_Restriksjonsområder_omrade
+  features:
+  - source: dataset
+    include_when:
+      ${ feature.source_layer }:
+      - N250_Restriksjonsområder_omrade
+    attributes:
+    - key: objtype
+    - key: navn
+    - key: verneform
+    - key: vernedato
+    - key: oppdateringsdato
+    - key: SHAPE_Length
+    - key: SHAPE_Area
+- id: N250_Stedsnavn_tekstplassering
+  features:
+  - source: dataset
+    include_when:
+      ${ feature.source_layer }:
+      - N250_Stedsnavn_tekstplassering
+    attributes:
+    - key: FeatureID
+    - key: ZOrder
+    - key: AnnotationClassID
+    - key: Element
+    - key: SymbolID
+    - key: Status
+    - key: TextString
+    - key: FontName
+    - key: FontSize
+    - key: Bold
+    - key: Italic
+    - key: Underline
+    - key: VerticalAlignment
+    - key: HorizontalAlignment
+    - key: XOffset
+    - key: YOffset
+    - key: Angle
+    - key: FontLeading
+    - key: WordSpacing
+    - key: CharacterWidth
+    - key: CharacterSpacing
+    - key: FlipAngle
+    - key: Override
+    - key: SHAPE_Length
+    - key: SHAPE_Area
+    - key: objtype
+    - key: streng
+    - key: oppdateringsdato
+    - key: tekstreferansepunktnord
+    - key: tekstreferansepunktost
+    - key: tegnavstand
+    - key: skriftkode
+    - key: skrifttype
+    - key: referansemalestokk
+    - key: fulltekst
+    - key: teksttype
+    - key: sprak
+    - key: stedsnavnnummer
+    - key: sprakprioritering
+    - key: stedsnummer
+    - key: skrivematenummer
+    - key: navneobjekthovedgruppe
+    - key: navneobjektgruppe
+    - key: navneobjekttype
+- id: N250_Samferdsel_posisjon
+  features:
+  - source: dataset
+    include_when:
+      ${ feature.source_layer }:
+      - N250_Samferdsel_posisjon
+    attributes:
+    - key: objtype
+    - key: navn
+    - key: retningsverdi
+    - key: retningsenhet
+    - key: retningsreferanse
+    - key: oppdateringsdato
+    - key: malemetode
+    - key: noyaktighet
+- id: N250_Høyde_posisjon
+  features:
+  - source: dataset
+    include_when:
+      ${ feature.source_layer }:
+      - N250_Høyde_posisjon
+    attributes:
+    - key: objtype
+    - key: hoyde
+    - key: oppdateringsdato
+    - key: medium
+    - key: malemetode
+    - key: noyaktighet
