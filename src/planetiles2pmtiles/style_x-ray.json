@@ -1,0 +1,161 @@
+{
+  "version": 8,
+  "name": "N5000 X-Ray Style",
+  "glyphs": "https://fonts.openmaptiles.org/{fontstack}/{range}.pbf",
+  "sources": {
+    "n5000-source": {
+      "type": "vector",
+      "url": "pmtiles://http://127.0.0.1:8080/data/n5000_dynamic.pmtiles",
+      "attribution": "<a href=\"https://www.openstreetmap.org/copyright\" target=\"_blank\">&copy; OpenStreetMap contributors</a>"
+    }
+  },
+  "layers": [
+    {
+      "id": "background",
+      "type": "background",
+      "paint": {
+        "background-color": "#1a1a1a"
+      }
+    },
+    {
+      "id": "arealdekke-omrade-outline",
+      "type": "line",
+      "source": "n5000-source",
+      "source-layer": "N5000_Arealdekke_omrade",
+      "paint": {
+        "line-color": "#00ffff",
+        "line-width": 1,
+        "line-opacity": 0.7
+      }
+    },
+    {
+      "id": "restriksjoner-omrade-outline",
+      "type": "line",
+      "source": "n5000-source",
+      "source-layer": "N5000_Restriksjonsområder_omrade",
+      "paint": {
+        "line-color": "#ff00ff",
+        "line-width": 1,
+        "line-opacity": 0.7
+      }
+    },
+    {
+      "id": "admin-omrade-outline",
+      "type": "line",
+      "source": "n5000-source",
+      "source-layer": "N5000_AdministrativeOmråder_omrade",
+      "paint": {
+        "line-color": "#ffff00",
+        "line-width": 1,
+        "line-opacity": 0.7
+      }
+    },
+    {
+      "id": "arealdekke-lines",
+      "type": "line",
+      "source": "n5000-source",
+      "source-layer": "N5000_Arealdekke_grense",
+      "paint": {
+        "line-color": "#00ff00",
+        "line-width": 0.5,
+        "line-opacity": 0.7
+      }
+    },
+    {
+      "id": "restrictions-outline",
+      "type": "line",
+      "source": "n5000-source",
+      "source-layer": "N5000_Restriksjonsområder_grense",
+      "paint": {
+        "line-color": "#ff00ff",
+        "line-dasharray": [
+          2,
+          2
+        ],
+        "line-width": 1,
+        "line-opacity": 0.8
+      }
+    },
+    {
+      "id": "transportation",
+      "type": "line",
+      "source": "n5000-source",
+      "source-layer": "N5000_Samferdsel_senterlinje",
+      "layout": {
+        "line-join": "round",
+        "line-cap": "round"
+      },
+      "paint": {
+        "line-color": "#ffffff",
+        "line-width": 1,
+        "line-opacity": 0.8
+      }
+    },
+    {
+      "id": "admin-boundaries",
+      "type": "line",
+      "source": "n5000-source",
+      "source-layer": "N5000_AdministrativeOmråder_grense",
+      "paint": {
+        "line-color": "#ffff00",
+        "line-dasharray": [
+          3,
+          3
+        ],
+        "line-width": 1,
+        "line-opacity": 0.8
+      }
+    },
+    {
+      "id": "arealdekke-posisjon",
+      "type": "circle",
+      "source": "n5000-source",
+      "source-layer": "N5000_Arealdekke_posisjon",
+      "paint": {
+        "circle-color": "#00ff00",
+        "circle-radius": 3,
+        "circle-opacity": 0.8,
+        "circle-stroke-color": "#ffffff",
+        "circle-stroke-width": 1
+      }
+    },
+    {
+      "id": "samferdsel-posisjon",
+      "type": "circle",
+      "source": "n5000-source",
+      "source-layer": "N5000_Samferdsel_posisjon",
+      "paint": {
+        "circle-color": "#ffffff",
+        "circle-radius": 3,
+        "circle-opacity": 0.8,
+        "circle-stroke-color": "#ffffff",
+        "circle-stroke-width": 1
+      }
+    },
+    {
+      "id": "labels-all",
+      "type": "symbol",
+      "source": "n5000-source",
+      "source-layer": "N5000_Stedsnavn_tekstplassering",
+      "layout": {
+        "text-field": [
+          "get",
+          "TextString"
+        ],
+        "text-font": [
+          "Open Sans Regular",
+          "Arial Unicode MS Regular"
+        ],
+        "text-size": 10,
+        "text-max-width": 8,
+        "text-anchor": "top",
+        "text-padding": 2,
+        "text-allow-overlap": true
+      },
+      "paint": {
+        "text-color": "#e0e0e0",
+        "text-halo-width": 0
+      }
+    }
+  ]
+}

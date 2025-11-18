@@ -1,0 +1,142 @@
+{
+  "version": 8,
+  "name": "N5000 Positron Light Extended",
+  "glyphs": "https://fonts.openmaptiles.org/{fontstack}/{range}.pbf",
+  "sources": {
+    "n5000-source": {
+      "type": "vector",
+      "url": "pmtiles://http://127.0.0.1:8080/data/n5000_all.pmtiles",
+      "attribution": "<a href=\"https://www.openstreetmap.org/copyright\" target=\"_blank\">&copy; OpenStreetMap contributors</a>"
+    }
+  },
+  "layers": [
+    {
+      "id": "background",
+      "type": "background",
+      "paint": {
+        "background-color": "#f2f4f6"
+      }
+    },
+    {
+      "id": "land-fill",
+      "type": "fill",
+      "source": "n5000-source",
+      "source-layer": "N5000_Arealdekke_omrade",
+      "paint": {
+        "fill-color": "#f9f9f9"
+      }
+    },
+    {
+      "id": "restrictions-fill",
+      "type": "fill",
+      "source": "n5000-source",
+      "source-layer": "N5000_Restriksjonsområder_omrade",
+      "paint": {
+        "fill-color": "#ececec",
+        "fill-opacity": 0.8
+      }
+    },
+    {
+      "id": "arealdekke-lines-grense",
+      "type": "line",
+      "source": "n5000-source",
+      "source-layer": "N5000_Arealdekke_grense",
+      "paint": {
+        "line-color": "#e0e0e0",
+        "line-width": 0.5
+      }
+    },
+    {
+      "id": "arealdekke-lines-senterlinje",
+      "type": "line",
+      "source": "n5000-source",
+      "source-layer": "N5000_Arealdekke_senterlinje",
+      "paint": {
+        "line-color": "#e0e0e0",
+        "line-width": 0.5
+      }
+    },
+    {
+      "id": "restrictions-outline",
+      "type": "line",
+      "source": "n5000-source",
+      "source-layer": "N5000_Restriksjonsområder_grense",
+      "paint": {
+        "line-color": "#d9d9d9",
+        "line-dasharray": [
+          4,
+          2
+        ],
+        "line-width": 1,
+        "line-opacity": 0.8
+      }
+    },
+    {
+      "id": "transportation",
+      "type": "line",
+      "source": "n5000-source",
+      "source-layer": "N5000_Samferdsel_senterlinje",
+      "layout": {
+        "line-join": "round",
+        "line-cap": "round"
+      },
+      "paint": {
+        "line-color": "#cccccc",
+        "line-width": [
+          "interpolate",
+          [
+            "linear"
+          ],
+          [
+            "zoom"
+          ],
+          10,
+          0.5,
+          16,
+          2
+        ]
+      }
+    },
+    {
+      "id": "admin-boundaries",
+      "type": "line",
+      "source": "n5000-source",
+      "source-layer": "N5000_AdministrativeOmråder_grense",
+      "paint": {
+        "line-color": "#bbbbbb",
+        "line-dasharray": [
+          3,
+          3
+        ],
+        "line-width": 1
+      }
+    },
+    {
+      "id": "labels-all",
+      "type": "symbol",
+      "source": "n5000-source",
+      "source-layer": "N5000_Stedsnavn_tekstplassering",
+      "layout": {
+        "text-field": [
+          "get",
+          "streng"
+        ],
+        "text-font": [
+          "Open Sans Regular",
+          "Arial Unicode MS Regular"
+        ],
+        "text-size": 11,
+        "text-max-width": 8,
+        "text-anchor": "top",
+        "text-padding": 2,
+        "text-allow-overlap": false
+      },
+      "paint": {
+        "text-color": "#444444",
+        "text-halo-color": "#ffffff",
+        "text-halo-width": 1.5,
+        "text-halo-blur": 1
+      }
+    }
+  ]
+}

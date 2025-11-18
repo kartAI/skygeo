@@ -1,0 +1,204 @@
+schema_name: Basisdata_0000_Norge_25833_N5000Kartdata_FGDB
+schema_description: Basisdata_0000_Norge_25833_N5000Kartdata_FGDB
+args:
+  minzoom: 0
+  maxzoom: 5
+sources:
+  dataset:
+    type: geopackage
+    url: Basisdata_0000_Norge_25833_N5000Kartdata_FGDB.gpkg
+    projection: EPSG:25833
+layers:
+- id: N5000_Samferdsel_senterlinje
+  features:
+  - source: dataset
+    include_when:
+      ${ feature.source_layer }:
+      - N5000_Samferdsel_senterlinje
+    attributes:
+    - key: objtype
+    - key: datafangstdato
+    - key: oppdateringsdato
+    - key: medium
+    - key: malemetode
+    - key: noyaktighet
+    - key: vegnummer
+    - key: motorvegtype
+    - key: vegkategori
+    - key: vegstatus
+    - key: SHAPE_Length
+- id: N5000_Arealdekke_omrade
+  features:
+  - source: dataset
+    include_when:
+      ${ feature.source_layer }:
+      - N5000_Arealdekke_omrade
+    attributes:
+    - key: objtype
+    - key: trafikktype
+    - key: oppdateringsdato
+    - key: navn
+    - key: lufthavntype
+    - key: lufthavneier
+    - key: icaokode
+    - key: iatakode
+    - key: SHAPE_Length
+    - key: SHAPE_Area
+- id: N5000_Arealdekke_grense
+  features:
+  - source: dataset
+    include_when:
+      ${ feature.source_layer }:
+      - N5000_Arealdekke_grense
+    attributes:
+    - key: objtype
+    - key: oppdateringsdato
+    - key: datafangstdato
+    - key: malemetode
+    - key: noyaktighet
+    - key: SHAPE_Length
+- id: N5000_Arealdekke_senterlinje
+  features:
+  - source: dataset
+    include_when:
+      ${ feature.source_layer }:
+      - N5000_Arealdekke_senterlinje
+    attributes:
+    - key: objtype
+    - key: datafangstdato
+    - key: oppdateringsdato
+    - key: malemetode
+    - key: noyaktighet
+    - key: SHAPE_Length
+- id: N5000_AdministrativeOmråder_grense
+  features:
+  - source: dataset
+    include_when:
+      ${ feature.source_layer }:
+      - N5000_AdministrativeOmråder_grense
+    attributes:
+    - key: objtype
+    - key: datafangstdato
+    - key: oppdateringsdato
+    - key: malemetode
+    - key: noyaktighet
+    - key: SHAPE_Length
+- id: N5000_AdministrativeOmråder_omrade
+  features:
+  - source: dataset
+    include_when:
+      ${ feature.source_layer }:
+      - N5000_AdministrativeOmråder_omrade
+    attributes:
+    - key: objtype
+    - key: navn
+    - key: oppdateringsdato
+    - key: kommunenummer
+    - key: SHAPE_Length
+    - key: SHAPE_Area
+- id: N5000_Arealdekke_posisjon
+  features:
+  - source: dataset
+    include_when:
+      ${ feature.source_layer }:
+      - N5000_Arealdekke_posisjon
+    attributes:
+    - key: objtype
+    - key: datafangstdato
+    - key: oppdateringsdato
+    - key: malemetode
+    - key: noyaktighet
+    - key: lufthavneier
+    - key: lufthavntype
+    - key: iatakode
+    - key: icaokode
+- id: N5000_Restriksjonsområder_grense
+  features:
+  - source: dataset
+    include_when:
+      ${ feature.source_layer }:
+      - N5000_Restriksjonsområder_grense
+    attributes:
+    - key: objtype
+    - key: datafangstdato
+    - key: oppdateringsdato
+    - key: malemetode
+    - key: noyaktighet
+    - key: SHAPE_Length
+- id: N5000_Restriksjonsområder_omrade
+  features:
+  - source: dataset
+    include_when:
+      ${ feature.source_layer }:
+      - N5000_Restriksjonsområder_omrade
+    attributes:
+    - key: objtype
+    - key: navn
+    - key: vernedato
+    - key: oppdateringsdato
+    - key: verneform
+    - key: SHAPE_Length
+    - key: SHAPE_Area
+- id: N5000_Samferdsel_posisjon
+  features:
+  - source: dataset
+    include_when:
+      ${ feature.source_layer }:
+      - N5000_Samferdsel_posisjon
+    attributes:
+    - key: objtype
+    - key: navn
+    - key: oppdateringsdato
+    - key: malemetode
+    - key: noyaktighet
+- id: N5000_Stedsnavn_tekstplassering
+  features:
+  - source: dataset
+    include_when:
+      ${ feature.source_layer }:
+      - N5000_Stedsnavn_tekstplassering
+    attributes:
+    - key: FeatureID
+    - key: ZOrder
+    - key: AnnotationClassID
+    - key: Element
+    - key: SymbolID
+    - key: Status
+    - key: TextString
+    - key: FontName
+    - key: FontSize
+    - key: Bold
+    - key: Italic
+    - key: Underline
+    - key: VerticalAlignment
+    - key: HorizontalAlignment
+    - key: XOffset
+    - key: YOffset
+    - key: Angle
+    - key: FontLeading
+    - key: WordSpacing
+    - key: CharacterWidth
+    - key: CharacterSpacing
+    - key: FlipAngle
+    - key: Override
+    - key: SHAPE_Length
+    - key: SHAPE_Area
+    - key: objtype
+    - key: streng
+    - key: oppdateringsdato
+    - key: datafangstdato
+    - key: tegnavstand
+    - key: skrifttype
+    - key: referansemalestokk
+    - key: fulltekst
+    - key: tekstreferansepunktnord
+    - key: tekstreferansepunktost
+    - key: skriftkode
+    - key: stedsnavnsnummer
+    - key: stedsnummer
+    - key: skrivematenummer
+    - key: navneobjekthovedgruppe
+    - key: navneobjektgruppe
+    - key: navneobjekttype
+    - key: sprak
+    - key: sprakprioritering
