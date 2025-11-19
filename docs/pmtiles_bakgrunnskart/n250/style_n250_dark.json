@@ -8,7 +8,7 @@
   "sources": {
     "n250": {
       "type": "vector",
-      "url": "pmtiles://n250_.pmtiles"
+      "url": "pmtiles://n250.pmtiles"
     }
   },
   "layers": [
