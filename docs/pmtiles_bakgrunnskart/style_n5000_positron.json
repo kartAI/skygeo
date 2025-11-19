@@ -5,7 +5,7 @@
   "sources": {
     "n5000-source": {
       "type": "vector",
-      "url": "pmtiles://n5000_all.pmtiles",
+      "url": "pmtiles://n5000.pmtiles",
       "attribution": "<a href=\"https://www.openstreetmap.org/copyright\" target=\"_blank\">&copy; OpenStreetMap contributors</a>"
     }
   },
