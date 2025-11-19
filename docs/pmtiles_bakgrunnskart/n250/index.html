@@ -1,0 +1,90 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8" />
+    <title>PMTiles Light Grey Map</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    
+    <script src="https://unpkg.com/maplibre-gl/dist/maplibre-gl.js"></script>
+    <link href="https://unpkg.com/maplibre-gl/dist/maplibre-gl.css" rel="stylesheet" />
+    
+    <script src="https://unpkg.com/pmtiles/dist/pmtiles.js"></script>
+    
+    <style>
+        body { margin: 0; padding: 0; }
+        #map { position: absolute; top: 0; bottom: 0; width: 100%; }
+
+        /* Inspect feature popup styles */
+        .inspect-popup {
+            position: absolute;
+            pointer-events: none;
+            background: rgba(30,30,30,0.95);
+            color: #fff;
+            padding: 8px 12px;
+            border-radius: 6px;
+            box-shadow: 0 2px 8px rgba(0,0,0,0.3);
+            font-size: 14px;
+            z-index: 9999;
+            max-width: 320px;
+            white-space: pre-wrap;
+            border: 1px solid #00ffff;
+            display: none;
+            overflow-y: hidden;
+        }
+    </style>
+</head>
+<body>
+
+<div id="map"></div>
+<div id="inspect-popup" class="inspect-popup"></div>
+
+<script>
+    // 1. Initialize the PMTiles protocol
+    let protocol = new pmtiles.Protocol();
+    maplibregl.addProtocol("pmtiles", protocol.tile);
+
+    
+    // 2. Initialize the MapLibre map using style.json
+    const map = new maplibregl.Map({
+        container: "map",
+        style: "style_N250_dark.json",
+        // set explicit center
+        center: [8.861573681786354, 61.87774254585082],
+        zoom: 5.631333431788067
+    });
+
+
+    // Add navigation controls
+    map.addControl(new maplibregl.NavigationControl());
+    // --- Inspect Feature Popup ---
+    const popup = document.getElementById('inspect-popup');
+
+    map.on('mousemove', (e) => {
+        const features = map.queryRenderedFeatures(e.point);
+        if (features.length > 0) {
+            let props = '';
+            features.forEach((feature, idx) => {
+                props += `<div style='margin-bottom:8px;'>`;
+                props += `<b>Layer:</b> ${feature.layer.id}<br/>`;
+                for (const key in feature.properties) {
+                    props += `<b>${key}</b>: ${feature.properties[key]}<br/>`;
+                }
+                props += `</div>`;
+            });
+            popup.innerHTML = props;
+            popup.style.display = 'block';
+            popup.style.left = (e.originalEvent.clientX + 15) + 'px';
+            popup.style.top = (e.originalEvent.clientY + 15) + 'px';
+        } else {
+            popup.style.display = 'none';
+        }
+    });
+
+    map.on('mouseout', () => {
+        popup.style.display = 'none';
+    });
+
+</script>
+
+</body>
+</html>

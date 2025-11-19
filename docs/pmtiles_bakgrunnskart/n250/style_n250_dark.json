@@ -1,0 +1,187 @@
+{
+  "version": 8,
+  "name": "Dark Matter N250",
+  "metadata": {
+    "maputnik:renderer": "mbgljs"
+  },
+  "glyphs": "https://demotiles.maplibre.org/font/{fontstack}/{range}.pbf",
+  "sources": {
+    "n250": {
+      "type": "vector",
+      "url": "pmtiles://n250.pmtiles"
+    }
+  },
+  "layers": [
+    {
+      "id": "background",
+      "type": "background",
+      "paint": {
+        "background-color": "#111111"
+      }
+    },
+    {
+      "id": "landuse-area-forest",
+      "type": "fill",
+      "source": "n250",
+      "source-layer": "N250_Arealdekke_omrade",
+      "filter": [
+        "any",
+        ["==", "objtype", "Skog"],
+        ["==", "objtype", "DyrketMark"]
+      ],
+      "paint": {
+        "fill-color": "#1a1a1a",
+        "fill-outline-color": "#1a1a1a"
+      }
+    },
+    {
+      "id": "landuse-area-builtup",
+      "type": "fill",
+      "source": "n250",
+      "source-layer": "N250_Arealdekke_omrade",
+      "filter": [
+        "any",
+        ["==", "objtype", "Tettbebyggelse"],
+        ["==", "objtype", "Industriområde"]
+      ],
+      "paint": {
+        "fill-color": "#181818",
+        "fill-outline-color": "#181818"
+      }
+    },
+    {
+      "id": "water-area",
+      "type": "fill",
+      "source": "n250",
+      "source-layer": "N250_Arealdekke_omrade",
+      "filter": [
+        "any",
+        ["==", "objtype", "Havflate"],
+        ["==", "objtype", "Innsjø"],
+        ["==", "objtype", "ElvBekk"]
+      ],
+      "paint": {
+        "fill-color": "#2c2c2c"
+      }
+    },
+    {
+      "id": "water-lines",
+      "type": "line",
+      "source": "n250",
+      "source-layer": "N250_Arealdekke_senterlinje",
+      "filter": [
+        "any",
+        ["==", "objtype", "ElvBekk"],
+        ["==", "objtype", "InnsjøMidtlinje"]
+      ],
+      "paint": {
+        "line-color": "#2c2c2c",
+        "line-width": 1
+      }
+    },
+    {
+      "id": "contour-lines",
+      "type": "line",
+      "source": "n250",
+      "source-layer": "N250_Høyde_senterlinje",
+      "minzoom": 10,
+      "paint": {
+        "line-color": "#333333",
+        "line-width": 0.5,
+        "line-opacity": 0.5
+      }
+    },
+    {
+      "id": "transport-roads-minor",
+      "type": "line",
+      "source": "n250",
+      "source-layer": "N250_Samferdsel_senterlinje",
+      "filter": [
+        "all",
+        ["!=", "vegkategori", "E"],
+        ["!=", "vegkategori", "R"]
+      ],
+      "paint": {
+        "line-color": "#333333",
+        "line-width": 0.5
+      }
+    },
+    {
+      "id": "transport-roads-major",
+      "type": "line",
+      "source": "n250",
+      "source-layer": "N250_Samferdsel_senterlinje",
+      "filter": [
+        "any",
+        ["==", "vegkategori", "E"],
+        ["==", "vegkategori", "R"]
+      ],
+      "paint": {
+        "line-color": "#444444",
+        "line-width": 1.2
+      }
+    },
+    {
+      "id": "transport-rail",
+      "type": "line",
+      "source": "n250",
+      "source-layer": "N250_Samferdsel_senterlinje",
+      "filter": ["==", "objtype", "Bane"],
+      "paint": {
+        "line-color": "#333333",
+        "line-width": 1,
+        "line-dasharray": [2, 2]
+      }
+    },
+    {
+      "id": "buildings-pos",
+      "type": "circle",
+      "source": "n250",
+      "source-layer": "N250_BygningerOgAnlegg_posisjon",
+      "minzoom": 12,
+      "paint": {
+        "circle-color": "#333333",
+        "circle-radius": 2
+      }
+    },
+    {
+      "id": "admin-boundaries",
+      "type": "line",
+      "source": "n250",
+      "source-layer": "N250_AdministrativeOmråder_grense",
+      "paint": {
+        "line-color": "#4d4d4d",
+        "line-width": 1,
+        "line-dasharray": [4, 4]
+      }
+    },
+    {
+      "id": "restrictions-area",
+      "type": "fill",
+      "source": "n250",
+      "source-layer": "N250_Restriksjonsområder_omrade",
+      "paint": {
+        "fill-color": "#3d2a2a",
+        "fill-opacity": 0.3
+      }
+    },
+    {
+      "id": "place-labels",
+      "type": "symbol",
+      "source": "n250",
+      "source-layer": "N250_Stedsnavn_tekstplassering",
+      "layout": {
+        "text-field": "{TextString}",
+        "text-font": ["Noto Sans Regular"],
+        "text-size": 11,
+        "text-max-width": 8
+      },
+      "paint": {
+        "text-color": "#888888",
+        "text-halo-color": "#000000",
+        "text-halo-width": 1.5,
+        "text-halo-blur": 0.5
+      }
+    }
+  ]
+}
