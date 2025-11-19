@@ -18,6 +18,11 @@ npm install -g http-server
 http-server . --cors --gzip
 ```
 
+N250 - all layers to pmtiles
+```sh
+docker run -e JAVA_TOOL_OPTIONS="-Xmx5g" -v "${PWD}\data:/data" ghcr.io/onthegomap/planetiler:latest generate-custom --schema=/data/n250.yml --output=/data/n250.pmtiles
+```
+
 n5000 - 4 layers - geopackage
 * Move the geopackage to the /sources folder in the PWD. The geopackage is referenced from the yaml file
 ```sh
