@@ -31,9 +31,46 @@
             display: none;
             overflow-y: hidden;
         }
+        .page-header {
+            position: relative;
+            background: #222;
+            color: #fff;
+            padding: 24px 32px 12px 32px;
+            z-index: 10000;
+            box-shadow: 0 2px 8px rgba(0,0,0,0.12);
+        }
+        .page-header h1 {
+            margin: 0 0 8px 0;
+            font-size: 2em;
+        }
+        .page-header p {
+            margin: 0 0 8px 0;
+            font-size: 1.1em;
+        }
+        .page-header nav {
+            margin-top: 4px;
+        }
+        .page-header a {
+            color: #00ffff;
+            text-decoration: none;
+            margin-right: 12px;
+            font-weight: bold;
+        }
+        .page-header a:hover {
+            text-decoration: underline;
+        }
     </style>
 </head>
 <body>
+
+<header class="page-header">
+    <h1>PMTiles Demo på bakgrunnskart uten servere (N250-datasett)</h1>
+    <p>Interaktivt bakgrunnskart som benytter en enkelt cloud native PMTiles-fil for vector tiles med alle kartdata. Se repo for hvordan dette ble lagd. Utforsk kartet og inspiser objekter med musen.</p>
+    <nav>
+        <a href="https://github.com/kartAI/skygeo/">Skygeo-prosjektet</a>
+        <a href="https://github.com/kartAI/skygeo/tree/main/src/planetiles2pmtiles">Planetiler - N250 og N5000 til PMTiles</a>
+    </nav>
+</header>
 
 <div id="map"></div>
 <div id="inspect-popup" class="inspect-popup"></div>
