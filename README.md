@@ -6,6 +6,13 @@ Utforskning av cloud native formater og STAC metadata for norske geografiske dat
 
 Se ulike måter å produsere, konvertere og bruke Cloud Native Geo-formater på gjennom ulike kode-eksempler og demoer.
 
+**Demoer**
+
+| Demo | Beskrivelse | Link |
+|------|-------------|------|
+| Tematisk bakgrunnskart (vector tiles, PMTiles) | Interaktivt kart med alle lag fra N5000 og N250, serverless PMTiles og MapLibre. | [Demo N5000](https://kartai.github.io/skygeo/pmtiles_bakgrunnskart/) / [Demo N250](https://kartai.github.io/skygeo/pmtiles_bakgrunnskart/n250/) |
+
+
 **Struktur på kodebasen:**
 
 - `\src` inneholder alle eksempler. Hvert eksempel har sin egen mappe. Fks `\src\cog\`
@@ -20,11 +27,13 @@ Se ulike måter å produsere, konvertere og bruke Cloud Native Geo-formater på 
 | FlatGeobuf                    | `\src\flatgeobuf\` | Konvertering fra GDB til FlatGeobuf. Moderne, åpent og effektivt vektorformat.                   |
 | GeoParquet                    | `\src\geoparquet\` | Konvertering av N50 vektordata til GeoParquet. Demo med Python, DuckDB, og benchmarking.         |
 | N50 til STAC                  | `\src\N50TilSTAC\` | Generering av STAC metadata fra N50 GeoTIFF. Automatisert katalog for rasterkartblader.          |
+| Vector Tiles (Planetiler)     | `\src\planetiler2pmtiles\` | Generering av vector tiles med Planetiler for tematisk bakgrunnskart på PMTiles-format med Kartverket datasett N5000 og N250 |
 | PMTiles                       | `\src\pmtiles\`    | Konvertering av N50 vektordata til PMTiles. Demo med Docker, Maplibre, og webklient for visning. |
 | Webklienter                   | `\src\webclient\`  | Demo på bruk av OpenLayers for visning av COG-data i nettleser.                                  |
 | Demo-webapp                   | `\src\demo\`        | Webapp som demonstrerer CloudNative-formater (Parquet, Flatgeobuf) med DuckDB og streaming til kart. |
 | GeoNorge2GeoParquet Skred     | `\src\geonorge2geoparquet_skred\` | Sammenstilling og analyse av skreddata fra GeoNorge til GeoParquet. Python, DuckDB, overlay-spørringer. |
 | GIS-søk                       | `\src\gis-sok\`     | Rask algoritme for sammenstilling av bygninger mellom OSM og FKB i store Parquet-datasett fra skyen. |
+
 
 ## Hva er egentlig Cloud Native Geospatial?
 Les mer utdypende introduksjon til [cloud native formater](docs\formater.md)
