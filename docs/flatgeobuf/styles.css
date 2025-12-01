@@ -1,0 +1,36 @@
+body { font-family: sans-serif; margin: 0; padding: 0; }
+main { padding: 20px; }
+footer { padding: 10px; background: #f0f0f0; text-align: center; }
+
+#map {
+    height: 50vh; /* or a fixed value like 500px */
+    width: 100%;   /* optional but recommended */
+}
+#fileBar {
+  position: relative;
+  width: 90%;
+  height: 30px;
+  background-color: #eee;
+  border: 1px solid #ccc;
+  margin-top: 20px;
+  margin-bottom: 20px;
+}
+
+.fileBarItem {
+  margin-top: 20px;
+  margin-bottom: 20px;
+  align-self: flex-end;
+  margin-left: 5px;
+  margin-right: 5px;
+}
+
+.range {
+  position: absolute;
+  height: 100%;
+  background-color: blue;
+  opacity: 0.8;
+}
+
+.fileBarContainer {
+  display: flex;           /* Enable flexbox */
+}
