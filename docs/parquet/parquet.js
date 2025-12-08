@@ -7,14 +7,8 @@ document.addEventListener("DOMContentLoaded", async () => {
   const filePath = "n250_samferdsel_senterlinje.snappy.parquet";
   const hostName = "https://kartai.github.io/skygeo/parquet/";
 
-  let cl = null;
-  const fileHead = fetch(
-    filePath,
-    { method: 'HEAD' }
-  ).then(fh => {
-    cl = fh.headers.get('content-length');
-    fs.textContent = `${Number(cl / 1024 / 1024, 2).toFixed(2)} MB`
-  })
+  const cl = "38199522"; // This is the actual size of the uncompressed data.
+  fs.textContent = `${Number(cl / 1024 / 1024, 2).toFixed(2)} MB`
 
   // Register the Service Worker
   if ('serviceWorker' in navigator) {
