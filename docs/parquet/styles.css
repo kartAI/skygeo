@@ -129,6 +129,12 @@ footer { padding: 10px; background: #f0f0f0; text-align: center; }
   background-color: blue;
   opacity: 0.8;
 }
+.selectedRange {
+  position: absolute;
+  height: 100%;
+  background-color: black;
+  opacity: 0.8;
+}
 
 .fileBarContainer {
   display: flex;           /* Enable flexbox */

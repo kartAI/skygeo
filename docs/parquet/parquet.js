@@ -3,7 +3,6 @@ document.addEventListener("DOMContentLoaded", async () => {
   // Enable file bar
   const bar = document.getElementById('fileBar');
   const fs = document.getElementById('fileSize');
-  const barWidth = bar.clientWidth;
 
   const filePath = "n250_samferdsel_senterlinje.snappy.parquet";
   const hostName = "https://kartai.github.io/skygeo/parquet/";
@@ -28,6 +27,7 @@ document.addEventListener("DOMContentLoaded", async () => {
       const data = event.data;
       if (data?.type === 'range-log') {
         if (data.start && data.end) {
+          const barWidth = bar.clientWidth;
           const left = Math.ceil((data.start / cl) * barWidth);
           const width = Math.ceil(((data.end - data.start) / cl) * barWidth);
 
@@ -56,6 +56,7 @@ document.addEventListener("DOMContentLoaded", async () => {
 
           // Show tooltip on hover
           rangeDiv.addEventListener('mouseenter', (e) => {
+            rangeDiv.className = 'selectedRange';
             tooltip.style.opacity = '1';
             document.body.appendChild(tooltip);
           });
@@ -66,6 +67,7 @@ document.addEventListener("DOMContentLoaded", async () => {
           });
 
           rangeDiv.addEventListener('mouseleave', () => {
+            rangeDiv.className = 'range';
             tooltip.style.opacity = '0';
             tooltip.remove();
           });
