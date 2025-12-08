@@ -5,14 +5,8 @@ document.addEventListener("DOMContentLoaded", async () => {
 
     const filePath = "n250_samferdsel_senterlinje.fgb"
 
-    let cl = null;
-    const fileHead = fetch(
-        filePath,
-        { method: 'HEAD' }
-    ).then(fh => {
-        cl = fh.headers.get('content-length');
-        fs.textContent = `${Number(cl / 1024 / 1024, 2).toFixed(2)} MB`
-    })
+    const cl = "77875488"; // This is the actual size of the uncompressed data.
+    fs.textContent = `${Number(cl / 1024 / 1024, 2).toFixed(2)} MB`
 
     // Register the Service Worker
     if ('serviceWorker' in navigator) {
