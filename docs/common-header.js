@@ -19,17 +19,17 @@
 
   const basePath = getBasePath();
   
-  // Get current page info for source code link
+  // Get current page info for source code link (GitHub URL)
   const getCurrentDemoPath = () => {
     const path = window.location.pathname;
+    const baseGitHub = 'https://github.com/kartAI/skygeo/tree/main/src';
     
     // Map demo URLs to source code paths
-    if (path.includes('flatgeobuf')) return `${basePath}/../src/flatgeobuf`;
-    if (path.includes('parquet')) return `${basePath}/../src/demo`;
-    if (path.includes('pmtiles_bakgrunnskart/n250')) return `${basePath}/../src/planetiles2pmtiles`;
-    if (path.includes('pmtiles_bakgrunnskart')) return `${basePath}/../src/planetiles2pmtiles`;
+    if (path.includes('flatgeobuf')) return `${baseGitHub}/flatgeobuf`;
+    if (path.includes('parquet')) return `${baseGitHub}/demo`;
+    if (path.includes('pmtiles_bakgrunnskart')) return `${baseGitHub}/planetiles2pmtiles`;
     
-    return `${basePath}/../src`;
+    return baseGitHub;
   };
 
   const sourceCodePath = getCurrentDemoPath();
@@ -115,7 +115,7 @@
         <p>Utforskning av cloud native formater og STAC metadata for norske geografiske datasett</p>
         <nav>
           <a href="${basePath}/index.html">📋 Alle demoer</a>
-          <a href="${basePath}/../README.md">📖 README</a>
+          <a href="https://github.com/kartAI/skygeo#readme">📖 README</a>
           <a href="https://github.com/kartAI/skygeo">🔗 GitHub Repository</a>
           <a href="${sourceCodePath}">💻 Kildekode for denne demoen</a>
         </nav>
