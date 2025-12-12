@@ -7,14 +7,14 @@
   // Determine the base path for links (relative to /docs)
   const getBasePath = () => {
     const path = window.location.pathname;
-    // Count how many levels deep we are from /docs
+    // GitHub Pages deployment uses /skygeo as base path
     const match = path.match(/\/skygeo\/(.+)/);
-    if (!match) return '/skygeo';
+    if (!match) return '/skygeo/docs';
     
     const afterSkygeo = match[1];
     const depth = afterSkygeo.split('/').filter(p => p && p !== 'index.html').length;
     
-    return depth === 0 ? '/skygeo' : '../'.repeat(depth - 1) + '..';
+    return depth === 0 ? '/skygeo/docs' : '../'.repeat(depth - 1) + '..';
   };
 
   const basePath = getBasePath();
@@ -24,10 +24,10 @@
     const path = window.location.pathname;
     const baseGitHub = 'https://github.com/kartAI/skygeo/tree/main/src';
     
-    // Map demo URLs to source code paths
-    if (path.includes('flatgeobuf')) return `${baseGitHub}/flatgeobuf`;
-    if (path.includes('parquet')) return `${baseGitHub}/demo`;
-    if (path.includes('pmtiles_bakgrunnskart')) return `${baseGitHub}/planetiles2pmtiles`;
+    // Map demo URLs to source code paths - order matters (check more specific paths first)
+    if (path.includes('/docs/flatgeobuf/')) return `${baseGitHub}/flatgeobuf`;
+    if (path.includes('/docs/parquet/')) return `${baseGitHub}/demo`;
+    if (path.includes('/docs/pmtiles_bakgrunnskart/')) return `${baseGitHub}/planetiles2pmtiles`;
     
     return baseGitHub;
   };
@@ -114,7 +114,7 @@
         <h1>⛅ SkyGeo 🗺️</h1>
         <p>Utforskning av cloud native formater og STAC metadata for norske geografiske datasett</p>
         <nav>
-          <a href="${basePath}/index.html">📋 Alle demoer</a>
+          <a href="${basePath}/">📋 Alle demoer</a>
           <a href="https://github.com/kartAI/skygeo#readme">📖 README</a>
           <a href="https://github.com/kartAI/skygeo">🔗 GitHub Repository</a>
           <a href="${sourceCodePath}">💻 Kildekode for denne demoen</a>
