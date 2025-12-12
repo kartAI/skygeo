@@ -9,6 +9,7 @@
     <link href="https://unpkg.com/maplibre-gl/dist/maplibre-gl.css" rel="stylesheet" />
     
     <script src="https://unpkg.com/pmtiles/dist/pmtiles.js"></script>
+    <script src="../common-header.js"></script>
     
     <style>
         body { margin: 0; padding: 0; }
@@ -31,46 +32,30 @@
             display: none;
             overflow-y: hidden;
         }
-        .page-header {
+        .demo-info {
             position: relative;
             background: #222;
             color: #fff;
-            padding: 24px 32px 12px 32px;
+            padding: 16px 32px;
             z-index: 10000;
             box-shadow: 0 2px 8px rgba(0,0,0,0.12);
         }
-        .page-header h1 {
+        .demo-info h2 {
             margin: 0 0 8px 0;
-            font-size: 2em;
+            font-size: 1.5em;
         }
-        .page-header p {
-            margin: 0 0 8px 0;
-            font-size: 1.1em;
-        }
-        .page-header nav {
-            margin-top: 4px;
-        }
-        .page-header a {
-            color: #00ffff;
-            text-decoration: none;
-            margin-right: 12px;
-            font-weight: bold;
-        }
-        .page-header a:hover {
-            text-decoration: underline;
+        .demo-info p {
+            margin: 0;
+            font-size: 1em;
         }
     </style>
 </head>
 <body>
 
-<header class="page-header">
-    <h1>PMTiles Demo på bakgrunnskart uten servere (N5000-datasett)</h1>
-    <p>Interaktivt bakgrunnskart som benytter en enkelt cloud native PMTiles-fil for vector tiles med alle kartdata. Se repo for hvordan dette ble lagd. Utforsk kartet og inspiser objekter med musen.</p>
-    <nav>
-        <a href="https://github.com/kartAI/skygeo/">Skygeo-prosjektet</a>
-        <a href="https://github.com/kartAI/skygeo/tree/main/src/planetiles2pmtiles">Planetiler - N250 og N5000 til PMTiles</a>
-    </nav>
-</header>
+<div class="demo-info">
+    <h2>PMTiles Demo på bakgrunnskart uten servere (N5000-datasett)</h2>
+    <p>Interaktivt bakgrunnskart som benytter en enkelt cloud native PMTiles-fil for vector tiles med alle kartdata. Utforsk kartet og inspiser objekter med musen.</p>
+</div>
 
 <div id="map"></div>
 <div id="inspect-popup" class="inspect-popup"></div>
