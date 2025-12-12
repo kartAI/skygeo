@@ -23,6 +23,25 @@ Les mer om STAC:
 - [STAC katalog i JSON](https://kartaistorage.blob.core.windows.net/skygeo/geonorge_stac_experiments/publisher_collection/stac_output_dynamic/catalog.json)
 - [STAC katalog i GeoParquet](https://kartaistorage.blob.core.windows.net/skygeo/geonorge_stac_experiments/publisher_collection/geonorge_stac.parquet)
 
+## STAC API fra stac-geoparquet
+
+For å teste katalogen som et STAC API er det lagd en Docker-container som lager et STAC API fra stac-geoparquet i `Dockerfile`
+
+Bygg imaget
+```sh
+docker build -t stac-fastapi-geoparquet .
+```
+
+Kjør containeren med kommandoen under (powershell). Bytt ut parquet-filen til din egen. Evt bruk eksempelfilen på url: `https://kartaistorage.blob.core.windows.net/skygeo/geonorge_stac_experiments/publisher_collection/geonorge_stac.parquet`
+```sh
+docker run -p 8000:8000 `
+  -v ${PWD}/output:/data/output `
+  -e STAC_FASTAPI_GEOPARQUET_HREF=/data/output/geonorge_stac.parquet `
+  stac-fastapi-geoparquet
+```
+
+Når containeren kjører skal du kunne bruke STAC Browser for å teste API'et med fks: `https://radiantearth.github.io/stac-browser/#/external/http:/localhost:8000/`
+
 ## Forbedringsforslag
 
 - Mer dynamisk mapping mellom CSW og STAC
