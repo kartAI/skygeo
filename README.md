@@ -2,38 +2,36 @@
 
 Utforskning av cloud native formater og STAC metadata for norske geografiske datasett.
 
-## Eksperimenter og demoer
+## Demoer og Eksperimenter
 
-Se ulike måter å produsere, konvertere og bruke Cloud Native Geo-formater på gjennom ulike kode-eksempler og demoer.
+Se ulike måter å produsere, konvertere og bruke Cloud Native Geo-formater på gjennom kode-eksempler og interaktive demoer.
 
-**Demoer**
+**Interaktive demoer:**
 
-| Demo | Beskrivelse | Link |
-|------|-------------|------|
-| Tematisk bakgrunnskart (vector tiles, PMTiles) | Interaktivt kart med alle lag fra N5000 og N250, serverless PMTiles og MapLibre. | [Demo N5000](https://kartai.github.io/skygeo/pmtiles_bakgrunnskart/) / [Demo N250](https://kartai.github.io/skygeo/pmtiles_bakgrunnskart/n250/) |
+| Demo | Beskrivelse | Kildekode |
+|------|-------------|-----------|
+| GeoNorge CSW til STAC | Konvertering av GeoNorge metadatakatalog til STAC-format (JSON og GeoParquet) | [`/src/geonorge2stac`](src/geonorge2stac) |
+| Tematisk bakgrunnskart (PMTiles) | Interaktivt kart med lag fra N5000 og N250 ved hjelp av PMTiles og MapLibre | [`/src/planetiles2pmtiles`](src/planetiles2pmtiles) |
+| FlatGeobuf veinett | Veinettsdata (N250) i FlatGeobuf-format for effektiv vektor-streaming | [`/src/flatgeobuf`](src/flatgeobuf) |
 
+Alle demoer finnes på [`/docs`](docs/).
 
-**Struktur på kodebasen:**
+**Oversikt over kode-eksempler og eksperimenter:**
 
-- `\src` inneholder alle eksempler. Hvert eksempel har sin egen mappe. Fks `\src\cog\`
-- Eksperimentene bruker ulike verktøy. Noen har `.devcontainer`, rene `Jupyter Notebook` og `shell script`
-
-**Oversikt eksperimenter og kode-eksempler**
-
-| Eksempel                      | Mappe              | Formål                                                                                           |
-| ----------------------------- | ------------------ | ------------------------------------------------------------------------------------------------ |
-| Cloud Optimized GeoTiff (COG) | `\src\cog\`        | Flere eksempler på konvertering og produksjon av Cloud Optimized Geotiff                         |
-| COPC (Point Cloud)            | `\src\copc\`       | Konvertering av LAS/LAZ til COPC-format for optimal lagring og spørring av punktskydata          |
-| FlatGeobuf                    | `\src\flatgeobuf\` | Konvertering fra GDB til FlatGeobuf. Moderne, åpent og effektivt vektorformat.                   |
-| GeoParquet                    | `\src\geoparquet\` | Konvertering av N50 vektordata til GeoParquet. Demo med Python, DuckDB, og benchmarking.         |
-| N50 til STAC                  | `\src\N50TilSTAC\` | Generering av STAC metadata fra N50 GeoTIFF. Automatisert katalog for rasterkartblader.          |
-| Vector Tiles (Planetiler)     | `\src\planetiler2pmtiles\` | Generering av vector tiles med Planetiler for tematisk bakgrunnskart på PMTiles-format med Kartverket datasett N5000 og N250 |
-| PMTiles                       | `\src\pmtiles\`    | Konvertering av N50 vektordata til PMTiles. Demo med Docker, Maplibre, og webklient for visning. |
-| Webklienter                   | `\src\webclient\`  | Demo på bruk av OpenLayers for visning av COG-data i nettleser.                                  |
-| Demo-webapp                   | `\src\demo\`        | Webapp som demonstrerer CloudNative-formater (Parquet, Flatgeobuf) med DuckDB og streaming til kart. |
-| GeoNorge2GeoParquet Skred     | `\src\geonorge2geoparquet_skred\` | Sammenstilling og analyse av skreddata fra GeoNorge til GeoParquet. Python, DuckDB, overlay-spørringer. |
-| GIS-søk                       | `\src\gis-sok\`     | Rask algoritme for sammenstilling av bygninger mellom OSM og FKB i store Parquet-datasett fra skyen. |
-
+| Eksempel | Mappe | Beskrivelse |
+|----------|-------|-------------|
+| Cloud Optimized GeoTiff (COG) | [`/src/cog`](src/cog) | Konvertering og produksjon av Cloud Optimized GeoTIFF |
+| COPC (Point Cloud) | [`/src/copc`](src/copc) | Konvertering av LAS/LAZ til COPC-format |
+| FlatGeobuf | [`/src/flatgeobuf`](src/flatgeobuf) | Konvertering til FlatGeobuf-vektorformat |
+| GeoParquet | [`/src/geoparquet`](src/geoparquet) | Konvertering av N50 til GeoParquet, benchmarking med DuckDB |
+| GeoNorge2STAC | [`/src/geonorge2stac`](src/geonorge2stac) | STAC-katalog fra GeoNorge CSW-metadata |
+| N50 til STAC | [`/src/N50TilSTAC`](src/N50TilSTAC) | STAC-metadata fra N50 GeoTIFF-kartblader |
+| PMTiles | [`/src/pmtiles`](src/pmtiles) | Konvertering av N50 til PMTiles med Docker og webklient |
+| Planetiler → PMTiles | [`/src/planetiles2pmtiles`](src/planetiles2pmtiles) | Generering av vector tiles fra N5000/N250 |
+| Webklient | [`/src/webclient`](src/webclient) | OpenLayers-eksempel for COG-visning |
+| Demo-webapp | [`/src/demo`](src/demo) | Webapp med Parquet, FlatGeobuf, DuckDB og kartvisning |
+| GeoNorge2GeoParquet Skred | [`/src/geonorge2geoparquet_skred`](src/geonorge2geoparquet_skred) | Skreddata fra GeoNorge til GeoParquet |
+| GIS-søk | [`/src/gis-sok`](src/gis-sok) | Algoritme for sammenstilling av OSM og FKB data |
 
 ## Hva er egentlig Cloud Native Geospatial?
 Les mer utdypende introduksjon til [cloud native formater](docs/formater.md)
@@ -57,43 +55,32 @@ CNG-formater erstatter ikke nødvendigvis tradisjonelle OGC-tjenester (som WMS/W
 
 Dokumentasjon om ulike Cloud Native-formater finnes under `\docs\formater\`.
 
-### Hva med Metadata? => STAC
+### Metadata med STAC
 
-Hvis alle dataene dine bare er statiske filer, hvordan kan brukere finne dem? Svaret er **STAC (SpatioTemporal Asset Catalog)**. STAC er en enkel, standardisert JSON-spesifikasjon som fungerer som "limet" i dette økosystemet. Det er en metadata-standard som beskriver hva dataene er, hvor de dekker, når de er fra, og viktigst av alt: lenker direkte til de sky-native filene (f.eks. COG, GeoParquet, Zarr) som utgjør ressursen.
+**STAC (SpatioTemporal Asset Catalog)** er en standardisert JSON-spesifikasjon som fungerer som "limet" i CNG-økosystemet. Det beskriver hva dataene er, geografisk dekningsområde, tidsstempel og – viktigst av alt – lenker direkte til Cloud Native-filene.
 
-## FAQ:
+En STAC-fil inneholder `links` og `assets` som peker til dine CN-filer. Klienten leser STAC først, deretter streamer den dataene den trenger.
 
-### Jeg skal lage et web-kart. Hvilket format bør det være på?
+## Vanlige spørsmål
 
-- Raster: Bruk COG (Cloud Optimized GeoTIFF) for enkel, effektiv hosting og streaming via HTTP Range Requests. Alternativt pre-render til raster tiles (PMTiles) hvis du trenger mange hurtigtjenester for ulike zoomnivåer.
+**Hvilket format skal jeg bruke for mitt webkart?**
 
-- Vektor: Bruk vector tiles (MVT). Pakk som PMTiles for enkel én‑fil hosting i skyen. For server-side spørring og analyse kan GeoParquet eller FlatGeobuf være aktuelt.
+- **Raster:** COG (Cloud Optimized GeoTIFF) for effektiv streaming. Eller pre-render til raster tiles (PMTiles).
+- **Vektor:** Vector tiles i PMTiles-format. Alternativt GeoParquet eller FlatGeobuf for server-side spørring.
 
-### Hvordan kobler jeg STAC-metadataen til Cloud Native-filer?
+**Hvordan kombinerer jeg STAC-metadata med Cloud Native-filer?**
 
-STAC (SpatioTemporal Asset Catalog) er en standard for å beskrive geodata med metadata.
-Den hjelper brukere og klienter å finne filer i skyen, forstå innholdet og koble til CN-formater som COG, GeoParquet og PMTiles.
+STAC-filer (JSON) inneholder `assets` som peker direkte til dine CN-filer (COG, GeoParquet, PMTiles). Klienten leser STAC først, deretter streamer dataene.
 
-En STAC-fil (JSON) inneholder `links` og `assets` som peker direkte til dine CN-filer (COG, GeoParquet, PMTiles osv.). Klienten leser STAC-filen først og bruker så filstiene til å streame dataene.
+**Hvordan visualiserer jeg COG eller PMTiles raskt?**
 
-### Hvordan visualiserer jeg COG eller PMTiles raskt i nettleser?
+- **COG:** OpenLayers eller MapLibre GL JS med raster-layer
+- **PMTiles:** MapLibre GL JS med pmtiles-adapter
 
-- COG (raster): OpenLayers ol/source/TileImage eller MapLibre GL JS med raster-dem.
+**Hva er hovedfordelene?**
 
-- PMTiles (vektor): MapLibre GL JS + pmtiles-adapter.
-
-### Kan jeg kombinere flere formater i ett webkart?
-
-Ja! For eksempel: COG-bakgrunn + PMTiles-vektorlag
-Effektivt for web, raskt å laste, serverless.
-
-STAC-kataloger kan hjelpe med å holde oversikt over hvilke filer som hører sammen.
-
-### Hva er de største fordelene med Cloud Native Geospatial?
-
-- Raskere tilgang: Partial og parallel reads gjør store filer raskt tilgjengelige.
-- Serverless / skyvennlig: Lagring i S3/Azure, ingen tunge servere.
-- Standardiserte åpne formater: Støttes av QGIS, MapLibre, OpenLayers, Python.
-- STAC-integrasjon: Enkel metadata, søk og kobling til CN-filer.
-- Fleksibel arkitektur: Kombiner raster og vektor i samme webkart eller analysepipeline.
-
+- Raskere tilgang via partial/parallel reads
+- Serverless, skyvennlig arkitektur
+- Åpne standarder (støttet av QGIS, MapLibre, OpenLayers, Python)
+- STAC-integrasjon for metadata og søk
+- Fleksibel: kombiner raster og vektor i samme applikasjon

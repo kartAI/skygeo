@@ -1,0 +1,362 @@
+<!DOCTYPE html>
+<html lang="no">
+<head>
+    <meta charset="utf-8" />
+    <title>GeoNorge CSW til STAC Catalog</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+            line-height: 1.6;
+            color: #333;
+            background: #fafafa;
+        }
+        
+        .page-header {
+            background: #fff;
+            border-bottom: 1px solid #e0e0e0;
+            padding: 40px 32px;
+        }
+        
+        .page-header h1 {
+            font-size: 2.2em;
+            margin-bottom: 8px;
+            color: #000;
+        }
+        
+        .page-header .subtitle {
+            font-size: 1.1em;
+            color: #666;
+            margin-bottom: 24px;
+        }
+        
+        .page-header nav {
+            display: flex;
+            gap: 12px;
+            flex-wrap: wrap;
+        }
+        
+        .page-header a {
+            display: inline-block;
+            padding: 8px 14px;
+            background: #f0f0f0;
+            color: #333;
+            text-decoration: none;
+            border-radius: 3px;
+            font-size: 0.95em;
+            transition: background 0.2s;
+        }
+        
+        .page-header a:hover {
+            background: #e0e0e0;
+        }
+        
+        .container {
+            max-width: 1000px;
+            margin: 0 auto;
+            padding: 32px;
+        }
+        
+        .section {
+            background: #fff;
+            padding: 28px;
+            margin-bottom: 20px;
+            border: 1px solid #e0e0e0;
+        }
+        
+        .section h2 {
+            font-size: 1.6em;
+            margin-bottom: 16px;
+            color: #000;
+        }
+        
+        .section h3 {
+            font-size: 1.15em;
+            margin-top: 20px;
+            margin-bottom: 10px;
+            color: #333;
+        }
+        
+        .section p {
+            margin-bottom: 12px;
+            color: #555;
+        }
+        
+        .demo-links {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 16px;
+            margin-bottom: 16px;
+        }
+        
+        .demo-card {
+            background: #f9f9f9;
+            padding: 20px;
+            border: 1px solid #ddd;
+            transition: border 0.2s;
+        }
+        
+        .demo-card:hover {
+            border-color: #999;
+        }
+        
+        .demo-card h3 {
+            margin-top: 0;
+            color: #333;
+        }
+        
+        .demo-card p {
+            margin-bottom: 14px;
+            font-size: 0.95em;
+        }
+        
+        .demo-card a {
+            display: inline-block;
+            padding: 8px 12px;
+            background: #333;
+            color: #fff;
+            text-decoration: none;
+            font-size: 0.9em;
+            transition: background 0.2s;
+        }
+        
+        .demo-card a:hover {
+            background: #000;
+        }
+        
+        .code-block {
+            background: #f4f4f4;
+            border-left: 2px solid #999;
+            padding: 12px;
+            margin: 12px 0;
+            overflow-x: auto;
+            font-family: 'Courier New', monospace;
+            font-size: 0.85em;
+            color: #333;
+        }
+        
+        .resource-links {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 14px;
+            margin-bottom: 16px;
+        }
+        
+        .resource-card {
+            background: #f9f9f9;
+            padding: 14px;
+            border: 1px solid #ddd;
+        }
+        
+        .resource-card h4 {
+            margin: 0 0 6px 0;
+            color: #333;
+            font-size: 0.95em;
+        }
+        
+        .resource-card a {
+            color: #333;
+            text-decoration: none;
+        }
+        
+        .resource-card a:hover {
+            text-decoration: underline;
+        }
+        
+        .resource-card p {
+            margin: 0;
+            font-size: 0.85em;
+            color: #666;
+        }
+        
+        ul, ol {
+            margin-left: 20px;
+            margin-bottom: 12px;
+        }
+        
+        li {
+            margin-bottom: 6px;
+        }
+        
+        @media (max-width: 768px) {
+            .page-header {
+                padding: 24px 16px;
+            }
+            
+            .page-header h1 {
+                font-size: 1.6em;
+            }
+            
+            .page-header nav {
+                flex-direction: column;
+            }
+            
+            .page-header a {
+                width: 100%;
+                text-align: center;
+            }
+            
+            .container {
+                padding: 16px;
+            }
+            
+            .section {
+                padding: 16px;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="page-header">
+        <h1>GeoNorge CSW til STAC Catalog</h1>
+        <p class="subtitle">Konverterer metadatakatalog fra GeoNorge til STAC-format for enklere og mer interoperabel tilgang til norske geodata</p>
+        <nav>
+            <a href="/skygeo/docs/">← Tilbake til demoer</a>
+            <a href="https://github.com/kartAI/skygeo/tree/csw2stac/src/geonorge2stac">📁 Kildekode</a>
+            <a href="https://github.com/kartAI/skygeo/blob/csw2stac/src/geonorge2stac/geonorge2stac_experiment.ipynb">📓 Jupyter Notebook</a>
+            <a href="https://stacspec.org/">📚 STAC Spesifikasjon</a>
+        </nav>
+    </div>
+    
+    <div class="container">
+        <!-- About Section -->
+        <div class="section">
+            <h2>Om prosjektet</h2>
+            <p>
+                Dette prosjektet demonstrerer hvordan metadatakatalogen fra GeoNorge (CSW – Catalogue Service Web) 
+                kan konverteres til en STAC-katalog (SpatioTemporal Asset Catalog), både som JSON og GeoParquet. 
+                Målet er å gjøre norske geodata enklere tilgjengelig og mer brukervennlig for både mennesker og maskiner.
+            </p>
+            
+            <h3>Fordeler med STAC</h3>
+            <ul>
+                <li><strong>Enklere bruk:</strong> Standardisert struktur gjør det lett å søke, filtrere og hente data.</li>
+                <li><strong>Maskinlesbarhet:</strong> STAC er optimalisert for automatiserte prosesser, LLMs og MCP.</li>
+                <li><strong>Interoperabilitet:</strong> Kan brukes med moderne verktøy og API-er, som STAC Browser.</li>
+            </ul>
+        </div>
+        
+        <!-- Demo Links Section -->
+        <div class="section">
+            <h2>Interaktive Demoer</h2>
+            <p>Utforsk katalogen ved hjelp av STAC Browser:</p>
+            
+            <div class="demo-links">
+                <div class="demo-card">
+                    <h3>Hele Katalogen</h3>
+                    <p>Se hele GeoNorge STAC-katalogen som er konvertert fra CSW-metadataene.</p>
+                    <a href="https://radiantearth.github.io/stac-browser/#/external/kartaistorage.blob.core.windows.net/skygeo/geonorge_stac_experiments/publisher_collection/stac_output_dynamic/catalog.json" target="_blank">
+                        Åpne i STAC Browser →
+                    </a>
+                </div>
+                
+                <div class="demo-card">
+                    <h3>Eksempel: Enkelt datasett</h3>
+                    <p>Se et konkret eksempel på hvordan et dataset fra Kartverket er konvertert til STAC-format med assets og metadata.</p>
+                    <a href="https://radiantearth.github.io/stac-browser/#/external/kartaistorage.blob.core.windows.net/skygeo/geonorge_stac_experiments/publisher_collection/stac_output_dynamic/collection-kartverket/006fa78d-b067-48f1-ba57-f91bd2c4af45/006fa78d-b067-48f1-ba57-f91bd2c4af45.json?.asset=asset-asset_0" target="_blank">
+                        Åpne eksempel →
+                    </a>
+                </div>
+            </div>
+        </div>
+        
+        <!-- How It Works Section -->
+        <div class="section">
+            <h2>Teknisk Gjennomgang</h2>
+            <p>Jupyter-notebooken viser hele prosessen:</p>
+            <ol>
+                <li>Henter metadata fra GeoNorge CSW med OWSLib</li>
+                <li>Mapper metadata til STAC-format med dynamisk utvidelse av egenskaper</li>
+                <li>Oppretter STAC-katalog og collections basert på publisher</li>
+                <li>Eksporterer katalogen til både JSON og GeoParquet</li>
+                <li>Viser hvordan resultatene kan visualiseres og analyseres</li>
+            </ol>
+        </div>
+        
+        <!-- Resources Section -->
+        <div class="section">
+            <h2>Ressurser og Lenker</h2>
+            
+            <div class="resource-links">
+                <div class="resource-card">
+                    <h4>📄 Katalog som JSON</h4>
+                    <p>Full STAC-katalog i JSON-format som kan brukes med STAC-kompatible verktøy.</p>
+                    <a href="https://kartaistorage.blob.core.windows.net/skygeo/geonorge_stac_experiments/publisher_collection/stac_output_dynamic/catalog.json" target="_blank">
+                        Last ned →
+                    </a>
+                </div>
+                
+                <div class="resource-card">
+                    <h4>📊 Katalog som GeoParquet</h4>
+                    <p>Katalog som GeoParquet-fil for rask søking og analyse med DuckDB/Polars.</p>
+                    <a href="https://kartaistorage.blob.core.windows.net/skygeo/geonorge_stac_experiments/publisher_collection/geonorge_stac.parquet" target="_blank">
+                        Last ned →
+                    </a>
+                </div>
+                
+                <div class="resource-card">
+                    <h4>🔗 STAC Spesifikasjon</h4>
+                    <p>Les om STAC-standarden og best practices på stacspec.org</p>
+                    <a href="https://stacspec.org/" target="_blank">
+                        Besøk →
+                    </a>
+                </div>
+                
+                <div class="resource-card">
+                    <h4>🗂️ STAC Index</h4>
+                    <p>Katalog over STAC-implementasjoner og ressurser</p>
+                    <a href="https://stacindex.org/" target="_blank">
+                        Besøk →
+                    </a>
+                </div>
+                
+                <div class="resource-card">
+                    <h4>🌍 GeoNorge</h4>
+                    <p>Opprinnelig metadata-katalog fra Kartverket og GeoNorge</p>
+                    <a href="https://www.geonorge.no/" target="_blank">
+                        Besøk →
+                    </a>
+                </div>
+                
+                <div class="resource-card">
+                    <h4>📝 OGC Kunngjøring</h4>
+                    <p>Offisiell OGC-kunngjøring om STAC som Community Standard</p>
+                    <a href="https://www.ogc.org/announcement/ogc-announces-publication-of-the-spatiotemporal-asset-catalog-community-standards/" target="_blank">
+                        Les →
+                    </a>
+                </div>
+            </div>
+        </div>
+        
+        <!-- Docker Section -->
+        <div class="section">
+            <h2>STAC API med Docker</h2>
+            <p>For å teste katalogen som et STAC API lokalt:</p>
+            
+            <h3>Bygg Docker-imaget</h3>
+            <div class="code-block">docker build -t stac-fastapi-geoparquet .</div>
+            
+            <h3>Kjør containeren</h3>
+            <div class="code-block">docker run -p 8000:8000 \
+  -v ${PWD}/output:/data/output \
+  -e STAC_FASTAPI_GEOPARQUET_HREF=/data/output/geonorge_stac.parquet \
+  stac-fastapi-geoparquet</div>
+            
+            <h3>Test API'et</h3>
+            <p>Åpne STAC Browser og bruk URL-en:</p>
+            <div class="code-block">https://radiantearth.github.io/stac-browser/#/external/http://localhost:8000/</div>
+        </div>
+        
+        <!-- Footer -->
+        <div class="section" style="text-align: center; color: #999; margin-top: 48px;">
+            <p>Del av SkyGeo-prosjektet | <a href="https://github.com/kartAI/skygeo" style="color: #667eea;">GitHub Repository</a></p>
+        </div>
+    </div>
+</body>
+</html>
