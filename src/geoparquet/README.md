@@ -5,6 +5,9 @@ GeoParquet er en standard for lagring av geografisk informasjon på toppen av Pa
 kolonnebasert format for lagring av data, og er langt på vei førstevalget for skybaserte plattformer og store 
 datamengder.
 
+Både Kartverket og Kystverket er blant norske offentlige aktører som utforsker formatet for å enklere distribuere 
+data uten å gå via bestillingsskjema eller store nedlastinger av enkeltfiler.
+
 
 ## Kort om Parquet
 Kolonnebasert vil si at data lagres kolonnevis i stedet for radvis, som i tradisjonelle databaser. Dette gir store 
