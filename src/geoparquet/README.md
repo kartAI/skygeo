@@ -44,13 +44,13 @@ inneholder kolonne-dataen en liste med unike WKT-typer (`POINT`, `LINESTRING` et
 
 ## GeoParquet-støtte per verktøy (UNDER UTVIKLING ⚠️)
 
-| Verktøy           | Read | Write | 1.1.0 | 2.0 | `GEOMETRY` | Merknad                                                                                                            |
-|-------------------|:----:|:-----:|:-----:|:---:|:----------:|--------------------------------------------------------------------------------------------------------------------|
-| **GeoPandas**     | ✅   | ✅    | ✅    |  ❌  |       ❌     | `read_parquet()` / `to_parquet()`.                                                                                 |
-| **DuckDB**        | ✅   | ✅    | ⚠️    |  ❌  |     ❌       | Native fra v1.1.0 med spatial extension.                                                                           |
-| **Apache Sedona** | ✅   | ✅    | ✅    |  ❌  |   ❌         | `format("geoparquet")` fra v1.3.0. Støtter covering/bbox fra v1.6.1. Deaktiver Photon på Databricks.               |
-| **Sedona DB**     |   ✅   |  ✅     |       |     |            |                                                                                                                    |
+| Verktøy           | Read | Write | 1.1.0 | 2.0 | `GEOMETRY` | Merknad                                                                                                           |
+|-------------------|:----:|:-----:|:-----:|:---:|:----------:|-------------------------------------------------------------------------------------------------------------------|
+| **GeoPandas**     | ✅   | ✅    | ✅    |  ❌  |       ❌     | `read_parquet()` / `to_parquet()`.                                                                                |
+| **DuckDB**        | ✅   | ✅    | ⚠️    |  ❌  |     ❌       |                                                                      |
+| **Apache Sedona** | ✅   | ✅    | ✅    |  ❌  |   ❌         | `format("geoparquet")` fra v1.3.0. Støtter covering/bbox fra v1.6.1. Deaktiver Photon på Databricks.              |
+| **Sedona DB**     |   ✅   |  ✅     |       |     |            |                                                                                                                   |
 | **Databricks**    | ✅   | ✅    | ✅    |  ❌  |       ✅     | |
 | **QGIS**          | ✅   | ⚠️    | ✅    |  ❌  |            |                                                       | |
-| **GDAL/OGR**      | ✅   | ✅    | ✅    |  ❌  |     ✅      | Stabilt fra v3.8+.                                                                                                 |
+| **GDAL/OGR**      | ✅   | ✅    | ✅    |  ❌  |     ✅      | Stabilt fra v3.8+.                                                                                                |
 | **Polars**        | ⚠️   | ⚠️    | ❌    |  ❌  |            | Leser Parquet, men begrenset geo-støtte. <br/>Lovende bibliotek: [Polars ST](https://github.com/oreilles/polars-st) |
