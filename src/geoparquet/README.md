@@ -21,8 +21,7 @@ statistikken, og skipper hele radgrupper dersom filteret ikke matcher. For eksem
 og en radgruppe har max(lat) = 68.5, kan hele blokken hoppes over uten å lese selve dataene.
 
 Plattformer som Databricks og Snowflake har Parquet som sitt interne lagringsformat, men med hver sin tilnærming. 
-Databricks utvikler Delta Lake (https://delta.io/), mens Snowflake har støttet utvikling av Iceberg (https://iceberg.
-apache.org/) - begge disse formatene er bygget på Parquet.
+Databricks utvikler Delta Lake (https://delta.io/), mens Snowflake har støttet utvikling av Iceberg (https://iceberg.apache.org/) - begge disse formatene er bygget på Parquet.
 
 ## GeoParquet
 
