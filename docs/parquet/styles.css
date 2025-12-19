@@ -1,0 +1,141 @@
+body { font-family: sans-serif; margin: 0; padding: 0; }
+.navbar { background: #333; padding: 10px; }
+.navbar a { color: white; text-decoration: none; margin-right: 10px; }
+main { padding: 20px; }
+footer { padding: 10px; background: #f0f0f0; text-align: center; }
+
+#map {
+    height: 50vh; /* or a fixed value like 500px */
+    width: 100%;   /* optional but recommended */
+}
+/* Core Rose Pine palette */
+:root {
+  --base: #191724;
+  --surface: #1f1d2e;
+  --overlay: #26233a;
+  --text: #e0def4;
+  --muted: #6e6a86;
+  --love: #eb6f92;
+  --gold: #f6c177;
+  --rose: #ebbcba;
+  --pine: #31748f;
+  --foam: #9ccfd8;
+  --iris: #c4a7e7;
+}
+
+.rose-terminal {
+  /* background: var(--base); */
+  color: var(--text);
+  font-family: "Fira Code", monospace;
+  margin: 0;
+  padding: 40px;
+  display: flex;
+  with: 100vw;
+  height: 100vh;
+  justify-content: center;
+}
+
+.terminal-window {
+  width: 95%;
+  background: var(--surface);
+  border-radius: 10px;
+  overflow: hidden;
+  box-shadow: 0 0 20px rgba(196, 167, 231, 0.1);
+}
+
+.terminal-header {
+  background: var(--overlay);
+  padding: 10px;
+  display: flex;
+  align-items: center;
+}
+
+.rose { background: var(--love); }
+.pine { background: var(--pine); }
+.dawn { background: var(--gold); }
+
+.title {
+  margin-left: 10px;
+  color: var(--muted);
+  font-size: 14px;
+}
+
+.terminal-content {
+  padding: 20px;
+}
+
+.terminal-output {
+  width: 100%;
+  background: var(--surface);
+  padding: 10px;
+  min-height: 50vh;
+  border: 1px solid var(--overlay);
+  border-radius: 6px;
+  margin-bottom: 20px;
+  white-space: pre-wrap;
+  color: var(--foam);
+  font-size: 14px;
+}
+
+.terminal-input {
+  width: 100%;
+  min-height: 30vh;
+  background: var(--overlay);
+  color: var(--text);
+  border: 1px solid var(--overlay);
+  border-radius: 4px;
+  padding: 10px;
+  font-size: 14px;
+  outline: none;
+  resize: vertical;
+}
+
+.terminal-btn {
+  margin-top: 12px;
+  background: var(--pine);
+  border: none;
+  padding: 8px 14px;
+  color: var(--base);
+  font-weight: bold;
+  cursor: pointer;
+  border-radius: 4px;
+  font-size: 14px;
+}
+
+.terminal-btn:hover {
+  background: var(--foam);
+}
+#fileBar {
+  position: relative;
+  width: 90%;
+  height: 30px;
+  background-color: #eee;
+  border: 1px solid #ccc;
+  margin-top: 20px;
+  margin-bottom: 20px;
+}
+
+.fileBarItem {
+  margin-top: 20px;
+  margin-bottom: 20px;
+  align-self: flex-end;
+  margin-left: 5px;
+  margin-right: 5px;
+}
+
+.range {
+  position: absolute;
+  height: 100%;
+  background-color: blue;
+  opacity: 0.8;
+}
+.selectedRange {
+  position: absolute;
+  height: 100%;
+  background-color: black;
+  opacity: 0.8;
+}
+
+.fileBarContainer {
+  display: flex;           /* Enable flexbox */
+}
