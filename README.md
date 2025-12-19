@@ -10,9 +10,9 @@ Se ulike måter å produsere, konvertere og bruke Cloud Native Geo-formater på 
 
 | Demo | Beskrivelse | Kildekode |
 |------|-------------|-----------|
-| GeoNorge CSW til STAC | Konvertering av GeoNorge metadatakatalog til STAC-format (JSON og GeoParquet) | [`/src/geonorge2stac`](src/geonorge2stac) |
-| Tematisk bakgrunnskart (PMTiles) | Interaktivt kart med lag fra N5000 og N250 ved hjelp av PMTiles og MapLibre | [`/src/planetiles2pmtiles`](src/planetiles2pmtiles) |
-| FlatGeobuf veinett | Veinettsdata (N250) i FlatGeobuf-format for effektiv vektor-streaming | [`/src/flatgeobuf`](src/flatgeobuf) |
+| [GeoNorge CSW til STAC](https://kartai.github.io/skygeo/geonorge2stac/index.html) | Konvertering av GeoNorge metadatakatalog til STAC-format (JSON og GeoParquet) | [`/src/geonorge2stac`](src/geonorge2stac) |
+| [Tematisk bakgrunnskart (PMTiles)](https://kartai.github.io/skygeo/pmtiles_bakgrunnskart/index.html) | Interaktivt kart med lag fra N5000 og N250 ved hjelp av PMTiles og MapLibre | [`/src/planetiles2pmtiles`](src/planetiles2pmtiles) |
+| [FlatGeobuf veinett](https://kartai.github.io/skygeo/flatgeobuf/fgb.html) | Veinettsdata (N250) i FlatGeobuf-format for effektiv vektor-streaming | [`/src/flatgeobuf`](src/flatgeobuf) |
 
 Alle demoer finnes på [`/docs`](docs/).
 
