@@ -1,0 +1,31 @@
+LAYER
+    CONNECTION "*"
+    CONNECTIONTYPE POSTGIS
+    DATA "grense from vannkontur_matview USING UNIQUE ogc_fid USING SRID=4258"
+    MAXSCALE 50000
+    METADATA
+        "ows_include_items" "All"
+        "ows_extent" "4 57 32 75"
+        "ows_title" "N50 Vannkontur"
+        "gml_include_items" "All"
+        "wms_layer_group" "/kd_vannkontur"
+    END
+    NAME "N50Vannkontur"
+    PROCESSING "CLOSE_CONNECTION=DEFER"
+    PROJECTION
+        "init=epsg:4258"
+    END
+    STATUS ON
+    TEMPLATE "c:/ms4w/empty.txt"
+    TILEITEM "location"
+    TYPE LINE
+    UNITS METERS
+    CLASS
+        NAME "Vannkontur"
+        EXPRESSION ( ( ( ( "[objtype]" == "Kystkontur" ) OR ( "[objtype]" == "InnsjÃ¸kant" ) ) OR ( "[objtype]" == "ElveKant" ) ) OR ( "[objtype]" == "InnsjÃ¸kantRegulert" ) )
+        STYLE
+            COLOR 0 166 254
+            WIDTH 0.5
+        END
+    END
+END

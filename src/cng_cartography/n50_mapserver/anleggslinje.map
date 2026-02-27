@@ -1,0 +1,151 @@
+LAYER
+    CLASSITEM "objtype"
+    CONNECTION "*"
+    CONNECTIONTYPE POSTGIS
+    DATA "senterlinje from anleggslinje_matview USING UNIQUE ogc_fid USING SRID=4258"
+    MAXSCALEDENOM 50000
+    METADATA
+        "ows_include_items" "All"
+        "ows_extent" "4 57 32 75"
+        "ows_title" "N50 Anleggslinje"
+        "gml_include_items" "All"
+        "wms_layer_group" "/kd_anleggslinjer"
+    END
+    NAME "N50Anleggslinje"
+    PROCESSING "CLOSE_CONNECTION=DEFER"
+    PROJECTION
+        "init=epsg:4258"
+    END
+    STATUS ON
+    TEMPLATE "c:/ms4w/empty.txt"
+    TILEITEM "location"
+    TYPE LINE
+    UNITS METERS
+    CLASS
+        NAME "Luftledning - Lav hÃ¸yde"
+        EXPRESSION "LuftledningLH"
+        STYLE
+            COLOR 1 1 1
+            GAP -30
+            SIZE 5
+            SYMBOL "LuftledningLH"
+        END
+        STYLE
+            COLOR 1 1 1
+            WIDTH 0.6
+        END
+    END
+    CLASS
+        NAME "Kraftspenn"
+        EXPRESSION "Ledning"
+        STYLE
+            COLOR 1 1 1
+            WIDTH 0.6
+        END
+    END
+    CLASS
+        NAME "LyslÃ¸ype"
+        EXPRESSION "LyslÃ¸ype"
+        STYLE
+            COLOR 250 235 0
+            WIDTH 2
+        END
+        STYLE
+            COLOR 195 30 40
+            PATTERN
+                4.0 5.0
+            END
+            SIZE 1.1
+        END
+    END
+    CLASS
+        NAME "Skitrekk"
+        EXPRESSION "Skitrekk"
+        STYLE
+            COLOR 195 30 40
+            SIZE 4
+            SYMBOL "Skitrekk"
+        END
+    END
+    CLASS
+        NAME "Taubane"
+        EXPRESSION "Taubane"
+        STYLE
+            COLOR 1 1 1
+            SIZE 4
+            SYMBOL "Skitrekk"
+        END
+    END
+    CLASS
+        NAME "Skytebane"
+        EXPRESSION "Skytebaneinnretning"
+        MAXSCALEDENOM 25000
+        STYLE
+            ANGLE AUTO
+            COLOR 1 1 1
+            GAP -10
+            GEOMTRANSFORM START
+            SIZE 9
+            SYMBOL "Strek"
+        END
+        STYLE
+            COLOR 1 1 1
+            SIZE 1
+        END
+        STYLE
+            ANGLE AUTO
+            COLOR 1 1 1
+            GAP -20
+            GEOMTRANSFORM "end"
+            SIZE 11
+            SYMBOL "Skytebane"
+            WIDTH 11
+        END
+        STYLE
+            COLOR 1 1 1
+        END
+    END
+    CLASS
+        NAME "Annet gjerde"
+        EXPRESSION "Reingjerde"
+        STYLE
+            COLOR 1 1 1
+        END
+    END
+    CLASS
+        NAME "Molo"
+        EXPRESSION "Molo"
+        STYLE
+            COLOR 1 1 1
+        END
+    END
+    CLASS
+        NAME "Pir"
+        EXPRESSION "Pir"
+        STYLE
+            COLOR 1 1 1
+        END
+    END
+    CLASS
+        NAME "Dam"
+        EXPRESSION "Dam"
+        STYLE
+            COLOR 1 1 1
+        END
+    END
+    CLASS
+        NAME "Kai/brygge"
+        EXPRESSION "KaiBrygge"
+        STYLE
+            COLOR 1 1 1
+        END
+    END
+    CLASS
+        NAME "RÃ¸rgate"
+        EXPRESSION "RÃ¸rgate"
+        STYLE
+            COLOR 1 1 1
+            WIDTH 1
+        END
+    END
+END

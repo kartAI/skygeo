@@ -1,0 +1,36 @@
+LAYER
+    CLASSITEM "objtype"
+    CONNECTION "*"
+    CONNECTIONTYPE POSTGIS
+    DATA "grense from skytefeltgrense USING UNIQUE objid USING SRID=4258"
+    MAXSCALEDENOM 50000
+    METADATA
+        "ows_include_items" "All"
+        "ows_extent" "4 57 32 75"
+        "ows_title" "Skytefeltgrense"
+        "gml_include_items" "All"
+        "wms_abstract" "Skytefeltgrense"
+        "wms_layer_group" "/kd_andre_grenser"
+    END
+    NAME "Skytefeltgrense"
+    PROCESSING "CLOSE_CONNECTION=DEFER"
+    PROJECTION
+        "init=epsg:4258"
+    END
+    STATUS ON
+    TEMPLATE "c:/ms4w/empty.txt"
+    TILEITEM "location"
+    TYPE LINE
+    UNITS METERS
+    CLASS
+        NAME "Skytefelt"
+        STYLE
+            COLOR 254 200 254
+            WIDTH 2
+        END
+        STYLE
+            COLOR 1 1 1
+            SYMBOL "Skytefelt"
+        END
+    END
+END

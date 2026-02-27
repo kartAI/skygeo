@@ -1,0 +1,32 @@
+LAYER
+    CONNECTION "*"
+    CONNECTIONTYPE POSTGIS
+    DATA "posisjon from stasjon USING UNIQUE objid USING SRID=4258"
+    MAXSCALEDENOM 50000
+    METADATA
+        "ows_include_items" "All"
+        "ows_extent" "4 57 32 75"
+        "ows_title" "N50 Jernbanestasjon"
+        "gml_include_items" "All"
+        "wms_layer_group" "/kd_jernbanestasjon"
+    END
+    NAME "N50Jernbanestasjon"
+    PROCESSING "CLOSE_CONNECTION=DEFER"
+    PROJECTION
+        "init=epsg:4258"
+    END
+    STATUS ON
+    TEMPLATE "c:/ms4w/empty.txt"
+    TILEITEM "location"
+    TYPE POINT
+    UNITS METERS
+    CLASS
+        NAME "Jernbanestasjon"
+        STYLE
+            COLOR 254 254 254
+            OUTLINECOLOR 1 1 1
+            SIZE 5.3
+            SYMBOL "circle"
+        END
+    END
+END
