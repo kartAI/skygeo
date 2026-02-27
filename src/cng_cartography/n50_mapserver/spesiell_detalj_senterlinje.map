@@ -1,0 +1,35 @@
+LAYER
+    CLASSITEM "objtype"
+    CONNECTION "*"
+    NAME "N50spesiell_detalj_senterlinje"
+    PROCESSING "CLOSE_CONNECTION=DEFER"
+    CONNECTIONTYPE POSTGIS
+    DATA "senterlinje from spesielldetalj_senterlinje USING UNIQUE objid USING SRID=4258"
+    MAXSCALEDENOM 50000
+    MINSCALEDENOM 12000
+    EXTENT 4 57 32 72
+    METADATA
+        "ows_include_items" "All"
+        "ows_extent" "4 57 32 72"
+        "gml_exclude_items" "objid"
+        "ows_title" "spesiell_detalj_senterlinje"
+        "gml_include_items" "All"
+        "ows_exclude_items" "objid"
+        "wms_layer_group" "/kd_spesiell_detalj"
+    END
+    PROJECTION
+        "init=epsg:4258"
+    END
+    STATUS ON
+    TEMPLATE "c:/ms4w/empty.txt"
+    TILEITEM "location"
+    TYPE LINE
+    UNITS METERS
+    CLASS
+        NAME "spesiell_detalj_senterlinje"
+        STYLE
+            COLOR 1 1 1
+            WIDTH 1
+        END
+    END
+END

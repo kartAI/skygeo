@@ -1,0 +1,82 @@
+LAYER
+    CONNECTION "*"
+    CONNECTIONTYPE POSTGIS
+    DATA "posisjon from (select posisjon,lufthavntype, trafikktype,objid, objtype, (180-retningsverdi) as retningsverdi from arealdekkepunkt_matview) as foo USING UNIQUE objid USING SRID=4258"
+    MAXSCALEDENOM 50000
+    MINSCALEDENOM 12000
+    METADATA
+        "ows_include_items" "All"
+        "ows_extent" "4 57 32 75"
+        "ows_title" "N50 Arealdekkepunkt"
+        "gml_include_items" "All"
+        "wms_layer_group" "/kd_arealdekkepunkt"
+    END
+    NAME "N50Arealdekkepunkt"
+    PROCESSING "CLOSE_CONNECTION=DEFER"
+    PROJECTION
+        "init=epsg:4258"
+    END
+    STATUS ON
+    TEMPLATE "c:/ms4w/empty.txt"
+    TILEITEM "location"
+    TYPE POINT
+    UNITS METERS
+    CLASS
+        NAME "Flyplass_internasjonal"
+        EXPRESSION ( ( "[lufthavntype]" = "L" ) AND ( "[trafikktype]" = "I" ) )
+        MAXSCALEDENOM 50000
+        STYLE
+            ANGLE [retningsverdi]
+            COLOR 1 1 1
+            OUTLINECOLOR 254 254 254
+            SIZE 14
+            SYMBOL "Flyplass"
+        END
+    END
+    CLASS
+        NAME "Flyplass_nasjonal"
+        EXPRESSION ( ( "[lufthavntype]" = "L" ) AND ( "[trafikktype]" = "N" ) )
+        MAXSCALEDENOM 50000
+        STYLE
+            ANGLE [retningsverdi]
+            COLOR 1 1 1
+            OUTLINECOLOR 254 254 254
+            SIZE 11
+            SYMBOL "Flyplass"
+        END
+    END
+    CLASS
+        NAME "Flyplass_annen"
+        EXPRESSION ( ( "[lufthavntype]" = "L" ) AND ( "[trafikktype]" = "A" ) )
+        MAXSCALEDENOM 50000
+        STYLE
+            ANGLE [retningsverdi]
+            COLOR 1 1 1
+            OUTLINECOLOR 254 254 254
+            SIZE 11
+            SYMBOL "Flyplass"
+        END
+    END
+    CLASS
+        NAME "Helikopterplass"
+        EXPRESSION ( "[lufthavntype]" = "H" )
+        MAXSCALEDENOM 50000
+        STYLE
+            COLOR 1 1 1
+            OUTLINECOLOR 254 254 254
+            SIZE 12
+            SYMBOL "global/symbols/HP4.svg"
+        END
+    END
+    CLASS
+        NAME "Parkering"
+        EXPRESSION ( "[objtype]" = "ParkeringsomrÃ¥de" )
+        MAXSCALEDENOM 50000
+        STYLE
+            COLOR 1 1 1
+            OUTLINECOLOR 254 254 254
+            SIZE 8
+            SYMBOL "Parkering"
+        END
+    END
+END

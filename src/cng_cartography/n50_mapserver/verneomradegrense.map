@@ -1,0 +1,31 @@
+LAYER
+    CONNECTION "*"
+    CONNECTIONTYPE POSTGIS
+    DATA "grense from naturverngrense_matview USING UNIQUE ogc_fid USING SRID=4258"
+    MINSCALEDENOM 12000
+    MAXSCALEDENOM 50000
+    METADATA
+        "ows_include_items" "All"
+        "ows_extent" "4 57 32 75"
+        "ows_title" "N50 VerneomrÃ¥degrense"
+        "gml_include_items" "All"
+        "wms_layer_group" "/kd_verneomradegrense"
+    END
+    NAME "N50Verneomradegrense"
+    PROCESSING "CLOSE_CONNECTION=DEFER"
+    PROJECTION
+        "init=epsg:4258"
+    END
+    STATUS ON
+    TEMPLATE "c:/ms4w/empty.txt"
+    TILEITEM "location"
+    TYPE LINE
+    UNITS METERS
+    CLASS
+        NAME "Vernet natur"
+        STYLE
+            COLOR 1 156 1
+            WIDTH 1.3
+        END
+    END
+END

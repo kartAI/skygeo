@@ -1,0 +1,36 @@
+LAYER
+    CLASSITEM "objtype"
+    CONNECTION "*"
+    CONNECTIONTYPE POSTGIS
+    DATA "posisjon from spesielldetalj_posisjon USING UNIQUE objid"
+    MAXSCALEDENOM 50000
+    MINSCALEDENOM 12000
+    EXTENT 4 57 32 72
+    METADATA
+        "ows_include_items" "All"
+        "ows_extent" "4 57 32 72"
+        "gml_exclude_items" "objid"
+        "ows_title" "spesiell_detalj_posisjon"
+        "gml_include_items" "All"
+        "ows_exclude_items" "objid"
+        "wms_enable_request" "!getcapabilities"
+    END
+    NAME "N50spesiell_detalj_posisjon"
+    PROCESSING "CLOSE_CONNECTION=DEFER"
+    PROJECTION
+        "init=epsg:4258"
+    END
+    STATUS ON
+    TEMPLATE "c:/ms4w/empty.txt"
+    TILEITEM "location"
+    TYPE POINT
+    UNITS METERS
+    CLASS
+        NAME "spesiell_detalj_posisjon"
+        STYLE
+            COLOR 1 1 1
+            SYMBOL "Kryss"
+            SIZE 4
+        END
+    END
+END
