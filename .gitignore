@@ -231,5 +231,8 @@ src/planetiles2pmtiles/data/sources/Basisdata_0000_Norge_25833_N250Kartdata.gpkg
 !docs/*/*.pmtiles
 !docs/*/*/*.pmtiles
 !docs/*/*/*/*.pmtiles
- 
+
+*.gdb 
+*.gpkg
 src/geonorge2stac/output/
+src/planetiles2pmtiles/data/sources/*.zip

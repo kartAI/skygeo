@@ -1,0 +1,202 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8" />
+    <title>PMTiles Light Grey Map</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    
+    <script src="https://unpkg.com/maplibre-gl/dist/maplibre-gl.js"></script>
+    <link href="https://unpkg.com/maplibre-gl/dist/maplibre-gl.css" rel="stylesheet" />
+    
+    <script src="https://unpkg.com/pmtiles/dist/pmtiles.js"></script>
+    <script src="../../common-header.js"></script>
+    
+    <style>
+        body { margin: 0; padding: 0; display: flex; flex-direction: column; height: 100vh; }
+        #map { position: relative; flex: 1; width: 100%; min-height: 500px; }
+
+        /* Inspect feature popup styles */
+        .inspect-popup {
+            position: absolute;
+            pointer-events: none;
+            background: rgba(30,30,30,0.95);
+            color: #fff;
+            padding: 8px 12px;
+            border-radius: 6px;
+            box-shadow: 0 2px 8px rgba(0,0,0,0.3);
+            font-size: 14px;
+            z-index: 9999;
+            max-width: 320px;
+            white-space: pre-wrap;
+            border: 1px solid #00ffff;
+            display: none;
+            overflow-y: hidden;
+        }
+        .demo-info {
+            position: relative;
+            background: #222;
+            color: #fff;
+            padding: 16px 32px;
+            z-index: 10000;
+            box-shadow: 0 2px 8px rgba(0,0,0,0.12);
+        }
+        .demo-info h2 {
+            margin: 0 0 8px 0;
+            font-size: 1.5em;
+        }
+        .demo-info p {
+            margin: 0;
+            font-size: 1em;
+        }
+        .getting-started {
+            background: #222;
+            color: #fff;
+            padding: 32px;
+            margin-top: 0;
+            border-top: 1px solid #444;
+        }
+        .getting-started h3 {
+            margin: 0 0 16px 0;
+            font-size: 1.6em;
+            border-bottom: 2px solid #444;
+            padding-bottom: 8px;
+        }
+        .getting-started h4 {
+            margin: 20px 0 8px 0;
+            font-size: 1.1em;
+            font-weight: bold;
+        }
+        .getting-started p {
+            margin: 0 0 12px 0;
+            font-size: 1em;
+            line-height: 1.6;
+        }
+        .getting-started pre {
+            background: #111;
+            padding: 16px;
+            border-left: 4px solid #00ffff;
+            overflow-x: auto;
+            font-size: 0.9em;
+            margin: 12px 0 16px 0;
+            border-radius: 4px;
+        }
+        .getting-started code {
+            font-family: 'Courier New', monospace;
+            font-size: 0.95em;
+        }
+        /* Syntax highlighting - astro-code github-dark theme */
+        .token {
+            color: #c9d1d9;
+        }
+        .token.tag {
+            color: #79c0ff;
+        }
+        .token.attr-name {
+            color: #79c0ff;
+        }
+        .token.attr-value {
+            color: #a5d6ff;
+        }
+        .token.string {
+            color: #a5d6ff;
+        }
+        .token.keyword {
+            color: #ff7b72;
+        }
+        .token.function {
+            color: #d2a8ff;
+        }
+        .token.comment {
+            color: #8b949e;
+        }
+        .token.number {
+            color: #79c0ff;
+        }
+        .token.operator {
+            color: #ff7b72;
+        }
+        .token.punctuation {
+            color: #c9d1d9;
+        }
+    </style>
+</head>
+<body>
+
+<div class="demo-info">
+    <h2>PMTiles Demo på bakgrunnskart uten servere (N100-datasett)</h2>
+    <p>Interaktivt bakgrunnskart som benytter en enkelt cloud native PMTiles-fil for vector tiles med alle kartdata. Utforsk kartet og inspiser objekter med musen.</p>
+</div>
+
+<div id="map"></div>
+<div id="inspect-popup" class="inspect-popup"></div>
+
+<div class="getting-started">
+    <h3>Kom i gang</h3>
+    <h4>Hvordan laste MapLibre GL JS</h4>
+    <p>Inkluder MapLibre GL JS i <code>&lt;head&gt;</code>. Hvis du bruker npm, kan du installere <code>maplibre-gl</code> pakken. Husk å importere CSS også:</p>
+    <pre><code><span class="token tag">&lt;script</span> <span class="token attr-name">src</span><span class="token operator">=</span><span class="token attr-value">"https://unpkg.com/maplibre-gl/dist/maplibre-gl.js"</span><span class="token tag">&gt;&lt;/script&gt;</span>
+<span class="token tag">&lt;link</span> <span class="token attr-name">href</span><span class="token operator">=</span><span class="token attr-value">"https://unpkg.com/maplibre-gl/dist/maplibre-gl.css"</span> <span class="token attr-name">rel</span><span class="token operator">=</span><span class="token attr-value">"stylesheet"</span> <span class="token tag">/&gt;</span></code></pre>
+    
+    <p>Initialiser det i en div slik:</p>
+    <pre><code><span class="token tag">&lt;div</span> <span class="token attr-name">id</span><span class="token operator">=</span><span class="token attr-value">"map"</span> <span class="token attr-name">style</span><span class="token operator">=</span><span class="token attr-value">"width: 100%; height: 500px"</span><span class="token tag">&gt;&lt;/div&gt;</span>
+<span class="token tag">&lt;script&gt;</span>
+  <span class="token keyword">const</span> map <span class="token operator">=</span> <span class="token keyword">new</span> <span class="token function">maplibregl.Map</span><span class="token punctuation">({</span>
+    style<span class="token operator">:</span> <span class="token string">'https://tiles.openfreemap.org/styles/liberty'</span><span class="token punctuation">,</span>
+    center<span class="token operator">:</span> <span class="token punctuation">[</span><span class="token number">13.388</span><span class="token punctuation">,</span> <span class="token number">52.517</span><span class="token punctuation">]</span><span class="token punctuation">,</span>
+    zoom<span class="token operator">:</span> <span class="token number">9.5</span><span class="token punctuation">,</span>
+    container<span class="token operator">:</span> <span class="token string">'map'</span><span class="token punctuation">,</span>
+  <span class="token punctuation">})</span>
+<span class="token tag">&lt;/script&gt;</span></code></pre>
+</div>
+
+<script>
+    // 1. Initialize the PMTiles protocol
+    let protocol = new pmtiles.Protocol();
+    maplibregl.addProtocol("pmtiles", protocol.tile);
+
+    
+    // 2. Initialize the MapLibre map using style.json
+    const map = new maplibregl.Map({
+        container: "map",
+        style: "style_n100_dark.json",
+        // set explicit center
+        center: [8.861573681786354, 61.87774254585082],
+        zoom: 5.631333431788067
+    });
+
+
+    // Add navigation controls
+    map.addControl(new maplibregl.NavigationControl());
+    // --- Inspect Feature Popup ---
+    const popup = document.getElementById('inspect-popup');
+
+    map.on('mousemove', (e) => {
+        return; // Disable popup for now
+        const features = map.queryRenderedFeatures(e.point);
+        if (features.length > 0) {
+            let props = '';
+            features.forEach((feature, idx) => {
+                props += `<div style='margin-bottom:8px;'>`;
+                props += `<b>Layer:</b> ${feature.layer.id}<br/>`;
+                for (const key in feature.properties) {
+                    props += `<b>${key}</b>: ${feature.properties[key]}<br/>`;
+                }
+                props += `</div>`;
+            });
+            popup.innerHTML = props;
+            popup.style.display = 'block';
+            popup.style.left = (e.originalEvent.clientX + 15) + 'px';
+            popup.style.top = (e.originalEvent.clientY + 15) + 'px';
+        } else {
+            popup.style.display = 'none';
+        }
+    });
+
+    map.on('mouseout', () => {
+        popup.style.display = 'none';
+    });
+
+</script>
+
+</body>
+</html>
