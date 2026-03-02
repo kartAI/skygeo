@@ -1,9 +1,14 @@
 import './style.css';
+
+import { ol as fgb } from 'flatgeobuf';
+
 import { Map, View } from 'ol';
+import VectorLayer from 'ol/layer/Vector';
 import TileLayer from 'ol/layer/WebGLTile';
 // import OSM from 'ol/source/OSM';
 import GeoTIFF from 'ol/source/GeoTIFF';
 import ImageTile from 'ol/source/ImageTile';
+import VectorSource from 'ol/source/Vector';
 
 const cog = new GeoTIFF({
   normalize: false,
@@ -11,8 +16,18 @@ const cog = new GeoTIFF({
     { url: 'https://karttest.nibio.no/skygeo/sr16/bonitet_3857_cog.tif' }
   ]
 });
-
 const bonitet = ['band', 1];
+
+const strategy = extent => [extent];
+const source = new VectorSource({ strategy });
+source.setLoader(fgb.createLoader(
+  source,
+  'https://karttest.nibio.no/skygeo/sr16/sr16.fgb',
+  // 'EPSG:4258',
+  'EPSG:4326',
+  strategy,
+  true
+));
 
 const map = new Map({
   target: 'map',
@@ -41,7 +56,8 @@ const map = new Map({
           'darkgreen'
         ]
       }
-    })
+    }),
+    new VectorLayer({ minZoom: 12, source })
   ],
   // view: cog.getView()
   view: new View({ center: [1100000, 9300000], zoom: 6 })
