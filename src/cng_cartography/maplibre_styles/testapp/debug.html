@@ -1,0 +1,722 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8" />
+    <title>PMTiles Inspector - Complete Metadata View</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    
+    <script src="https://unpkg.com/maplibre-gl/dist/maplibre-gl.js"></script>
+    <link href="https://unpkg.com/maplibre-gl/dist/maplibre-gl.css" rel="stylesheet" />
+    <script src="https://unpkg.com/pmtiles/dist/pmtiles.js"></script>
+    
+    <style>
+        body { margin: 0; padding: 0; font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif; }
+        #map { position: absolute; top: 0; bottom: 0; width: 60%; right: 0; }
+        
+        .inspector-panel {
+            position: absolute;
+            top: 0;
+            left: 0;
+            bottom: 0;
+            width: 40%;
+            background: #1a1a1a;
+            color: #e0e0e0;
+            overflow-y: auto;
+            z-index: 10000;
+            font-size: 13px;
+            line-height: 1.5;
+            box-shadow: 2px 0 8px rgba(0,0,0,0.5);
+        }
+        
+        .inspector-header {
+            background: #2a2a2a;
+            padding: 20px;
+            border-bottom: 2px solid #00ffff;
+            position: sticky;
+            top: 0;
+            z-index: 100;
+        }
+        
+        .inspector-header h1 {
+            margin: 0 0 8px 0;
+            color: #00ffff;
+            font-size: 24px;
+            font-weight: 600;
+        }
+        
+        .inspector-header p {
+            margin: 0;
+            color: #999;
+            font-size: 12px;
+        }
+        
+        .inspector-content {
+            padding: 20px;
+        }
+        
+        .section {
+            margin-bottom: 24px;
+            background: #242424;
+            border-radius: 8px;
+            padding: 16px;
+            border-left: 4px solid #00ffff;
+        }
+        
+        .section h2 {
+            margin: 0 0 12px 0;
+            color: #00ffff;
+            font-size: 18px;
+            font-weight: 600;
+        }
+        
+        .section h3 {
+            margin: 16px 0 8px 0;
+            color: #44ff44;
+            font-size: 15px;
+            font-weight: 600;
+        }
+        
+        .metadata-item {
+            margin: 8px 0;
+            padding: 8px 12px;
+            background: #1a1a1a;
+            border-radius: 4px;
+            font-family: 'Courier New', monospace;
+            font-size: 12px;
+        }
+        
+        .metadata-key {
+            color: #ffaa00;
+            font-weight: bold;
+            display: inline-block;
+            min-width: 150px;
+        }
+        
+        .metadata-value {
+            color: #44ff44;
+        }
+        
+        .layer-card {
+            background: #1a1a1a;
+            border-radius: 6px;
+            padding: 12px;
+            margin: 12px 0;
+            border: 1px solid #333;
+        }
+        
+        .layer-name {
+            color: #00ffff;
+            font-weight: bold;
+            font-size: 16px;
+            margin-bottom: 8px;
+        }
+        
+        .field-list {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
+            gap: 6px;
+            margin-top: 8px;
+        }
+        
+        .field-item {
+            background: #2a2a2a;
+            padding: 6px 10px;
+            border-radius: 4px;
+            font-family: 'Courier New', monospace;
+            font-size: 11px;
+        }
+        
+        .field-name {
+            color: #ffaa00;
+            font-weight: bold;
+        }
+        
+        .field-type {
+            color: #999;
+            margin-left: 6px;
+        }
+        
+        .badge {
+            display: inline-block;
+            padding: 2px 8px;
+            border-radius: 12px;
+            font-size: 10px;
+            font-weight: bold;
+            margin-left: 8px;
+        }
+        
+        .badge.success {
+            background: #44ff44;
+            color: #000;
+        }
+        
+        .badge.info {
+            background: #00aaff;
+            color: #fff;
+        }
+        
+        .badge.warning {
+            background: #ffaa00;
+            color: #000;
+        }
+        
+        .json-view {
+            background: #0d0d0d;
+            padding: 12px;
+            border-radius: 4px;
+            font-family: 'Courier New', monospace;
+            font-size: 11px;
+            overflow-x: auto;
+            color: #44ff44;
+            max-height: 400px;
+            overflow-y: auto;
+        }
+        
+        .stats-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
+            gap: 12px;
+            margin-top: 12px;
+        }
+        
+        .stat-box {
+            background: #1a1a1a;
+            padding: 12px;
+            border-radius: 6px;
+            text-align: center;
+            border: 1px solid #333;
+        }
+        
+        .stat-label {
+            color: #999;
+            font-size: 11px;
+            margin-bottom: 4px;
+        }
+        
+        .stat-value {
+            color: #00ffff;
+            font-size: 20px;
+            font-weight: bold;
+        }
+        
+        .inspect-popup {
+            position: absolute;
+            pointer-events: none;
+            background: rgba(30,30,30,0.98);
+            color: #fff;
+            padding: 12px;
+            border-radius: 6px;
+            box-shadow: 0 2px 12px rgba(0,0,0,0.5);
+            font-size: 12px;
+            z-index: 9999;
+            max-width: 400px;
+            max-height: 300px;
+            overflow-y: auto;
+            white-space: pre-wrap;
+            border: 2px solid #00ffff;
+            display: none;
+            font-family: 'Courier New', monospace;
+        }
+        
+        .controls {
+            position: absolute;
+            top: 10px;
+            right: 70px;
+            z-index: 1000;
+            background: rgba(30,30,30,0.95);
+            padding: 12px;
+            border-radius: 8px;
+            box-shadow: 0 2px 12px rgba(0,0,0,0.5);
+            border: 1px solid #00ffff;
+        }
+        
+        .controls button {
+            display: block;
+            margin: 4px 0;
+            padding: 8px 12px;
+            background: #007cbf;
+            color: white;
+            border: none;
+            border-radius: 4px;
+            cursor: pointer;
+            font-size: 11px;
+            transition: all 0.2s;
+        }
+        
+        .controls button:hover {
+            background: #00a0ff;
+            transform: translateX(-2px);
+        }
+        
+        .controls label {
+            display: block;
+            margin: 8px 0 4px 0;
+            font-size: 10px;
+            font-weight: bold;
+            color: #00ffff;
+        }
+        
+        .controls input {
+            width: 180px;
+            padding: 6px;
+            font-family: 'Courier New', monospace;
+            font-size: 11px;
+            background: #1a1a1a;
+            border: 1px solid #444;
+            color: #fff;
+            border-radius: 4px;
+        }
+        
+        .loading {
+            color: #ffaa00;
+            font-style: italic;
+        }
+        
+        .error-box {
+            background: #331111;
+            border: 2px solid #ff4444;
+            border-radius: 6px;
+            padding: 12px;
+            color: #ff8888;
+            margin: 12px 0;
+        }
+    </style>
+</head>
+<body>
+
+<div class="inspector-panel">
+    <div class="inspector-header">
+        <h1>📦 PMTiles Inspector</h1>
+        <p>Comprehensive metadata and layer analysis</p>
+    </div>
+    <div id="inspector-content" class="inspector-content">
+        <div class="loading">⏳ Loading PMTiles metadata...</div>
+    </div>
+</div>
+
+<div id="map"></div>
+<div id="inspect-popup" class="inspect-popup"></div>
+
+<div class="controls">
+    <button onclick="testAllSourceLayers()">🔍 Test Layers</button>
+    <button onclick="toggleDebugLayer()">👁️ Debug View</button>
+    <button onclick="exportData()">💾 Export</button>
+    <button onclick="refreshMetadata()">🔄 Refresh</button>
+    
+    <label>PMTiles File:</label>
+    <input id="pmtilesInput" type="text" value="n250.pmtiles" />
+    
+    <label>Source Layer:</label>
+    <input id="sourceLayerInput" type="text" value="N250Arealdekkeflate" />
+</div>
+
+<script>
+    const inspectorContent = document.getElementById('inspector-content');
+    const popup = document.getElementById('inspect-popup');
+    let map;
+    let debugLayerVisible = false;
+    let pmtilesMetadata = null;
+    let pmtilesHeader = null;
+    
+    // Initialize PMTiles protocol
+    let protocol = new pmtiles.Protocol();
+    maplibregl.addProtocol("pmtiles", protocol.tile);
+    
+    // Initialize map
+    map = new maplibregl.Map({
+        container: "map",
+        style: "style_n250_arealdekkeflate.json",
+        center: [8.861573681786354, 61.87774254585082],
+        zoom: 5.631333431788067
+    });
+    
+    // Add navigation controls
+    map.addControl(new maplibregl.NavigationControl());
+    
+    // Map load event
+    map.on('load', () => {
+        inspectPMTiles();
+    });
+    
+    // Click to inspect features
+    map.on('click', (e) => {
+        const features = map.queryRenderedFeatures(e.point);
+        console.log('Clicked features:', features);
+    });
+    
+    // Hover to show popup
+    map.on('mousemove', (e) => {
+        const features = map.queryRenderedFeatures(e.point);
+        if (features.length > 0) {
+            let html = '';
+            features.slice(0, 3).forEach((feature, idx) => {
+                html += `<div style='margin-bottom:10px; border-bottom:1px solid #555; padding-bottom:8px;'>`;
+                html += `<b style='color:#00ffff'>Layer:</b> ${feature.layer.id}<br/>`;
+                html += `<b style='color:#00ffff'>Source Layer:</b> ${feature.sourceLayer || 'N/A'}<br/>`;
+                html += `<b style='color:#00ffff'>Properties:</b><br/>`;
+                for (const key in feature.properties) {
+                    html += `  <b>${key}</b>: ${feature.properties[key]}<br/>`;
+                }
+                html += `</div>`;
+            });
+            if (features.length > 3) {
+                html += `<div style='color:#ffaa00'>... and ${features.length - 3} more features</div>`;
+            }
+            popup.innerHTML = html;
+            popup.style.display = 'block';
+            popup.style.left = (e.originalEvent.clientX + 15) + 'px';
+            popup.style.top = (e.originalEvent.clientY + 15) + 'px';
+        } else {
+            popup.style.display = 'none';
+        }
+    });
+    
+    // Inspect PMTiles file and render full metadata
+    async function inspectPMTiles() {
+        const filename = document.getElementById('pmtilesInput').value;
+        inspectorContent.innerHTML = '<div class="loading">⏳ Loading PMTiles metadata...</div>';
+        
+        try {
+            const pmtilesFile = new pmtiles.PMTiles(filename);
+            
+            // Get header and metadata
+            pmtilesHeader = await pmtilesFile.getHeader();
+            pmtilesMetadata = await pmtilesFile.getMetadata();
+            
+            renderInspector();
+            
+        } catch (e) {
+            inspectorContent.innerHTML = `
+                <div class="error-box">
+                    <strong>❌ Error loading PMTiles</strong><br/>
+                    ${e.message}
+                </div>
+            `;
+            console.error('PMTiles inspection error:', e);
+        }
+    }
+    
+    // Render the full inspector UI
+    function renderInspector() {
+        const style = map.getStyle();
+        const features = map.queryRenderedFeatures();
+        const uniqueLayers = [...new Set(features.map(f => f.sourceLayer))].filter(Boolean);
+        
+        let html = '';
+        
+        // File Overview Section
+        html += `
+            <div class="section">
+                <h2>📊 File Overview</h2>
+                <div class="stats-grid">
+                    <div class="stat-box">
+                        <div class="stat-label">Tile Format</div>
+                        <div class="stat-value">${pmtilesMetadata.format || pmtilesHeader.tileType || 'MVT'}</div>
+                    </div>
+                    <div class="stat-box">
+                        <div class="stat-label">Min Zoom</div>
+                        <div class="stat-value">${pmtilesMetadata.minzoom || pmtilesHeader.minZoom || 'N/A'}</div>
+                    </div>
+                    <div class="stat-box">
+                        <div class="stat-label">Max Zoom</div>
+                        <div class="stat-value">${pmtilesMetadata.maxzoom || pmtilesHeader.maxZoom || 'N/A'}</div>
+                    </div>
+                    <div class="stat-box">
+                        <div class="stat-label">Center Zoom</div>
+                        <div class="stat-value">${pmtilesMetadata.center ? pmtilesMetadata.center[2] : 'N/A'}</div>
+                    </div>
+                    <div class="stat-box">
+                        <div class="stat-label">Vector Layers</div>
+                        <div class="stat-value">${pmtilesMetadata.vector_layers ? pmtilesMetadata.vector_layers.length : 0}</div>
+                    </div>
+                    <div class="stat-box">
+                        <div class="stat-label">Active on Map</div>
+                        <div class="stat-value">${uniqueLayers.length}</div>
+                    </div>
+                </div>
+            </div>
+        `;
+        
+        // Bounds Section
+        if (pmtilesMetadata.bounds || pmtilesHeader.minLon) {
+            const bounds = pmtilesMetadata.bounds || [
+                pmtilesHeader.minLon, pmtilesHeader.minLat,
+                pmtilesHeader.maxLon, pmtilesHeader.maxLat
+            ];
+            html += `
+                <div class="section">
+                    <h2>🌍 Bounds</h2>
+                    <div class="metadata-item">
+                        <span class="metadata-key">BBox:</span>
+                        <span class="metadata-value">[${bounds.map(v => v.toFixed(4)).join(', ')}]</span>
+                    </div>
+                </div>
+            `;
+        }
+        
+        // Center Section
+        if (pmtilesMetadata.center) {
+            html += `
+                <div class="section">
+                    <h2>📍 Center</h2>
+                    <div class="metadata-item">
+                        <span class="metadata-key">Lon, Lat, Zoom:</span>
+                        <span class="metadata-value">[${pmtilesMetadata.center.map((v, i) => i < 2 ? v.toFixed(4) : v).join(', ')}]</span>
+                    </div>
+                </div>
+            `;
+        }
+        
+        // Vector Layers Section
+        if (pmtilesMetadata.vector_layers && pmtilesMetadata.vector_layers.length > 0) {
+            html += `
+                <div class="section">
+                    <h2>📁 Vector Layers (${pmtilesMetadata.vector_layers.length})</h2>
+            `;
+            
+            pmtilesMetadata.vector_layers.forEach(layer => {
+                const isActive = uniqueLayers.includes(layer.id);
+                const fieldCount = layer.fields ? Object.keys(layer.fields).length : 0;
+                
+                html += `
+                    <div class="layer-card">
+                        <div class="layer-name">
+                            ${layer.id}
+                            ${isActive ? '<span class="badge success">ACTIVE</span>' : '<span class="badge info">Available</span>'}
+                        </div>
+                        <div class="metadata-item">
+                            <span class="metadata-key">Description:</span>
+                            <span class="metadata-value">${layer.description || 'No description'}</span>
+                        </div>
+                        <div class="metadata-item">
+                            <span class="metadata-key">Fields:</span>
+                            <span class="metadata-value">${fieldCount} attributes</span>
+                        </div>
+                `;
+                
+                if (layer.fields && Object.keys(layer.fields).length > 0) {
+                    html += `<div class="field-list">`;
+                    for (const [fieldName, fieldType] of Object.entries(layer.fields)) {
+                        html += `
+                            <div class="field-item">
+                                <span class="field-name">${fieldName}</span>
+                                <span class="field-type">${fieldType}</span>
+                            </div>
+                        `;
+                    }
+                    html += `</div>`;
+                }
+                
+                // Show min/max zoom if available
+                if (layer.minzoom !== undefined || layer.maxzoom !== undefined) {
+                    html += `
+                        <div class="metadata-item" style="margin-top:8px;">
+                            <span class="metadata-key">Zoom range:</span>
+                            <span class="metadata-value">${layer.minzoom || 0} - ${layer.maxzoom || 'max'}</span>
+                        </div>
+                    `;
+                }
+                
+                html += `</div>`;
+            });
+            
+            html += `</div>`;
+        }
+        
+        // Additional Metadata Section
+        html += `
+            <div class="section">
+                <h2>🔧 Additional Metadata</h2>
+        `;
+        
+        const additionalProps = Object.keys(pmtilesMetadata).filter(key => 
+            !['vector_layers', 'format', 'bounds', 'center', 'minzoom', 'maxzoom'].includes(key)
+        );
+        
+        if (additionalProps.length > 0) {
+            additionalProps.forEach(key => {
+                const value = pmtilesMetadata[key];
+                html += `
+                    <div class="metadata-item">
+                        <span class="metadata-key">${key}:</span>
+                        <span class="metadata-value">${typeof value === 'object' ? JSON.stringify(value) : value}</span>
+                    </div>
+                `;
+            });
+        } else {
+            html += `<div class="metadata-item"><span class="metadata-value">No additional metadata</span></div>`;
+        }
+        
+        html += `</div>`;
+        
+        // Header Information Section
+        html += `
+            <div class="section">
+                <h2>📋 PMTiles Header</h2>
+                <div class="metadata-item">
+                    <span class="metadata-key">Root Dir Offset:</span>
+                    <span class="metadata-value">${pmtilesHeader.rootDirectoryOffset}</span>
+                </div>
+                <div class="metadata-item">
+                    <span class="metadata-key">Root Dir Length:</span>
+                    <span class="metadata-value">${pmtilesHeader.rootDirectoryLength}</span>
+                </div>
+                <div class="metadata-item">
+                    <span class="metadata-key">Tile Type:</span>
+                    <span class="metadata-value">${pmtilesHeader.tileType}</span>
+                </div>
+                <div class="metadata-item">
+                    <span class="metadata-key">Tile Compression:</span>
+                    <span class="metadata-value">${pmtilesHeader.tileCompression}</span>
+                </div>
+            </div>
+        `;
+        
+        // Full JSON Section
+        html += `
+            <div class="section">
+                <h2>📄 Complete Metadata (JSON)</h2>
+                <div class="json-view">${JSON.stringify(pmtilesMetadata, null, 2)}</div>
+            </div>
+        `;
+        
+        // Map Style Info
+        html += `
+            <div class="section">
+                <h2>🗺️ Current Map Style</h2>
+                <div class="metadata-item">
+                    <span class="metadata-key">Style Name:</span>
+                    <span class="metadata-value">${style.name || 'Unnamed'}</span>
+                </div>
+                <div class="metadata-item">
+                    <span class="metadata-key">Style Layers:</span>
+                    <span class="metadata-value">${style.layers.length}</span>
+                </div>
+                <div class="metadata-item">
+                    <span class="metadata-key">Rendered Features:</span>
+                    <span class="metadata-value">${features.length}</span>
+                </div>
+            </div>
+        `;
+        
+        inspectorContent.innerHTML = html;
+    }
+    
+    function refreshMetadata() {
+        inspectPMTiles();
+    }
+    
+    // Test all source layers from metadata
+    function testAllSourceLayers() {
+        if (!pmtilesMetadata || !pmtilesMetadata.vector_layers) {
+            alert('Please wait for metadata to load first');
+            return;
+        }
+        
+        console.log('Testing all source layers from PMTiles metadata:');
+        
+        pmtilesMetadata.vector_layers.forEach(layer => {
+            try {
+                const testId = `test-${layer.id}`;
+                
+                // Remove if exists
+                if (map.getLayer(testId)) {
+                    map.removeLayer(testId);
+                }
+                
+                map.addLayer({
+                    id: testId,
+                    type: 'fill',
+                    source: 'n250',
+                    'source-layer': layer.id,
+                    paint: {
+                        'fill-color': '#ff00ff',
+                        'fill-opacity': 0.3
+                    }
+                });
+                
+                const features = map.queryRenderedFeatures();
+                const layerFeatures = features.filter(f => f.sourceLayer === layer.id);
+                
+                console.log(`✓ "${layer.id}": ${layerFeatures.length} features rendered`);
+                
+                map.removeLayer(testId);
+            } catch (e) {
+                console.error(`✗ "${layer.id}": ${e.message}`);
+            }
+        });
+        
+        alert('Check console for test results');
+    }
+    
+    // Toggle debug layer
+    function toggleDebugLayer() {
+        const sourceLayer = document.getElementById('sourceLayerInput').value;
+        
+        if (debugLayerVisible) {
+            try {
+                map.removeLayer('debug-all-features');
+                debugLayerVisible = false;
+                console.log('Debug layer removed');
+            } catch (e) {
+                console.error('Error removing debug layer:', e.message);
+            }
+        } else {
+            try {
+                map.addLayer({
+                    id: 'debug-all-features',
+                    type: 'fill',
+                    source: 'n250',
+                    'source-layer': sourceLayer,
+                    paint: {
+                        'fill-color': '#ff00ff',
+                        'fill-opacity': 0.6,
+                        'fill-outline-color': '#ff00ff'
+                    }
+                });
+                debugLayerVisible = true;
+                console.log(`Debug layer added with source-layer "${sourceLayer}"`);
+                alert(`Debug layer active! Showing all features in source-layer "${sourceLayer}" in magenta.`);
+            } catch (e) {
+                console.error('Error adding debug layer:', e.message);
+                alert(`Error: ${e.message}`);
+            }
+        }
+    }
+    
+    // Export complete inspection data
+    function exportData() {
+        const features = map.queryRenderedFeatures();
+        
+        const exportData = {
+            metadata: pmtilesMetadata,
+            header: pmtilesHeader,
+            sampleFeatures: features.slice(0, 20).map(f => ({
+                layer: f.layer.id,
+                sourceLayer: f.sourceLayer,
+                geometry: f.geometry,
+                properties: f.properties
+            })),
+            statistics: {
+                totalFeaturesOnScreen: features.length,
+                uniqueSourceLayers: [...new Set(features.map(f => f.sourceLayer))],
+                uniqueStyleLayers: [...new Set(features.map(f => f.layer.id))]
+            }
+        };
+        
+        const json = JSON.stringify(exportData, null, 2);
+        const blob = new Blob([json], { type: 'application/json' });
+        const url = URL.createObjectURL(blob);
+        const a = document.createElement('a');
+        a.href = url;
+        a.download = 'pmtiles_inspection_export.json';
+        a.click();
+        
+        console.log('Exported data:', exportData);
+        alert(`✓ Exported complete inspection data (${features.length} features)`);
+    }
+    
+</script>
+
+</body>
+</html>

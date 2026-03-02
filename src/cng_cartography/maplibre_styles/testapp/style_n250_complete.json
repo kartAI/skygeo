@@ -1,0 +1,735 @@
+{
+  "version": 8,
+  "name": "N250 Complete",
+  "metadata": {
+    "maputnik:renderer": "mbgljs",
+    "skygeo:profile": "n250-complete-v1"
+  },
+  "glyphs": "https://demotiles.maplibre.org/font/{fontstack}/{range}.pbf",
+  "sources": {
+    "n250": {
+      "type": "vector",
+      "url": "pmtiles://n250.pmtiles"
+    }
+  },
+  "layers": [
+    {
+      "id": "background",
+      "type": "background",
+      "paint": {
+        "background-color": "#f3f0e6"
+      }
+    },
+    {
+      "id": "admin-area-fill",
+      "type": "fill",
+      "source": "n250",
+      "source-layer": "N250_AdministrativeOmråder_omrade",
+      "paint": {
+        "fill-color": "#f4f1ea",
+        "fill-opacity": 0.25
+      }
+    },
+    {
+      "id": "arealdekke-forest",
+      "type": "fill",
+      "source": "n250",
+      "source-layer": "N250_Arealdekke_omrade",
+      "filter": ["==", ["get", "objtype"], "Skog"],
+      "paint": {
+        "fill-color": "#d2e67c"
+      }
+    },
+    {
+      "id": "arealdekke-cultivated",
+      "type": "fill",
+      "source": "n250",
+      "source-layer": "N250_Arealdekke_omrade",
+      "filter": ["==", ["get", "objtype"], "DyrketMark"],
+      "paint": {
+        "fill-color": "#fef7a3"
+      }
+    },
+    {
+      "id": "arealdekke-open",
+      "type": "fill",
+      "source": "n250",
+      "source-layer": "N250_Arealdekke_omrade",
+      "filter": [
+        "any",
+        ["==", ["get", "objtype"], "ÅpentOmråde"],
+        ["==", ["get", "objtype"], "Ã…pentOmrÃ¥de"]
+      ],
+      "paint": {
+        "fill-color": "#fefee6"
+      }
+    },
+    {
+      "id": "arealdekke-builtup",
+      "type": "fill",
+      "source": "n250",
+      "source-layer": "N250_Arealdekke_omrade",
+      "filter": [
+        "any",
+        ["==", ["get", "objtype"], "BymessigBebyggelse"],
+        ["==", ["get", "objtype"], "Tettbebyggelse"],
+        ["==", ["get", "objtype"], "Hyttefelt"]
+      ],
+      "paint": {
+        "fill-color": "#f7be8c"
+      }
+    },
+    {
+      "id": "arealdekke-industrial",
+      "type": "fill",
+      "source": "n250",
+      "source-layer": "N250_Arealdekke_omrade",
+      "filter": [
+        "any",
+        ["==", ["get", "objtype"], "Industriområde"],
+        ["==", ["get", "objtype"], "IndustriomrÃ¥de"],
+        ["==", ["get", "objtype"], "Steinbrudd"],
+        ["==", ["get", "objtype"], "Steintipp"]
+      ],
+      "paint": {
+        "fill-color": "#d7d7d7"
+      }
+    },
+    {
+      "id": "arealdekke-leisure",
+      "type": "fill",
+      "source": "n250",
+      "source-layer": "N250_Arealdekke_omrade",
+      "filter": [
+        "in",
+        ["get", "objtype"],
+        ["literal", ["Alpinbakke", "Golfbane", "Gravplass", "Park", "SportIdrettPlass"]]
+      ],
+      "paint": {
+        "fill-color": "#9bb93c"
+      }
+    },
+    {
+      "id": "arealdekke-bog-glacier",
+      "type": "fill",
+      "source": "n250",
+      "source-layer": "N250_Arealdekke_omrade",
+      "filter": [
+        "any",
+        ["==", ["get", "objtype"], "Myr"],
+        ["==", ["get", "objtype"], "SnøIsbre"],
+        ["==", ["get", "objtype"], "SnÃ¸Isbre"]
+      ],
+      "paint": {
+        "fill-color": "#fefefe",
+        "fill-outline-color": "#82c8f0"
+      }
+    },
+    {
+      "id": "water-area",
+      "type": "fill",
+      "source": "n250",
+      "source-layer": "N250_Arealdekke_omrade",
+      "filter": [
+        "in",
+        ["get", "objtype"],
+        [
+          "literal",
+          [
+            "Havflate",
+            "Elv",
+            "ElvBekk",
+            "Innsjø",
+            "InnsjÃ¸",
+            "InnsjøRegulert",
+            "InnsjÃ¸Regulert",
+            "FerskvannTørrfall",
+            "FerskvannTÃ¸rrfall"
+          ]
+        ]
+      ],
+      "paint": {
+        "fill-color": "#e0fefe"
+      }
+    },
+    {
+      "id": "restriction-area",
+      "type": "fill",
+      "source": "n250",
+      "source-layer": "N250_Restriksjonsområder_omrade",
+      "paint": {
+        "fill-color": "#c7dfb3",
+        "fill-opacity": 0.25
+      }
+    },
+    {
+      "id": "terrain-area",
+      "type": "fill",
+      "source": "n250",
+      "source-layer": "N250_Høyde_omrade",
+      "paint": {
+        "fill-color": "#efe8d8",
+        "fill-opacity": 0.15
+      }
+    },
+    {
+      "id": "water-edge",
+      "type": "line",
+      "source": "n250",
+      "source-layer": "N250_Arealdekke_grense",
+      "filter": [
+        "in",
+        ["get", "objtype"],
+        ["literal", ["Kystkontur", "Innsjøkant", "InnsjÃ¸kant", "ElveKant", "InnsjøkantRegulert", "InnsjÃ¸kantRegulert"]]
+      ],
+      "paint": {
+        "line-color": "#00a6fe",
+        "line-width": ["interpolate", ["linear"], ["zoom"], 2, 0.4, 8, 1.2, 12, 2]
+      }
+    },
+    {
+      "id": "arealdekke-boundary",
+      "type": "line",
+      "source": "n250",
+      "source-layer": "N250_Arealdekke_grense",
+      "filter": [
+        "!",
+        [
+          "in",
+          ["get", "objtype"],
+          ["literal", ["Kystkontur", "Innsjøkant", "InnsjÃ¸kant", "ElveKant", "InnsjøkantRegulert", "InnsjÃ¸kantRegulert"]]
+        ]
+      ],
+      "paint": {
+        "line-color": "#d6cdb9",
+        "line-width": 0.5
+      }
+    },
+    {
+      "id": "river-centerlines",
+      "type": "line",
+      "source": "n250",
+      "source-layer": "N250_Arealdekke_senterlinje",
+      "paint": {
+        "line-color": "#00a6fe",
+        "line-width": [
+          "interpolate",
+          ["linear"],
+          ["coalesce", ["to-number", ["get", "vannbredde"]], 1],
+          0,
+          0.6,
+          10,
+          1.2,
+          40,
+          2.8
+        ]
+      }
+    },
+    {
+      "id": "contour-lines",
+      "type": "line",
+      "source": "n250",
+      "source-layer": "N250_Høyde_senterlinje",
+      "filter": ["==", ["get", "objtype"], "Høydekurve"],
+      "paint": {
+        "line-color": "#c88546",
+        "line-width": 0.5
+      }
+    },
+    {
+      "id": "contour-index-lines",
+      "type": "line",
+      "source": "n250",
+      "source-layer": "N250_Høyde_senterlinje",
+      "filter": [
+        "all",
+        ["==", ["get", "objtype"], "Høydekurve"],
+        ["==", ["%", ["coalesce", ["to-number", ["get", "hoyde"]], 0], 100], 0]
+      ],
+      "paint": {
+        "line-color": "#c88546",
+        "line-width": 1.1
+      }
+    },
+    {
+      "id": "contour-depression",
+      "type": "line",
+      "source": "n250",
+      "source-layer": "N250_Høyde_senterlinje",
+      "filter": ["==", ["get", "objtype"], "Forsenkningskurve"],
+      "paint": {
+        "line-color": "#c88546",
+        "line-width": 0.6,
+        "line-dasharray": [2, 3]
+      }
+    },
+    {
+      "id": "contour-helper",
+      "type": "line",
+      "source": "n250",
+      "source-layer": "N250_Høyde_senterlinje",
+      "filter": [
+        "any",
+        ["==", ["get", "objtype"], "Hjelpekurve"],
+        ["==", ["get", "objtype"], "Helpekurve"]
+      ],
+      "paint": {
+        "line-color": "#c88546",
+        "line-width": 0.5,
+        "line-dasharray": [4, 4]
+      }
+    },
+    {
+      "id": "road-paths",
+      "type": "line",
+      "source": "n250",
+      "source-layer": "N250_Samferdsel_senterlinje",
+      "filter": ["==", ["get", "typeveg"], "sti"],
+      "paint": {
+        "line-color": "#c31e1e",
+        "line-width": 1.2,
+        "line-dasharray": [0.5, 5]
+      }
+    },
+    {
+      "id": "road-marked-paths",
+      "type": "line",
+      "source": "n250",
+      "source-layer": "N250_Samferdsel_senterlinje",
+      "filter": ["all", ["==", ["get", "typeveg"], "sti"], ["==", ["get", "rutemerking"], "JA"]],
+      "paint": {
+        "line-color": "#c31e1e",
+        "line-width": 1.2,
+        "line-dasharray": [4, 5]
+      }
+    },
+    {
+      "id": "road-ferry",
+      "type": "line",
+      "source": "n250",
+      "source-layer": "N250_Samferdsel_senterlinje",
+      "filter": ["==", ["get", "typeveg"], "bilferje"],
+      "paint": {
+        "line-color": "#c21f29",
+        "line-width": 1.1,
+        "line-dasharray": [6, 5]
+      }
+    },
+    {
+      "id": "passenger-ferry",
+      "type": "line",
+      "source": "n250",
+      "source-layer": "N250_Samferdsel_senterlinje",
+      "filter": ["==", ["get", "typeveg"], "passasjerferje"],
+      "paint": {
+        "line-color": "#c21f29",
+        "line-width": 1,
+        "line-dasharray": [5, 10]
+      }
+    },
+    {
+      "id": "roads-casing-major",
+      "type": "line",
+      "source": "n250",
+      "source-layer": "N250_Samferdsel_senterlinje",
+      "filter": [
+        "all",
+        ["in", ["get", "vegkategori"], ["literal", ["E", "R", "F"]]],
+        ["!=", ["get", "typeveg"], "bilferje"],
+        ["!=", ["get", "typeveg"], "passasjerferje"],
+        ["!=", ["get", "typeveg"], "sti"]
+      ],
+      "paint": {
+        "line-color": "#333333",
+        "line-width": ["interpolate", ["linear"], ["zoom"], 4, 1.4, 8, 2.4, 12, 4.2]
+      }
+    },
+    {
+      "id": "roads-casing-minor",
+      "type": "line",
+      "source": "n250",
+      "source-layer": "N250_Samferdsel_senterlinje",
+      "filter": [
+        "all",
+        ["in", ["get", "vegkategori"], ["literal", ["P", "K"]]],
+        ["!=", ["get", "typeveg"], "bilferje"],
+        ["!=", ["get", "typeveg"], "passasjerferje"],
+        ["!=", ["get", "typeveg"], "sti"]
+      ],
+      "paint": {
+        "line-color": "#4b4b4b",
+        "line-width": ["interpolate", ["linear"], ["zoom"], 4, 1, 8, 1.8, 12, 3.2]
+      }
+    },
+    {
+      "id": "roads-fill-major",
+      "type": "line",
+      "source": "n250",
+      "source-layer": "N250_Samferdsel_senterlinje",
+      "filter": [
+        "all",
+        ["in", ["get", "vegkategori"], ["literal", ["E", "R"]]],
+        ["!=", ["get", "typeveg"], "bilferje"],
+        ["!=", ["get", "typeveg"], "passasjerferje"],
+        ["!=", ["get", "typeveg"], "sti"],
+        ["==", ["get", "medium"], "T"],
+        ["!=", ["get", "vegfase"], "P"]
+      ],
+      "paint": {
+        "line-color": "#d2232a",
+        "line-width": ["interpolate", ["linear"], ["zoom"], 4, 1, 8, 1.8, 12, 3]
+      }
+    },
+    {
+      "id": "roads-fill-fylke",
+      "type": "line",
+      "source": "n250",
+      "source-layer": "N250_Samferdsel_senterlinje",
+      "filter": [
+        "all",
+        ["==", ["get", "vegkategori"], "F"],
+        ["==", ["get", "medium"], "T"],
+        ["!=", ["get", "vegfase"], "P"],
+        ["!=", ["get", "typeveg"], "sti"]
+      ],
+      "paint": {
+        "line-color": "#d2232a",
+        "line-width": ["interpolate", ["linear"], ["zoom"], 4, 0.9, 8, 1.6, 12, 2.4]
+      }
+    },
+    {
+      "id": "roads-fill-minor",
+      "type": "line",
+      "source": "n250",
+      "source-layer": "N250_Samferdsel_senterlinje",
+      "filter": [
+        "all",
+        ["in", ["get", "vegkategori"], ["literal", ["P", "K"]]],
+        ["==", ["get", "medium"], "T"],
+        ["!=", ["get", "vegfase"], "P"],
+        ["!=", ["get", "typeveg"], "sti"]
+      ],
+      "paint": {
+        "line-color": "#6e6e6e",
+        "line-width": ["interpolate", ["linear"], ["zoom"], 4, 0.8, 8, 1.2, 12, 2]
+      }
+    },
+    {
+      "id": "roads-motorway-core",
+      "type": "line",
+      "source": "n250",
+      "source-layer": "N250_Samferdsel_senterlinje",
+      "filter": [
+        "all",
+        ["in", ["get", "vegkategori"], ["literal", ["E", "R"]]],
+        ["==", ["get", "motorvegtype"], "Motorveg"],
+        ["==", ["get", "medium"], "T"],
+        ["!=", ["get", "vegfase"], "P"]
+      ],
+      "paint": {
+        "line-color": "#fefe01",
+        "line-width": ["interpolate", ["linear"], ["zoom"], 5, 0.6, 10, 1.2, 12, 1.8]
+      }
+    },
+    {
+      "id": "roads-bridge",
+      "type": "line",
+      "source": "n250",
+      "source-layer": "N250_Samferdsel_senterlinje",
+      "filter": ["==", ["get", "medium"], "L"],
+      "paint": {
+        "line-color": "#333333",
+        "line-width": ["interpolate", ["linear"], ["zoom"], 5, 1.1, 10, 2.1, 13, 3.6]
+      }
+    },
+    {
+      "id": "roads-tunnel",
+      "type": "line",
+      "source": "n250",
+      "source-layer": "N250_Samferdsel_senterlinje",
+      "filter": ["in", ["get", "medium"], ["literal", ["U", "B"]]],
+      "paint": {
+        "line-color": "#c8c8c8",
+        "line-width": ["interpolate", ["linear"], ["zoom"], 4, 0.8, 10, 1.8, 12, 2.8],
+        "line-dasharray": [8, 8]
+      }
+    },
+    {
+      "id": "roads-planned",
+      "type": "line",
+      "source": "n250",
+      "source-layer": "N250_Samferdsel_senterlinje",
+      "filter": ["==", ["get", "vegfase"], "P"],
+      "paint": {
+        "line-color": "#ffffff",
+        "line-width": ["interpolate", ["linear"], ["zoom"], 4, 0.8, 10, 1.8, 12, 2.8],
+        "line-dasharray": [6, 6]
+      }
+    },
+    {
+      "id": "rail-main",
+      "type": "line",
+      "source": "n250",
+      "source-layer": "N250_Samferdsel_senterlinje",
+      "filter": [
+        "all",
+        ["any", ["==", ["get", "objtype"], "Bane"], ["has", "anleggstype"]],
+        ["!=", ["get", "anleggstype"], "P"],
+        ["!=", ["get", "medium"], "U"]
+      ],
+      "paint": {
+        "line-color": "#010101",
+        "line-width": 1.8
+      }
+    },
+    {
+      "id": "rail-bridge",
+      "type": "line",
+      "source": "n250",
+      "source-layer": "N250_Samferdsel_senterlinje",
+      "filter": ["all", ["any", ["==", ["get", "objtype"], "Bane"], ["has", "anleggstype"]], ["==", ["get", "medium"], "L"]],
+      "paint": {
+        "line-color": "#333333",
+        "line-width": 3
+      }
+    },
+    {
+      "id": "rail-tunnel",
+      "type": "line",
+      "source": "n250",
+      "source-layer": "N250_Samferdsel_senterlinje",
+      "filter": ["all", ["any", ["==", ["get", "objtype"], "Bane"], ["has", "anleggstype"]], ["==", ["get", "medium"], "U"]],
+      "paint": {
+        "line-color": "#333333",
+        "line-width": 1.8,
+        "line-dasharray": [8, 8]
+      }
+    },
+    {
+      "id": "admin-boundary-kommune",
+      "type": "line",
+      "source": "n250",
+      "source-layer": "N250_AdministrativeOmråder_grense",
+      "filter": ["==", ["get", "objtype"], "Kommunegrense"],
+      "paint": {
+        "line-color": "#b487fe",
+        "line-width": 1.4,
+        "line-dasharray": [5, 5]
+      }
+    },
+    {
+      "id": "admin-boundary-fylke",
+      "type": "line",
+      "source": "n250",
+      "source-layer": "N250_AdministrativeOmråder_grense",
+      "filter": ["==", ["get", "objtype"], "Fylkesgrense"],
+      "paint": {
+        "line-color": "#b487fe",
+        "line-width": 2.2,
+        "line-dasharray": [5, 5]
+      }
+    },
+    {
+      "id": "admin-boundary-riks",
+      "type": "line",
+      "source": "n250",
+      "source-layer": "N250_AdministrativeOmråder_grense",
+      "filter": ["==", ["get", "objtype"], "Riksgrense"],
+      "paint": {
+        "line-color": "#be5abe",
+        "line-width": 3
+      }
+    },
+    {
+      "id": "admin-boundary-territorial",
+      "type": "line",
+      "source": "n250",
+      "source-layer": "N250_AdministrativeOmråder_grense",
+      "filter": ["==", ["get", "objtype"], "Territorialgrense"],
+      "paint": {
+        "line-color": "#be5abe",
+        "line-width": 1.2,
+        "line-dasharray": [10, 3, 2, 3]
+      }
+    },
+    {
+      "id": "admin-boundary-grunnlinje",
+      "type": "line",
+      "source": "n250",
+      "source-layer": "N250_AdministrativeOmråder_grense",
+      "filter": ["==", ["get", "objtype"], "Grunnlinje"],
+      "paint": {
+        "line-color": "#d2733c",
+        "line-width": 0.7,
+        "line-dasharray": [8, 8]
+      }
+    },
+    {
+      "id": "restriction-boundary",
+      "type": "line",
+      "source": "n250",
+      "source-layer": "N250_Restriksjonsområder_grense",
+      "paint": {
+        "line-color": "#78a65e",
+        "line-width": 1,
+        "line-dasharray": [3, 3]
+      }
+    },
+    {
+      "id": "buildings-lines",
+      "type": "line",
+      "source": "n250",
+      "source-layer": "N250_BygningerOgAnlegg_senterlinje",
+      "paint": {
+        "line-color": "#8f6f3a",
+        "line-width": 1
+      }
+    },
+    {
+      "id": "buildings-points-major",
+      "type": "circle",
+      "source": "n250",
+      "source-layer": "N250_BygningerOgAnlegg_posisjon",
+      "filter": ["in", ["get", "bygningskategori"], ["literal", ["Bolig", "Offentlig", "Industri"]]],
+      "paint": {
+        "circle-color": "#9a5f21",
+        "circle-radius": ["interpolate", ["linear"], ["zoom"], 6, 1.4, 10, 2.3, 13, 3.2],
+        "circle-stroke-color": "#ffffff",
+        "circle-stroke-width": 0.5
+      }
+    },
+    {
+      "id": "tourist-huts",
+      "type": "circle",
+      "source": "n250",
+      "source-layer": "N250_BygningerOgAnlegg_posisjon",
+      "filter": ["has", "betjeningsgrad"],
+      "paint": {
+        "circle-color": [
+          "match",
+          ["get", "betjeningsgrad"],
+          "B",
+          "#fe0101",
+          "Betjent",
+          "#fe0101",
+          "S",
+          "#ffffff",
+          "Selvbetjent",
+          "#ffffff",
+          "U",
+          "#ffffff",
+          "Ubetjent",
+          "#ffffff",
+          "#5a87de"
+        ],
+        "circle-radius": ["interpolate", ["linear"], ["zoom"], 6, 2.2, 12, 4],
+        "circle-stroke-color": [
+          "case",
+          ["any", ["==", ["get", "tilgjengelighet"], "Låst"], ["==", ["get", "tilgjengelighet"], "LÃ¥st"]],
+          "#5a87de",
+          "#fe0101"
+        ],
+        "circle-stroke-width": 1
+      }
+    },
+    {
+      "id": "arealdekke-points",
+      "type": "circle",
+      "source": "n250",
+      "source-layer": "N250_Arealdekke_posisjon",
+      "paint": {
+        "circle-color": "#666666",
+        "circle-radius": ["interpolate", ["linear"], ["zoom"], 5, 1, 10, 2.5],
+        "circle-opacity": 0.8
+      }
+    },
+    {
+      "id": "samferdsel-points",
+      "type": "circle",
+      "source": "n250",
+      "source-layer": "N250_Samferdsel_posisjon",
+      "paint": {
+        "circle-color": "#3b3b3b",
+        "circle-radius": ["interpolate", ["linear"], ["zoom"], 5, 1.2, 10, 2.8],
+        "circle-stroke-color": "#ffffff",
+        "circle-stroke-width": 0.4
+      }
+    },
+    {
+      "id": "height-points",
+      "type": "circle",
+      "source": "n250",
+      "source-layer": "N250_Høyde_posisjon",
+      "paint": {
+        "circle-color": "#8f5f24",
+        "circle-radius": 1.8
+      }
+    },
+    {
+      "id": "admin-points",
+      "type": "circle",
+      "source": "n250",
+      "source-layer": "N250_AdministrativeOmråder_posisjon",
+      "paint": {
+        "circle-color": "#7b4dd1",
+        "circle-radius": 1.4
+      }
+    },
+    {
+      "id": "place-labels",
+      "type": "symbol",
+      "source": "n250",
+      "source-layer": "N250_Stedsnavn_tekstplassering",
+      "layout": {
+        "symbol-placement": "point",
+        "text-field": ["coalesce", ["get", "TextString"], ["get", "fulltekst"], ["get", "streng"], ["get", "navn"]],
+        "text-font": ["Noto Sans Regular"],
+        "text-size": [
+          "interpolate",
+          ["linear"],
+          ["coalesce", ["to-number", ["get", "FontSize"]], 10],
+          6,
+          8,
+          10,
+          10,
+          14,
+          14
+        ],
+        "text-rotate": ["coalesce", ["to-number", ["get", "Angle"]], 0],
+        "text-letter-spacing": 0.01,
+        "text-max-width": 12,
+        "text-allow-overlap": false
+      },
+      "paint": {
+        "text-color": "#1f1f1f",
+        "text-halo-color": "#ffffff",
+        "text-halo-width": 1.2,
+        "text-halo-blur": 0.4
+      }
+    },
+    {
+      "id": "road-number-labels",
+      "type": "symbol",
+      "source": "n250",
+      "source-layer": "N250_Samferdsel_senterlinje",
+      "filter": [
+        "all",
+        ["in", ["get", "vegkategori"], ["literal", ["E", "R", "F"]]],
+        ["has", "vegnummer"],
+        ["==", ["get", "medium"], "T"]
+      ],
+      "layout": {
+        "symbol-placement": "line",
+        "text-field": ["to-string", ["get", "vegnummer"]],
+        "text-font": ["Noto Sans Bold"],
+        "text-size": 10,
+        "symbol-spacing": 300
+      },
+      "paint": {
+        "text-color": "#7f0000",
+        "text-halo-color": "#ffffff",
+        "text-halo-width": 1
+      }
+    }
+  ]
+}

@@ -1,0 +1,290 @@
+{
+    "vector_layers": [
+        {
+            "id": "N250_AdministrativeOmråder_grense",
+            "fields": {
+                "SHAPE_Length": "Number",
+                "malemetode": "String",
+                "noyaktighet": "Number",
+                "objtype": "String",
+                "oppdateringsdato": "String"
+            },
+            "minzoom": 0,
+            "maxzoom": 5
+        },
+        {
+            "id": "N250_AdministrativeOmråder_omrade",
+            "fields": {
+                "SHAPE_Area": "Number",
+                "SHAPE_Length": "Number",
+                "fylkesnavn": "String",
+                "fylkesnummer": "String",
+                "kommunenavn": "String",
+                "kommunenummer": "String",
+                "objtype": "String",
+                "oppdateringsdato": "String"
+            },
+            "minzoom": 0,
+            "maxzoom": 5
+        },
+        {
+            "id": "N250_AdministrativeOmråder_posisjon",
+            "fields": {
+                "grensepunktnummer": "String",
+                "grensepunkttype": "String",
+                "grunnlinjepunktnummer": "String",
+                "malemetode": "String",
+                "noyaktighet": "Number",
+                "objtype": "String",
+                "oppdateringsdato": "String"
+            },
+            "minzoom": 0,
+            "maxzoom": 5
+        },
+        {
+            "id": "N250_Arealdekke_grense",
+            "fields": {
+                "SHAPE_Length": "Number",
+                "malemetode": "String",
+                "noyaktighet": "Number",
+                "objtype": "String",
+                "oppdateringsdato": "String"
+            },
+            "minzoom": 0,
+            "maxzoom": 5
+        },
+        {
+            "id": "N250_Arealdekke_omrade",
+            "fields": {
+                "SHAPE_Area": "Number",
+                "SHAPE_Length": "Number",
+                "hoyde": "Number",
+                "objtype": "String",
+                "oppdateringsdato": "String",
+                "vatnlopenummer": "Number"
+            },
+            "minzoom": 2,
+            "maxzoom": 5
+        },
+        {
+            "id": "N250_Arealdekke_posisjon",
+            "fields": {
+                "iatakode": "String",
+                "icaokode": "String",
+                "lufthavneier": "String",
+                "lufthavntype": "String",
+                "malemetode": "String",
+                "navn": "String",
+                "noyaktighet": "Number",
+                "objtype": "String",
+                "oppdateringsdato": "String",
+                "retningsenhet": "Number",
+                "retningsreferanse": "Number",
+                "retningsverdi": "Number",
+                "tettstednummer": "Number",
+                "trafikktype": "String"
+            },
+            "minzoom": 0,
+            "maxzoom": 5
+        },
+        {
+            "id": "N250_Arealdekke_senterlinje",
+            "fields": {
+                "SHAPE_Length": "Number",
+                "malemetode": "String",
+                "noyaktighet": "Number",
+                "objtype": "String",
+                "oppdateringsdato": "String",
+                "vannbredde": "Number"
+            },
+            "minzoom": 3,
+            "maxzoom": 5
+        },
+        {
+            "id": "N250_BygningerOgAnlegg_posisjon",
+            "fields": {
+                "betjeningsgrad": "String",
+                "bygningskategori": "String",
+                "hytteeier": "Number",
+                "malemetode": "String",
+                "navn": "String",
+                "noyaktighet": "Number",
+                "objtype": "String",
+                "oppdateringsdato": "String",
+                "tilgjengelighet": "String"
+            },
+            "minzoom": 0,
+            "maxzoom": 5
+        },
+        {
+            "id": "N250_BygningerOgAnlegg_senterlinje",
+            "fields": {
+                "SHAPE_Length": "Number",
+                "malemetode": "String",
+                "noyaktighet": "Number",
+                "objtype": "String",
+                "oppdateringsdato": "String"
+            },
+            "minzoom": 0,
+            "maxzoom": 5
+        },
+        {
+            "id": "N250_Høyde_omrade",
+            "fields": {
+                "SHAPE_Area": "Number",
+                "SHAPE_Length": "Number",
+                "makshoyde": "Number",
+                "minhoyde": "Number",
+                "objtype": "String",
+                "oppdateringsdato": "String"
+            },
+            "minzoom": 1,
+            "maxzoom": 5
+        },
+        {
+            "id": "N250_Høyde_posisjon",
+            "fields": {
+                "hoyde": "Number",
+                "malemetode": "String",
+                "medium": "String",
+                "noyaktighet": "Number",
+                "objtype": "String",
+                "oppdateringsdato": "String"
+            },
+            "minzoom": 0,
+            "maxzoom": 5
+        },
+        {
+            "id": "N250_Høyde_senterlinje",
+            "fields": {
+                "SHAPE_Length": "Number",
+                "hoyde": "Number",
+                "malemetode": "String",
+                "medium": "String",
+                "noyaktighet": "Number",
+                "objtype": "String",
+                "oppdateringsdato": "String"
+            },
+            "minzoom": 0,
+            "maxzoom": 5
+        },
+        {
+            "id": "N250_Restriksjonsområder_grense",
+            "fields": {
+                "SHAPE_Length": "Number",
+                "malemetode": "String",
+                "noyaktighet": "Number",
+                "objtype": "String",
+                "oppdateringsdato": "String"
+            },
+            "minzoom": 0,
+            "maxzoom": 5
+        },
+        {
+            "id": "N250_Restriksjonsområder_omrade",
+            "fields": {
+                "SHAPE_Area": "Number",
+                "SHAPE_Length": "Number",
+                "navn": "String",
+                "objtype": "String",
+                "oppdateringsdato": "String",
+                "vernedato": "String",
+                "verneform": "String"
+            },
+            "minzoom": 1,
+            "maxzoom": 5
+        },
+        {
+            "id": "N250_Samferdsel_posisjon",
+            "fields": {
+                "malemetode": "String",
+                "navn": "String",
+                "noyaktighet": "Number",
+                "objtype": "String",
+                "oppdateringsdato": "String",
+                "retningsenhet": "Number",
+                "retningsreferanse": "Number",
+                "retningsverdi": "Number"
+            },
+            "minzoom": 0,
+            "maxzoom": 5
+        },
+        {
+            "id": "N250_Samferdsel_senterlinje",
+            "fields": {
+                "SHAPE_Length": "Number",
+                "anleggstype": "String",
+                "banestatus": "String",
+                "malemetode": "String",
+                "medium": "String",
+                "motorvegtype": "String",
+                "noyaktighet": "Number",
+                "objtype": "String",
+                "oppdateringsdato": "String",
+                "rutemerking": "String",
+                "sporantall": "String",
+                "typeveg": "String",
+                "vegfase": "String",
+                "vegkategori": "String",
+                "vegnummer": "Number"
+            },
+            "minzoom": 0,
+            "maxzoom": 5
+        },
+        {
+            "id": "N250_Stedsnavn_tekstplassering",
+            "fields": {
+                "Angle": "Number",
+                "AnnotationClassID": "Number",
+                "Bold": "Number",
+                "CharacterSpacing": "Number",
+                "CharacterWidth": "Number",
+                "Element": "String",
+                "FeatureID": "Number",
+                "FlipAngle": "Number",
+                "FontLeading": "Number",
+                "FontName": "String",
+                "FontSize": "Number",
+                "HorizontalAlignment": "Number",
+                "Italic": "Number",
+                "Override": "Number",
+                "SHAPE_Area": "Number",
+                "SHAPE_Length": "Number",
+                "Status": "Number",
+                "SymbolID": "Number",
+                "TextString": "String",
+                "Underline": "Number",
+                "VerticalAlignment": "Number",
+                "WordSpacing": "Number",
+                "XOffset": "Number",
+                "YOffset": "Number",
+                "fulltekst": "String",
+                "navneobjektgruppe": "String",
+                "navneobjekthovedgruppe": "String",
+                "navneobjekttype": "String",
+                "objtype": "String",
+                "oppdateringsdato": "String",
+                "referansemalestokk": "Number",
+                "skriftkode": "String",
+                "skrifttype": "String",
+                "skrivematenummer": "Number",
+                "sprak": "String",
+                "stedsnavnnummer": "Number",
+                "stedsnummer": "Number",
+                "streng": "String",
+                "tegnavstand": "Number",
+                "tekstreferansepunktnord": "Number",
+                "tekstreferansepunktost": "Number"
+            },
+            "minzoom": 4,
+            "maxzoom": 5
+        }
+    ],
+    "attribution": "<a href=\"https://www.openstreetmap.org/copyright\" target=\"_blank\">&copy; OpenStreetMap contributors</a>",
+    "description": "Basisdata_0000_Norge_25833_N250Kartdata",
+    "name": "Basisdata_0000_Norge_25833_N250Kartdata",
+    "planetiler:buildtime": "2025-11-10T10:54:44.197Z",
+    "planetiler:githash": "4136507432581cda88a0689f543100e8a3d68d08",
+    "planetiler:version": "0.9.4-SNAPSHOT",
+    "type": "baselayer"
+}

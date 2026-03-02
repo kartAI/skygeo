@@ -1,0 +1,179 @@
+{
+  "version": 8,
+  "name": "N250 Arealdekkeflate",
+  "metadata": {
+    "maputnik:renderer": "mbgljs"
+  },
+  "glyphs": "https://demotiles.maplibre.org/font/{fontstack}/{range}.pbf",
+  "sources": {
+    "n250": {
+      "type": "vector",
+      "url": "pmtiles://n250.pmtiles"
+    }
+  },
+"layers": [
+    {
+      "id": "background",
+      "type": "background",
+      "paint": {
+        "background-color": "#f0f0f0"
+      }
+    },
+    {
+      "id": "arealdekke-forest",
+      "type": "fill",
+      "source": "n250",
+      "source-layer": "N250_Arealdekke_omrade",
+      "filter": ["==", "objtype", "Skog"],
+      "paint": {
+        "fill-color": "#D2E67C",
+        "fill-opacity": 1.0,
+        "fill-outline-color": "#B8D64F"
+      }
+    },
+    {
+      "id": "arealdekke-cultivated",
+      "type": "fill",
+      "source": "n250",
+      "source-layer": "N250_Arealdekke_omrade",
+      "filter": ["==", "objtype", "DyrketMark"],
+      "paint": {
+        "fill-color": "#FEF7A3",
+        "fill-opacity": 1.0,
+        "fill-outline-color": "#EDD970"
+      }
+    },
+    {
+      "id": "arealdekke-open-area",
+      "type": "fill",
+      "source": "n250",
+      "source-layer": "N250_Arealdekke_omrade",
+      "filter": ["==", "objtype", "ÅpentOmråde"],
+      "paint": {
+        "fill-color": "#FEFEE6",
+        "fill-opacity": 1.0,
+        "fill-outline-color": "#E8E8D0"
+      }
+    },
+    {
+      "id": "arealdekke-urban",
+      "type": "fill",
+      "source": "n250",
+      "source-layer": "N250_Arealdekke_omrade",
+      "filter": ["==", "objtype", "BymessigBebyggelse"],
+      "paint": {
+        "fill-color": "#F7BE8C",
+        "fill-opacity": 1.0,
+        "fill-outline-color": "#E8A96D"
+      }
+    },
+    {
+      "id": "arealdekke-dense-settlement",
+      "type": "fill",
+      "source": "n250",
+      "source-layer": "N250_Arealdekke_omrade",
+      "filter": ["==", "objtype", "Tettbebyggelse"],
+      "paint": {
+        "fill-color": "#FAD9BC",
+        "fill-opacity": 1.0,
+        "fill-outline-color": "#E8C2A0"
+      }
+    },
+    {
+      "id": "arealdekke-industrial",
+      "type": "fill",
+      "source": "n250",
+      "source-layer": "N250_Arealdekke_omrade",
+      "filter": ["==", "objtype", "Industriområde"],
+      "paint": {
+        "fill-color": "#D7D7D7",
+        "fill-opacity": 1.0,
+        "fill-outline-color": "#BBBBBB"
+      }
+    },
+    {
+      "id": "arealdekke-bog",
+      "type": "fill",
+      "source": "n250",
+      "source-layer": "N250_Arealdekke_omrade",
+      "filter": ["==", "objtype", "Myr"],
+      "paint": {
+        "fill-color": "#FEFEFE",
+        "fill-opacity": 1.0,
+        "fill-outline-color": "#82C8F0"
+      }
+    },
+    {
+      "id": "arealdekke-glacier",
+      "type": "fill",
+      "source": "n250",
+      "source-layer": "N250_Arealdekke_omrade",
+      "filter": ["==", "objtype", "SnøIsbre"],
+      "paint": {
+        "fill-color": "#FEFEFE",
+        "fill-opacity": 1.0,
+        "fill-outline-color": "#00A6FE"
+      }
+    },
+    {
+      "id": "arealdekke-quarry",
+      "type": "fill",
+      "source": "n250",
+      "source-layer": "N250_Arealdekke_omrade",
+      "filter": ["in", "objtype", "Steinbrudd", "Steintipp"],
+      "paint": {
+        "fill-color": "#D7D7D7",
+        "fill-opacity": 1.0,
+        "fill-outline-color": "#010101"
+      }
+    },
+    {
+      "id": "arealdekke-sports-park",
+      "type": "fill",
+      "source": "n250",
+      "source-layer": "N250_Arealdekke_omrade",
+      "filter": ["in", "objtype", "Alpinbakke", "Golfbane", "Gravplass", "Park", "SportIdrettPlass"],
+      "paint": {
+        "fill-color": "#9BB93C",
+        "fill-opacity": 1.0,
+        "fill-outline-color": "#7A9C20"
+      }
+    },
+    {
+      "id": "arealdekke-airport",
+      "type": "fill",
+      "source": "n250",
+      "source-layer": "N250_Arealdekke_omrade",
+      "filter": ["==", "objtype", "Lufthavn"],
+      "paint": {
+        "fill-color": "#FEFEE6",
+        "fill-opacity": 1.0,
+        "fill-outline-color": "#010101"
+      }
+    },
+    {
+      "id": "arealdekke-runway",
+      "type": "fill",
+      "source": "n250",
+      "source-layer": "N250_Arealdekke_omrade",
+      "filter": ["==", "objtype", "Rullebane"],
+      "paint": {
+        "fill-color": "#DCDCDC",
+        "fill-opacity": 1.0,
+        "fill-outline-color": "#BBBBBB"
+      }
+    },
+    {
+      "id": "arealdekke-cabin-area",
+      "type": "fill",
+      "source": "n250",
+      "source-layer": "N250_Arealdekke_omrade",
+      "filter": ["==", "objtype", "Hyttefelt"],
+      "paint": {
+        "fill-color": "#999933",
+        "fill-opacity": 1.0,
+        "fill-outline-color": "#777722"
+      }
+    }
+  ]
+}
