@@ -2,111 +2,89 @@
 <html>
 <head>
     <meta charset="utf-8" />
-    <title>PMTiles Light Grey Map</title>
+    <title>PMTiles Bakgrunnskart Demos</title>
     <meta name="viewport" content="width=device-width, initial-scale=1" />
-    
-    <script src="https://unpkg.com/maplibre-gl/dist/maplibre-gl.js"></script>
-    <link href="https://unpkg.com/maplibre-gl/dist/maplibre-gl.css" rel="stylesheet" />
-    
-    <script src="https://unpkg.com/pmtiles/dist/pmtiles.js"></script>
-    <script src="../common-header.js"></script>
-    
     <style>
-        body { margin: 0; padding: 0; }
-        #map { position: absolute; top: 0; bottom: 0; width: 100%; }
-
-        /* Inspect feature popup styles */
-        .inspect-popup {
-            position: absolute;
-            pointer-events: none;
-            background: rgba(30,30,30,0.95);
-            color: #fff;
-            padding: 8px 12px;
-            border-radius: 6px;
-            box-shadow: 0 2px 8px rgba(0,0,0,0.3);
-            font-size: 14px;
-            z-index: 9999;
-            max-width: 320px;
-            white-space: pre-wrap;
-            border: 1px solid #00ffff;
-            display: none;
-            overflow-y: hidden;
+        body {
+            font-family: system-ui, -apple-system, sans-serif;
+            max-width: 800px;
+            margin: 0 auto;
+            padding: 40px 20px;
+            background: #f5f5f5;
         }
-        .demo-info {
-            position: relative;
-            background: #222;
-            color: #fff;
-            padding: 16px 32px;
-            z-index: 10000;
-            box-shadow: 0 2px 8px rgba(0,0,0,0.12);
+        
+        h1 {
+            color: #333;
+            margin-bottom: 10px;
         }
-        .demo-info h2 {
-            margin: 0 0 8px 0;
-            font-size: 1.5em;
+        
+        .subtitle {
+            color: #666;
+            margin-bottom: 40px;
         }
-        .demo-info p {
-            margin: 0;
-            font-size: 1em;
+        
+        .demo-list {
+            background: white;
+            border-radius: 8px;
+            padding: 20px;
+            margin-bottom: 20px;
+        }
+        
+        .demo-item {
+            padding: 15px 0;
+            border-bottom: 1px solid #eee;
+        }
+        
+        .demo-item:last-child {
+            border-bottom: none;
+        }
+        
+        .demo-item h2 {
+            font-size: 1.2em;
+            margin: 0 0 5px 0;
+            color: #333;
+        }
+        
+        .demo-item p {
+            margin: 0 0 10px 0;
+            color: #666;
+            font-size: 0.95em;
+        }
+        
+        .demo-item a {
+            color: #0066cc;
+            text-decoration: none;
+        }
+        
+        .demo-item a:hover {
+            text-decoration: underline;
         }
     </style>
 </head>
 <body>
 
-<div class="demo-info">
-    <h2>PMTiles Demo på bakgrunnskart uten servere (N5000-datasett)</h2>
-    <p>Interaktivt bakgrunnskart som benytter en enkelt cloud native PMTiles-fil for vector tiles med alle kartdata. Utforsk kartet og inspiser objekter med musen.</p>
-</div>
+<h1>PMTiles Bakgrunnskart</h1>
+<p class="subtitle">Interaktive bakgrunnskart basert på cloud-native vektor tiles</p>
 
-<div id="map"></div>
-<div id="inspect-popup" class="inspect-popup"></div>
-
-<script>
-    // 1. Initialize the PMTiles protocol
-    let protocol = new pmtiles.Protocol();
-    maplibregl.addProtocol("pmtiles", protocol.tile);
-
+<div class="demo-list">
+    <div class="demo-item">
+        <h2>N100 Demo</h2>
+        <p>1:100 000 - mest detaljert datasett for nøyaktige kartvisninger</p>
+        <a href="n100/">Åpne demo →</a>
+    </div>
     
-    // 2. Initialize the MapLibre map using style.json
-    const map = new maplibregl.Map({
-        container: "map",
-        style: "style_n5000_positron.json",
-        // set explicit center
-        center: [8.861573681786354, 61.87774254585082],
-        zoom: 5.631333431788067
-    });
-
-
-    // Add navigation controls
-    map.addControl(new maplibregl.NavigationControl());
-    // --- Inspect Feature Popup ---
-    const popup = document.getElementById('inspect-popup');
-
-    map.on('mousemove', (e) => {
-        const features = map.queryRenderedFeatures(e.point);
-        if (features.length > 0) {
-            let props = '';
-            features.forEach((feature, idx) => {
-                props += `<div style='margin-bottom:8px;'>`;
-                props += `<b>Layer:</b> ${feature.layer.id}<br/>`;
-                for (const key in feature.properties) {
-                    props += `<b>${key}</b>: ${feature.properties[key]}<br/>`;
-                }
-                props += `</div>`;
-            });
-            popup.innerHTML = props;
-            popup.style.display = 'block';
-            popup.style.left = (e.originalEvent.clientX + 15) + 'px';
-            popup.style.top = (e.originalEvent.clientY + 15) + 'px';
-        } else {
-            popup.style.display = 'none';
-        }
-    });
-
-    map.on('mouseout', () => {
-        popup.style.display = 'none';
-    });
-
-</script>
+    <div class="demo-item">
+        <h2>N250 Demo</h2>
+        <p>1:250 000 - mellomskala datasett for regional oversikt</p>
+        <a href="n250/">Åpne demo →</a>
+    </div>
+    
+    <div class="demo-item">
+        <h2>N5000 Demo</h2>
+        <p>1:5 000 000 - oversiktskart for store geografiske områder</p>
+        <a href="n5000/">Åpne demo →</a>
+    </div>
+</div>
 
 </body>
 </html>

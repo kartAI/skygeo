@@ -123,7 +123,7 @@
 <body>
 
 <div class="demo-info">
-    <h2>PMTiles Demo på bakgrunnskart uten servere (N250-datasett)</h2>
+    <h2>PMTiles Demo på bakgrunnskart uten servere (N5000-datasett)</h2>
     <p>Interaktivt bakgrunnskart som benytter en enkelt cloud native PMTiles-fil for vector tiles med alle kartdata. Utforsk kartet og inspiser objekter med musen.</p>
 </div>
 
@@ -141,7 +141,7 @@
     <pre><code><span class="token tag">&lt;div</span> <span class="token attr-name">id</span><span class="token operator">=</span><span class="token attr-value">"map"</span> <span class="token attr-name">style</span><span class="token operator">=</span><span class="token attr-value">"width: 100%; height: 500px"</span><span class="token tag">&gt;&lt;/div&gt;</span>
 <span class="token tag">&lt;script&gt;</span>
   <span class="token keyword">const</span> map <span class="token operator">=</span> <span class="token keyword">new</span> <span class="token function">maplibregl.Map</span><span class="token punctuation">({</span>
-    style<span class="token operator">:</span> <span class="token string">"http://kartai.github.io/skygeo/pmtiles_bakgrunnskart/n250/style_n250_dark.json"</span><span class="token punctuation">,</span>
+    style<span class="token operator">:</span> <span class="token string">"http://kartai.github.io/skygeo/pmtiles_bakgrunnskart/n5000/style_n5000_positron.json"</span><span class="token punctuation">,</span>
     center<span class="token operator">:</span> <span class="token punctuation">[</span><span class="token number">13.388</span><span class="token punctuation">,</span> <span class="token number">52.517</span><span class="token punctuation">]</span><span class="token punctuation">,</span>
     zoom<span class="token operator">:</span> <span class="token number">9.5</span><span class="token punctuation">,</span>
     container<span class="token operator">:</span> <span class="token string">"map"</span><span class="token punctuation">,</span>
@@ -158,7 +158,7 @@
     // 2. Initialize the MapLibre map using style.json
     const map = new maplibregl.Map({
         container: "map",
-        style: "style_n250_dark.json",
+        style: "style_n5000_positron.json",
         // set explicit center
         center: [8.861573681786354, 61.87774254585082],
         zoom: 5.631333431788067
