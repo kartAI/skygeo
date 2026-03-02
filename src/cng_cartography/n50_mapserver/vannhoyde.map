@@ -1,0 +1,45 @@
+LAYER
+    CONNECTION "*"
+    CONNECTIONTYPE POSTGIS
+    DATA "geometri from hoyder_matview USING UNIQUE objid USING SRID=4258"
+    MAXSCALEDENOM 50000
+    CLASSITEM "teksttype"
+    METADATA
+        "ows_include_items" "All"
+        "ows_extent" "4 57 32 75"
+        "ows_title" "N50 Vannhoyde"
+        "gml_include_items" "All"
+        "wms_layer_group" "/kd_stedsnavn"
+    END
+    NAME "N50Vannhoyde"
+    PROCESSING "CLOSE_CONNECTION=DEFER"
+    PROCESSING "LABEL_NO_CLIP=True"
+    PROJECTION
+        "init=epsg:4258"
+    END
+    STATUS ON
+    TEMPLATE "c:/ms4w/empty.txt"
+    TILEITEM "location"
+    TYPE POINT
+    UNITS METERS
+    CLASS
+        NAME "N50 VannhÃ¸yde"
+        EXPRESSION "hÃ¸ydetallVann"
+        LABEL
+            ANGLE FOLLOW
+            ANTIALIAS TRUE
+            FONT "verdana"
+            SIZE [fontsize]
+            COLOR [geodb_color]
+            ENCODING "UTF-8"
+            PRIORITY [fontsize]
+            FORCE FALSE
+            MINDISTANCE 50
+            OFFSET 0 0
+            OUTLINECOLOR 254 254 254
+            POSITION CC
+            TYPE TRUETYPE
+        END
+        TEXT "[streng]"
+    END
+END

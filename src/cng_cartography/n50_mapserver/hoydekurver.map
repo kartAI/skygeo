@@ -1,0 +1,104 @@
+LAYER
+    CLASSITEM "objtype"
+    CONNECTION "*"
+    CONNECTIONTYPE POSTGIS
+    DATA "senterlinje from hoydekurve_matview USING UNIQUE objid USING SRID=4258"
+    MAXSCALEDENOM 50000
+    METADATA
+        "ows_include_items" "All"
+        "ows_extent" "4 57 32 75"
+        "ows_title" "N50 Hoydekurver"
+        "gml_include_items" "All"
+        "wms_layer_group" "/kd_hoydekurver"
+    END
+    NAME "N50Hoydekurver"
+    PROCESSING "CLOSE_CONNECTION=DEFER"
+    PROJECTION
+        "init=epsg:4258"
+    END
+    STATUS ON
+    TEMPLATE "c:/ms4w/empty.txt"
+    TILEITEM "location"
+    TYPE LINE
+    UNITS METERS
+    CLASS
+        NAME "Tellekurver"
+        EXPRESSION ( ( ( "[objtype]" == "HÃ¸ydekurve" ) AND ( "[medium]" = "T" ) ) AND ( [hoyde] IN "0, 100, 200, 300, 400, 500, 600, 700, 800, 900, 1000, 1100, 1200, 1300, 1400, 1500, 1600, 1700, 1800, 1900, 2000, 2100, 2200, 2300, 2400, 2500, 2600, 2700, 2800, 2900, 3000" ) )
+        STYLE
+            COLOR 200 133 70
+            WIDTH 1.2
+        END
+    END
+    CLASS
+        NAME "HÃ¸ydekurve"
+        EXPRESSION ( ( "[objtype]" == "HÃ¸ydekurve" ) AND ( "[medium]" = "T" ) )
+        STYLE
+            COLOR 200 133 70
+            WIDTH 0.5
+        END
+    END
+    CLASS
+        NAME "Forsenkningskurve"
+        EXPRESSION ( ( "[objtype]" == "Forsenkningskurve" ) AND ( "[medium]" = "T" ) )
+        STYLE
+            COLOR 200 133 70
+            LINECAP SQUARE
+            SIZE 8
+            SYMBOL "forsekningskurve"
+            WIDTH 0.5
+        END
+    END
+    CLASS
+        NAME "Hjelpekurve"
+        EXPRESSION ( ( "[objtype]" == "Helpekurve" ) AND ( "[medium]" = "T" ) )
+        STYLE
+            COLOR 200 133 70
+            PATTERN
+                5.0 5.0
+                5.0 5.0
+            END
+            SIZE 1
+            WIDTH 0.5
+        END
+    END
+    CLASS
+        NAME "Tellekurver_bre"
+        EXPRESSION ( ( ( "[objtype]" == "HÃ¸ydekurve" ) AND ( "[medium]" = "I" ) ) AND ( [hoyde] IN "0, 100, 200, 300, 400, 500, 600, 700, 800, 900, 1000, 1100, 1200, 1300, 1400, 1500, 1600, 1700, 1800, 1900, 2000, 2100, 2200, 2300, 2400, 2500, 2600, 2700, 2800, 2900, 3000" ) )
+        STYLE
+            COLOR 0 179 255
+            WIDTH 1.2
+        END
+    END
+    CLASS
+        NAME "HÃ¸ydekurve_bre"
+        EXPRESSION ( ( "[objtype]" == "HÃ¸ydekurve" ) AND ( "[medium]" = "I" ) )
+        STYLE
+            COLOR 0 179 255
+            WIDTH 0.5
+        END
+    END
+    CLASS
+        NAME "Forsenkningskurve_bre"
+        EXPRESSION ( ( "[objtype]" == "Forsenkningskurve" ) AND ( "[medium]" = "I" ) )
+        STYLE
+            COLOR 0 179 255
+            LINECAP SQUARE
+            SIZE 8
+            SYMBOL "forsekningskurve"
+            WIDTH 0.5
+        END
+    END
+    CLASS
+        NAME "Hjelpekurve_bre"
+        EXPRESSION ( ( "[objtype]" == "Helpekurve" ) AND ( "[medium]" = "I" ) )
+        STYLE
+            COLOR 0 179 255
+            PATTERN
+                5.0 5.0
+                5.0 5.0
+            END
+            SIZE 1
+            WIDTH 0.5
+        END
+    END
+END

@@ -1,0 +1,99 @@
+LAYER
+    CONNECTION "*"
+    NAME "N50Turisthytte"
+    CONNECTIONTYPE POSTGIS
+    PROCESSING "CLOSE_CONNECTION=DEFER"
+    DATA "posisjon from bygning_posisjon USING UNIQUE objid USING SRID=4258"
+    MAXSCALEDENOM 50000
+    TYPE POINT
+    METADATA
+        "ows_include_items" "All"
+        "ows_extent" "4 57 32 75"
+        "ows_title" "N50 Turisthytte"
+        "gml_include_items" "All"
+        "wms_layer_group" "/kd_turisthytte"
+    END
+    PROJECTION
+        "init=epsg:4258"
+    END
+    STATUS ON
+    TEMPLATE "c:/ms4w/empty.txt"
+    TILEITEM "location"
+    UNITS METERS
+    CLASS
+        NAME "Turisthytte: Betjent"
+        EXPRESSION ( ( "[betjeningsgrad]" == "B" ) OR ( "[betjeningsgrad]" == "Betjent" ) )
+        STYLE
+            COLOR 254 1 1
+            SIZE 5
+            SYMBOL "firkant"
+        END
+    END
+    CLASS
+        NAME "Turisthytte: Selvbetjent"
+        EXPRESSION ( ( ( "[betjeningsgrad]" == "S" ) OR ( "[betjeningsgrad]" == "Selvbetjent" ) ) AND ( "[tilgjengelighet]" == "UlÃ¥st" ) )
+        STYLE
+            COLOR 254 254 254
+            SIZE 5
+            SYMBOL "Turisthytte_selvbetjent"
+        END
+        STYLE
+            COLOR 254 1 1
+            SIZE 5
+            SYMBOL "Turisthytte_selvbetjent"
+        END
+    END
+    CLASS
+        NAME "Turisthytte: Ubetjent"
+        EXPRESSION ( ( ( "[betjeningsgrad]" == "U" ) OR ( "[betjeningsgrad]" == "Ubetjent" ) ) AND ( "[tilgjengelighet]" == "UlÃ¥st" ) )
+        STYLE
+            COLOR 254 254 254
+            OUTLINECOLOR 254 1 1
+            SIZE 5
+            SYMBOL "firkant"
+        END
+    END
+    CLASS
+        NAME "Annen turisthytte: Selvbetjent"
+        EXPRESSION ( ( ( "[betjeningsgrad]" == "S" ) OR ( "[betjeningsgrad]" == "Selvbetjent" ) ) AND ( "[tilgjengelighet]" == "LÃ¥st" ) )
+        STYLE
+            COLOR 90 135 222
+            SIZE 5
+            SYMBOL "Turisthytte_selvbetjent"
+        END
+    END
+    CLASS
+        NAME "Annen turisthytte: Ubetjent"
+        EXPRESSION ( ( ( "[betjeningsgrad]" == "U" ) OR ( "[betjeningsgrad]" == "Ubetjent" ) ) AND ( "[tilgjengelighet]" == "LÃ¥st" ) )
+        STYLE
+            COLOR 254 254 254
+            OUTLINECOLOR 90 135 222
+            SIZE 5
+            SYMBOL "firkant"
+        END
+    END
+    CLASS
+        NAME "Dagsturhytte, serveringssted"
+        EXPRESSION ( ( "[betjeningsgrad]" == "D" ) OR ( "[betjeningsgrad]" == "Serveringshytte" ) )
+        STYLE
+            COLOR 254 254 254
+            OUTLINECOLOR 254 1 1
+            SIZE 5
+            SYMBOL "firkant"
+        END
+        STYLE
+            COLOR 254 1 1
+            SIZE 2
+            SYMBOL "circle"
+        END
+    END
+    CLASS
+        NAME "Rastebu, nÃ¸dly, gamme, gapahuk"
+        EXPRESSION ( ( ( ( "[betjeningsgrad]" == "R" ) OR ( "[betjeningsgrad]" == "G" ) ) OR ( "[betjeningsgrad]" == "Rastebu" ) ) OR ( "[betjeningsgrad]" == "Gapahuk" ) )
+        STYLE
+            COLOR 254 1 1
+            SIZE 5
+            SYMBOL "triangel"
+        END
+    END
+END

@@ -1,0 +1,84 @@
+LAYER
+    CONNECTION "*"
+    CONNECTIONTYPE POSTGIS
+    DATA "senterlinje from bane USING UNIQUE objid USING SRID=4258"
+    MAXSCALEDENOM 50000
+    METADATA
+        "ows_include_items" "All"
+        "ows_extent" "4 57 32 75"
+        "ows_title" "N50 Jernbane"
+        "gml_include_items" "All"
+        "wms_layer_group" "/kd_jernbane"
+    END
+    NAME "N50Jernbane"
+    PROCESSING "CLOSE_CONNECTION=DEFER"
+    PROJECTION
+        "init=epsg:4258"
+    END
+    STATUS ON
+    TEMPLATE "c:/ms4w/empty.txt"
+    TILEITEM "location"
+    TYPE LINE
+    UNITS METERS
+    CLASS
+        NAME "Jernbane - Bru"
+        EXPRESSION ( ( "[medium]" == 'L' ) AND ( "[anleggstype]" != 'P' ) )
+        STYLE
+            COLOR 51 51 51
+            WIDTH 3
+        END
+        STYLE
+            COLOR 1 1 1
+            WIDTH 0.6
+        END
+    END
+    CLASS
+        NAME "Jernbane - Tunnel"
+        EXPRESSION ( ( "[medium]" == 'U' ) AND ( "[anleggstype]" != 'P' ) )
+        STYLE
+            COLOR 51 51 51
+            PATTERN
+                8.0 8.0
+                8.0 8.0
+            END
+            SIZE 1.8
+            WIDTH 1.8
+        END
+    END
+    CLASS
+        NAME "Planlagt jernbane"
+        EXPRESSION ( ( "[medium]" == 'T' ) AND ( "[anleggstype]" == 'P' ) )
+        LABEL
+            ANTIALIAS TRUE
+            FONT "arial"
+            SIZE 8
+            BUFFER 2
+            COLOR 1 1 1
+            OUTLINECOLOR 254 254 229
+            ENCODING "UTF-8"
+            MINDISTANCE 150
+            MINFEATURESIZE 20
+            OFFSET 0 20
+            PRIORITY 4
+            SHADOWSIZE 1 1
+            TYPE TRUETYPE
+            ANGLE FOLLOW
+        END
+        TEXT "Planlagt"
+        STYLE
+            WIDTH 0.5
+            COLOR 1 1 1
+            PATTERN
+                5 5
+            END
+            OFFSET 1.5 -99
+        END
+    END
+    CLASS
+        NAME "Jernbane"
+        STYLE
+            COLOR 1 1 1
+            WIDTH 1.8
+        END
+    END
+END

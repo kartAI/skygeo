@@ -1,0 +1,129 @@
+LAYER
+    CLASSITEM "objtype"
+    CONNECTION "*"
+    CONNECTIONTYPE POSTGIS
+    DATA "posisjon from (select posisjon, lengde, objtype, ogc_fid, (360-retningsverdi) as retningsverdi from anleggspunkt_matview) as foo USING UNIQUE ogc_fid USING SRID=4258"
+    MAXSCALEDENOM 50000
+    METADATA
+        "ows_include_items" "All"
+        "ows_extent" "4 57 32 75"
+        "ows_title" "N50 Anleggspunkt"
+        "gml_include_items" "All"
+        "wms_layer_group" "/kd_anleggspunkt"
+    END
+    NAME "N50Anleggspunkt"
+    PROCESSING "CLOSE_CONNECTION=DEFER"
+    PROJECTION
+        "init=epsg:4258"
+    END
+    STATUS ON
+    TEMPLATE "c:/ms4w/empty.txt"
+    TILEITEM "location"
+    TYPE POINT
+    UNITS METERS
+    CLASS
+        NAME "Campingplass"
+        EXPRESSION "Campingplass"
+        STYLE
+            COLOR 255 1 1
+            OUTLINECOLOR 254 254 254
+            SIZE 7
+            SYMBOL "Campingplass"
+        END
+    END
+    CLASS
+        NAME "Fyr"
+        EXPRESSION "Navigasjonsinstallasjon"
+        STYLE
+            COLOR 1 1 1
+            SIZE 7
+            SYMBOL "Fyr"
+        END
+    END
+    CLASS
+        NAME "Gruve"
+        EXPRESSION "Gruve"
+        STYLE
+            COLOR 1 1 1
+            SIZE 7
+            SYMBOL "Gruve"
+        END
+    END
+    CLASS
+        NAME "Mast"
+        EXPRESSION "MastTele"
+        STYLE
+            COLOR 1 1 1
+            SIZE 7
+            SYMBOL "Mast"
+        END
+    END
+    CLASS
+        NAME "Tank"
+        EXPRESSION "Tank"
+        STYLE
+            COLOR 1 1 1
+            SIZE 3
+            SYMBOL "circle"
+        END
+    END
+    CLASS
+        NAME "TÃ¥rn"
+        EXPRESSION "TÃ¥rn"
+        STYLE
+            COLOR 1 1 1
+            SIZE 10
+            SYMBOL "TÃ¥rn"
+        END
+    END
+    CLASS
+        NAME "Foss"
+        EXPRESSION ( "[objtype]" == "Foss" )
+        STYLE
+            ANGLE [retningsverdi]
+            COLOR 0 166 254
+            SIZE 2
+            SYMBOL "strek_vegbom"
+            WIDTH 12
+        END
+    END
+    CLASS
+        NAME "Vindkraftverk"
+        EXPRESSION "Vindkraftverk"
+        STYLE
+            COLOR 1 1 1
+            SYMBOL "global/symbols/vindturbin.png"
+            SIZE 20
+        END
+    END
+    CLASS
+        NAME "Hoppbakke"
+        EXPRESSION ( ( ( "[objtype]" == "Hoppbakke" ) AND ( [lengde] >= 1 ) ) AND ( [lengde] <= 209 ) )
+        STYLE
+            ANGLE [retningsverdi]
+            COLOR 1 1 1
+            SIZE 8
+            SYMBOL "Hoppbakke"
+        END
+    END
+    CLASS
+        NAME "Hoppbakke"
+        EXPRESSION ( ( ( "[objtype]" == "Hoppbakke" ) AND ( [lengde] >= 210 ) ) AND ( [lengde] <= 239 ) )
+        STYLE
+            ANGLE [retningsverdi]
+            COLOR 1 1 1
+            SIZE 10
+            SYMBOL "Hoppbakke"
+        END
+    END
+    CLASS
+        NAME "Hoppbakke"
+        EXPRESSION ( ( "[objtype]" == "Hoppbakke" ) AND ( [lengde] >= 240 ) )
+        STYLE
+            ANGLE [retningsverdi]
+            COLOR 1 1 1
+            SIZE 14
+            SYMBOL "Hoppbakke"
+        END
+    END
+END

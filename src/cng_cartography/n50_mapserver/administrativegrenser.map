@@ -1,0 +1,95 @@
+LAYER
+    CLASSITEM "objtype"
+    CONNECTION "*"
+    CONNECTIONTYPE POSTGIS
+    DATA "grense from administrative_grenser_matview USING UNIQUE ogc_fid USING SRID=4258"
+    MAXSCALEDENOM 50000
+    METADATA
+        "ows_include_items" "All"
+        "ows_extent" "4 57 32 75"
+        "ows_title" "N50 Administrative Grenser"
+        "gml_include_items" "All"
+        "wms_layer_group" "/kd_administrative_grenser"
+        "wms_metadataurl_type" "TC211"
+        "wms_metadataurl_format" "text/xml"
+        "wms_metadataurl_href" "https://www.geonorge.no/geonetwork/srv/nor/xml_iso19139?uuid=ea192681-d039-42ec-b1bc-f3ce04c189ac"
+        "wms_identifier_authority" "https://data.geonorge.no/sosi/kartdata"
+        "wms_identifier_value" "n50"
+    END
+    NAME "N50AdministrativeGrenser"
+    PROCESSING "CLOSE_CONNECTION=DEFER"
+    PROJECTION
+        "init=epsg:4258"
+    END
+    STATUS ON
+    TEMPLATE "c:/ms4w/empty.txt"
+    TILEITEM "location"
+    TYPE LINE
+    UNITS METERS
+    CLASS
+        NAME "Kommunegrense"
+        EXPRESSION "Kommunegrense"
+        STYLE
+            COLOR 180 135 254
+            WIDTH 1.5
+        END
+        STYLE
+            COLOR 1 1 1
+            PATTERN
+                5.0 5.0
+                5.0 5.0
+            END
+            SIZE 1
+        END
+    END
+    CLASS
+        NAME "Fylkesgrense"
+        EXPRESSION "Fylkesgrense"
+        STYLE
+            COLOR 180 135 254
+            WIDTH 2.8
+        END
+        STYLE
+            COLOR 1 1 1
+            PATTERN
+                5.0 5.0
+                5.0 5.0
+            END
+            SIZE 1.5
+            WIDTH 1.5
+        END
+    END
+    CLASS
+        NAME "Riksgrense"
+        EXPRESSION "Riksgrense"
+        STYLE
+            COLOR 190 90 190
+            WIDTH 3.5
+        END
+    END
+    CLASS
+        NAME "Grunnlinje"
+        EXPRESSION "Grunnlinje"
+        STYLE
+            COLOR 210 115 60
+            PATTERN
+                8.0 8.0
+                8.0 8.0
+            END
+            SIZE 0.5
+            WIDTH 0.5
+        END
+    END
+    CLASS
+        NAME "Territorialgrense"
+        EXPRESSION "Territorialgrense"
+        STYLE
+            COLOR 190 90 190
+            PATTERN
+                10.0 3.0
+                2.0 3.0
+            END
+            SIZE 1
+        END
+    END
+END

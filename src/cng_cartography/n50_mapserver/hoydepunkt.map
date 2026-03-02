@@ -1,0 +1,43 @@
+LAYER
+    CLASSITEM "objtype"
+    CONNECTION "*"
+    CONNECTIONTYPE POSTGIS
+    DATA "posisjon from hoydepunkt_matview USING UNIQUE objid USING SRID=4258"
+    MAXSCALEDENOM 50000
+    METADATA
+        "ows_include_items" "All"
+        "ows_extent" "4 57 32 75"
+        "ows_title" "N50 HÃ¸ydepunkt"
+        "gml_include_items" "All"
+        "wms_layer_group" "/kd_hoydepunkt"
+    END
+    NAME "N50Hoydepunkt"
+    PROCESSING "CLOSE_CONNECTION=DEFER"
+    PROJECTION
+        "init=epsg:4258"
+    END
+    STATUS ON
+    TEMPLATE "c:/ms4w/empty.txt"
+    TILEITEM "location"
+    TYPE POINT
+    UNITS METERS
+    CLASS
+        EXPRESSION "TrigonometriskPunkt"
+        STYLE
+            COLOR 143 95 36
+            SIZE 6
+            SYMBOL "Kryss"
+        END
+        TEXT "[hoyde]"
+    END
+    CLASS
+        NAME "TerrenghÃ¸yde"
+        EXPRESSION ( ( "[objtype]" == "Terrengpunkt" ) AND ( "[medium]" != "B" ) )
+        STYLE
+            COLOR 143 95 36
+            SIZE 6
+            SYMBOL "Kryss"
+        END
+        TEXT "[hoyde]"
+    END
+END

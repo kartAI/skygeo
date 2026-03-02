@@ -1,0 +1,43 @@
+LAYER
+    CONNECTION "*"
+    CONNECTIONTYPE POSTGIS
+    DATA "omrade from bygning_omrade USING UNIQUE objid USING SRID=4258"
+    MAXSCALEDENOM 50000
+    METADATA
+        "ows_include_items" "All"
+        "ows_extent" "4 57 32 72"
+        "ows_title" "N50 Bygningsflate"
+        "gml_include_items" "All"
+        "wms_layer_group" "/kd_bygninger"
+    END
+    NAME "N50Bygningsflate"
+    PROCESSING "CLOSE_CONNECTION=DEFER"
+    PROJECTION
+        "init=epsg:4258"
+    END
+    STATUS ON
+    TEMPLATE "c:/ms4w/empty.txt"
+    TILEITEM "location"
+    TYPE POLYGON
+    UNITS METERS
+    CLASS
+        NAME "Bolig, gÃ¥rd"
+        EXPRESSION ( ( ( ( ( ( ( ( ( ( ( ( ( ( ( ( ( ( ( ( ( ( ( ( ( ( ( ( "[bygningstype]" == "111" ) OR ( "[bygningstype]" == "112" ) ) OR ( "[bygningstype]" == "113" ) ) OR ( "[bygningstype]" == "121" ) ) OR ( "[bygningstype]" == "122" ) ) OR ( "[bygningstype]" == "123" ) ) OR ( "[bygningstype]" == "124" ) ) OR ( "[bygningstype]" == "131" ) ) OR ( "[bygningstype]" == "132" ) ) OR ( "[bygningstype]" == "133" ) ) OR ( "[bygningstype]" == "134" ) ) OR ( "[bygningstype]" == "135" ) ) OR ( "[bygningstype]" == "136" ) ) OR ( "[bygningstype]" == "141" ) ) OR ( "[bygningstype]" == "142" ) ) OR ( "[bygningstype]" == "143" ) ) OR ( "[bygningstype]" == "144" ) ) OR ( "[bygningstype]" == "145" ) ) OR ( "[bygningstype]" == "146" ) ) OR ( "[bygningstype]" == "151" ) ) OR ( "[bygningstype]" == "152" ) ) OR ( "[bygningstype]" == "159" ) ) OR ( "[bygningstype]" == "181" ) ) OR ( "[bygningstype]" == "182" ) ) OR ( "[bygningstype]" == "183" ) ) OR ( "[bygningstype]" == "191" ) ) OR ( "[bygningstype]" == "192" ) ) OR ( "[bygningstype]" == "199" ) )
+        STYLE
+            COLOR 153 95 32
+        END
+    END
+    CLASS
+        NAME "Fritidsbolig"
+        EXPRESSION ( ( ( ( ( "[bygningstype]" == "172" ) OR ( "[bygningstype]" == "171" ) ) OR ( "[bygningstype]" == "163" ) ) OR ( "[bygningstype]" == "162" ) ) OR ( "[bygningstype]" == "161" ) )
+        STYLE
+            COLOR 153 95 32
+        END
+    END
+    CLASS
+        NAME "Annen nÃ¦ring"
+        STYLE
+            COLOR 90 135 222
+        END
+    END
+END

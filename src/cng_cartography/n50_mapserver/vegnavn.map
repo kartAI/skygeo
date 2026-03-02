@@ -1,0 +1,112 @@
+LAYER
+    CONNECTION "*"
+    CONNECTIONTYPE POSTGIS
+    DATA "senterlinje from veglenke USING UNIQUE objid USING SRID=4258"
+    PROCESSING "NATIVE_FILTER=(vegnummer != '99999') AND (vegfase != 'P')"
+    PROCESSING "CLOSE_CONNECTION=DEFER"
+    PROCESSING "LABEL_NO_CLIP=True"
+    MAXSCALEDENOM 50000
+    METADATA
+        "ows_include_items" "All"
+        "ows_extent" "4 57 32 75"
+        "ows_title" "N50 Vegnavn"
+        "gml_include_items" "All"
+        "wms_layer_group" "/kd_vegnavn"
+    END
+    NAME "N50Vegnavn"
+    PROJECTION
+        "init=epsg:4258"
+    END
+    STATUS ON
+    TEMPLATE "c:/ms4w/empty.txt"
+    TILEITEM "location"
+    TYPE LINE
+    UNITS METERS
+    CLASS
+        NAME "Europaveg"
+        EXPRESSION ( ( "[vegkategori]" == "E" ) AND ( "[medium]" == "T" ) )
+        LABEL
+            ANTIALIAS TRUE
+            FONT "arialbold"
+            SIZE 7.8
+            BUFFER 2
+            COLOR 254 254 254
+            ENCODING "UTF-8"
+            MINDISTANCE 150
+            MINFEATURESIZE 20
+            OFFSET 0 0
+            POSITION CC
+            PRIORITY 4
+            SHADOWSIZE 1 1
+            STYLE
+                COLOR 150 150 150
+                GEOMTRANSFORM LABELPOLY
+                OFFSET 1 1
+            END
+            STYLE
+                COLOR 1 153 51
+                GEOMTRANSFORM LABELPOLY
+            END
+            TYPE TRUETYPE
+        END
+        TEXT "[vegkategori][vegnummer]"
+    END
+    CLASS
+        NAME "Riksveg"
+        EXPRESSION ( ( "[vegkategori]" == "R" ) AND ( "[medium]" == "T" ) )
+        LABEL
+            ANTIALIAS TRUE
+            FONT "arialbold"
+            SIZE 7.8
+            BUFFER 2
+            COLOR 254 254 254
+            ENCODING "UTF-8"
+            MINDISTANCE 150
+            MINFEATURESIZE 30
+            OFFSET 0 0
+            POSITION CC
+            PRIORITY 3
+            SHADOWSIZE 1 1
+            STYLE
+                COLOR 150 150 150
+                GEOMTRANSFORM LABELPOLY
+                OFFSET 1 1
+            END
+            STYLE
+                COLOR 1 153 51
+                GEOMTRANSFORM LABELPOLY
+            END
+            TYPE TRUETYPE
+        END
+        TEXT "[vegnummer]"
+    END
+    CLASS
+        NAME "Fylkessveg"
+        EXPRESSION ( ( "[vegkategori]" == "F" ) AND ( "[medium]" == "T" ) )
+        LABEL
+            ANTIALIAS TRUE
+            FONT "arial"
+            SIZE 8.5
+            BUFFER 2
+            COLOR 1 1 1
+            ENCODING "UTF-8"
+            MINDISTANCE 150
+            MINFEATURESIZE 30
+            OFFSET 0 0
+            POSITION CC
+            PRIORITY 2
+            SHADOWSIZE 1 1
+            STYLE
+                COLOR 150 150 150
+                GEOMTRANSFORM LABELPOLY
+                OFFSET 1 1
+            END
+            STYLE
+                COLOR 255 255 255
+                GEOMTRANSFORM LABELPOLY
+            END
+            TYPE TRUETYPE
+        END
+        TEXT "[vegnummer]"
+    END
+END

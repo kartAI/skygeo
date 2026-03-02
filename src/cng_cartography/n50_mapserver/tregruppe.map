@@ -1,0 +1,32 @@
+LAYER
+    CLASSITEM "objtype"
+    CONNECTION "*"
+    CONNECTIONTYPE POSTGIS
+    DATA "posisjon from tregruppe USING UNIQUE objid USING SRID=4258"
+    MAXSCALEDENOM 50000
+    METADATA
+        "ows_include_items" "All"
+        "ows_extent" "4 57 32 75"
+        "ows_title" "N50 Tregruppe"
+        "gml_include_items" "All"
+        "wms_layer_group" "/kd_arealdekkepunkt"
+    END
+    NAME "N50Tregruppe"
+    PROCESSING "CLOSE_CONNECTION=DEFER"
+    PROJECTION
+        "init=epsg:4258"
+    END
+    STATUS ON
+    TEMPLATE "c:/ms4w/empty.txt"
+    TILEITEM "location"
+    TYPE POINT
+    UNITS METERS
+    CLASS
+        NAME "Tregruppe"
+        STYLE
+            COLOR 0 204 0
+            SIZE 5
+            SYMBOL "circle"
+        END
+    END
+END

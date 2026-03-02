@@ -1,0 +1,110 @@
+LAYER
+    CLASSITEM "bygningstype"
+    CONNECTION "*"
+    CONNECTIONTYPE POSTGIS
+    DATA "posisjon from bygning_posisjon USING UNIQUE objid USING SRID=4258"
+    MAXSCALEDENOM 30000
+    METADATA
+        "ows_include_items" "All"
+        "ows_extent" "4 57 32 75"
+        "ows_title" "N50 Bygningspunkt"
+        "gml_include_items" "All"
+        "wms_layer_group" "/kd_bygningspunkt"
+    END
+    NAME "N50Bygningspunkt"
+    PROCESSING "CLOSE_CONNECTION=DEFER"
+    PROJECTION
+        "init=epsg:4258"
+    END
+    STATUS ON
+    TEMPLATE "c:/ms4w/empty.txt"
+    TILEITEM "location"
+    TYPE POINT
+    UNITS METERS
+    CLASS
+        NAME "Bolig"
+        EXPRESSION ( ( ( ( ( ( ( ( ( ( ( ( ( ( ( ( ( ( ( ( ( ( ( ( ( ( ( ( "[bygningstype]" == "111" ) OR ( "[bygningstype]" == "112" ) ) OR ( "[bygningstype]" == "113" ) ) OR ( "[bygningstype]" == "121" ) ) OR ( "[bygningstype]" == "122" ) ) OR ( "[bygningstype]" == "123" ) ) OR ( "[bygningstype]" == "124" ) ) OR ( "[bygningstype]" == "131" ) ) OR ( "[bygningstype]" == "132" ) ) OR ( "[bygningstype]" == "133" ) ) OR ( "[bygningstype]" == "134" ) ) OR ( "[bygningstype]" == "135" ) ) OR ( "[bygningstype]" == "136" ) ) OR ( "[bygningstype]" == "141" ) ) OR ( "[bygningstype]" == "142" ) ) OR ( "[bygningstype]" == "143" ) ) OR ( "[bygningstype]" == "144" ) ) OR ( "[bygningstype]" == "145" ) ) OR ( "[bygningstype]" == "146" ) ) OR ( "[bygningstype]" == "151" ) ) OR ( "[bygningstype]" == "152" ) ) OR ( "[bygningstype]" == "159" ) ) OR ( "[bygningstype]" == "181" ) ) OR ( "[bygningstype]" == "182" ) ) OR ( "[bygningstype]" == "183" ) ) OR ( "[bygningstype]" == "191" ) ) OR ( "[bygningstype]" == "192" ) ) OR ( "[bygningstype]" == "199" ) )
+        STYLE
+            COLOR 154 95 33
+            SIZE 3.5
+            SYMBOL "Firkant"
+        END
+    END
+    CLASS
+        NAME "Fritidsbolig"
+        EXPRESSION ( ( ( ( ( "[bygningstype]" == "172" ) OR ( "[bygningstype]" == "171" ) ) OR ( "[bygningstype]" == "163" ) ) OR ( "[bygningstype]" == "162" ) ) OR ( "[bygningstype]" == "161" ) )
+        STYLE
+            COLOR 214 135 35
+            SIZE 3
+            SYMBOL "Firkant"
+        END
+    END
+    CLASS
+        NAME "Gardsbruk"
+        EXPRESSION "113"
+        STYLE
+            COLOR 154 95 33
+            SIZE 4.5
+            SYMBOL "Firkant"
+        END
+    END
+    CLASS
+        NAME "Kirke/Kapell"
+        EXPRESSION "671"
+        STYLE
+            COLOR 254 254 254
+            SIZE 7
+            SYMBOL "Firkant"
+        END
+        STYLE
+            COLOR 1 1 1
+            SIZE 6
+            SYMBOL "Kirke"
+        END
+    END
+    CLASS
+        NAME "Sykehus"
+        EXPRESSION "970"
+        STYLE
+            COLOR 254 254 254
+            SIZE 8
+            SYMBOL "Firkant"
+        END
+        STYLE
+            COLOR 255 0 51
+            SIZE 7
+            SYMBOL "Sykehus"
+        END
+    END
+    CLASS
+        NAME "Ã˜vrige sykehus og helseinstitusjoner"
+        EXPRESSION ( ( ( ( ( ( ( ( ( "[bygningstype]" == "711" ) OR ( "[bygningstype]" == "712" ) ) OR ( "[bygningstype]" == "713" ) ) OR ( "[bygningstype]" == "714" ) ) OR ( "[bygningstype]" == "719" ) ) OR ( "[bygningstype]" == "721" ) ) OR ( "[bygningstype]" == "722" ) ) OR ( "[bygningstype]" == "723" ) ) OR ( "[bygningstype]" == "729" ) )
+        STYLE
+            COLOR 254 254 254
+            SIZE 8
+            SYMBOL "Firkant"
+        END
+        STYLE
+            COLOR 0 204 0
+            SIZE 7
+            SYMBOL "Sykehus"
+        END
+    END
+    CLASS
+        NAME "Annen fiskeri- og landbruksnÃ¦ring"
+        EXPRESSION ( ( ( ( ( ( ( ( "[bygningstype]" == "241" ) OR ( "[bygningstype]" == "242" ) ) OR ( "[bygningstype]" == "243" ) ) OR ( "[bygningstype]" == "243" ) ) OR ( "[bygningstype]" == "244" ) ) OR ( "[bygningstype]" == "245" ) ) OR ( "[bygningstype]" == "248" ) ) OR ( "[bygningstype]" == "249" ) )
+        STYLE
+            COLOR 154 95 33
+            SIZE 4.5
+            SYMBOL "Firkant"
+        END
+    END
+    CLASS
+        NAME "Annen nÃ¦ring"
+        STYLE
+            COLOR 90 135 222
+            SIZE 3.5
+            SYMBOL "Firkant"
+        END
+    END
+END

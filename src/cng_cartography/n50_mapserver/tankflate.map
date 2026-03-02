@@ -1,0 +1,29 @@
+LAYER
+    CONNECTION "*"
+    CONNECTIONTYPE POSTGIS
+    DATA "omrade from tank_omrade USING UNIQUE objid USING SRID=4258"
+    MAXSCALEDENOM 50000
+    METADATA
+        "ows_include_items" "All"
+        "ows_extent" "4 57 32 72"
+        "ows_title" "N50 Tankflate"
+        "gml_include_items" "All"
+        "wms_layer_group" "/kd_bygninger"
+    END
+    NAME "N50Tankflate"
+    PROCESSING "CLOSE_CONNECTION=DEFER"
+    PROJECTION
+        "init=epsg:4258"
+    END
+    STATUS ON
+    TEMPLATE "c:/ms4w/empty.txt"
+    TILEITEM "location"
+    TYPE POLYGON
+    UNITS METERS
+    CLASS
+        NAME "Tank"
+        STYLE
+            COLOR 128 128 128
+        END
+    END
+END

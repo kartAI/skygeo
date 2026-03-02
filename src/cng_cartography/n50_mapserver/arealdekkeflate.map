@@ -1,0 +1,129 @@
+LAYER
+    CLASSITEM "objtype"
+    CONNECTION "*"
+    CONNECTIONTYPE POSTGIS
+    DATA "omrade from arealdekkeflate_matview USING UNIQUE ogc_fid USING SRID=4258"
+    MAXSCALEDENOM 50000
+    METADATA
+        "ows_include_items" "All"
+        "ows_extent" "4 57 32 72"
+        "ows_title" "N50 Arealdekkeflate"
+        "gml_include_items" "All"
+        "wms_layer_group" "/kd_arealdekkeflate"
+    END
+    NAME "N50Arealdekkeflate"
+    PROCESSING "CLOSE_CONNECTION=DEFER"
+    PROJECTION
+        "init=epsg:4258"
+    END
+    STATUS ON
+    TEMPLATE "c:/ms4w/empty.txt"
+    TILEITEM "location"
+    TYPE POLYGON
+    UNITS METERS
+    CLASS
+        NAME "Skog"
+        EXPRESSION "Skog"
+        STYLE
+            COLOR 210 230 124
+        END
+    END
+    CLASS
+        NAME "Dyrket mark"
+        EXPRESSION "DyrketMark"
+        STYLE
+            COLOR 254 247 163
+        END
+    END
+    CLASS
+        NAME "Ã…pent omrÃ¥de"
+        EXPRESSION "Ã…pentOmrÃ¥de"
+        STYLE
+            COLOR 254 254 230
+        END
+    END
+    CLASS
+        NAME "Bymessig Bebyggelse"
+        EXPRESSION "BymessigBebyggelse"
+        STYLE
+            COLOR 247 190 140
+        END
+    END
+    CLASS
+        NAME "Tettbebyggelse"
+        EXPRESSION "Tettbebyggelse"
+        STYLE
+            COLOR 250 217 188
+        END
+    END
+    CLASS
+        NAME "Myr"
+        EXPRESSION "Myr"
+        STYLE
+            COLOR 254 254 254
+            OUTLINECOLOR 130 200 240
+            WIDTH 0.2
+        END
+        STYLE
+            COLOR 130 200 240
+            SIZE 4
+            SYMBOL "Hatch"
+            WIDTH 0.8
+        END
+    END
+    CLASS
+        NAME "Bre"
+        EXPRESSION "SnÃ¸Isbre"
+        STYLE
+            COLOR 254 254 254
+            OUTLINECOLOR 0 166 254
+            WIDTH 1.1
+        END
+    END
+    CLASS
+        NAME "Industri"
+        EXPRESSION "IndustriomrÃ¥de"
+        STYLE
+            COLOR 215 215 215
+        END
+    END
+    CLASS
+        NAME "Dagbrudd / Steintipp"
+        EXPRESSION ( ( "[objtype]" == "Steinbrudd" ) OR ( "[objtype]" == "Steintipp" ) )
+        STYLE
+            COLOR 215 215 215
+            OUTLINECOLOR 1 1 1
+            WIDTH 0.3
+        END
+    END
+    CLASS
+        NAME "Sport,Park,Gravplass"
+        EXPRESSION ( ( ( ( ( "[objtype]" == "Alpinbakke" ) OR ( "[objtype]" == "Golfbane" ) ) OR ( "[objtype]" == "Gravplass" ) ) OR ( "[objtype]" == "Park" ) ) OR ( "[objtype]" == "SportIdrettPlass" ) )
+        STYLE
+            COLOR 155 185 60
+        END
+    END
+    CLASS
+        NAME "Flyplass"
+        EXPRESSION "Lufthavn"
+        STYLE
+            COLOR 254 254 230
+            OUTLINECOLOR 1 1 1
+            WIDTH 1.2
+        END
+    END
+    CLASS
+        NAME "Flyplass rullebane"
+        EXPRESSION "Rullebane"
+        STYLE
+            COLOR 220 220 220
+        END
+    END
+    CLASS
+        NAME "Hyttefelt"
+        EXPRESSION "Hyttefelt"
+        STYLE
+            COLOR 153 153 51
+        END
+    END
+END

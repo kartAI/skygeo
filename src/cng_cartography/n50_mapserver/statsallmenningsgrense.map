@@ -1,0 +1,35 @@
+LAYER
+    CLASSITEM "objtype"
+    CONNECTION "*"
+    CONNECTIONTYPE POSTGIS
+    DATA "grense from allmenninggrense USING UNIQUE objid USING SRID=4258"
+    MAXSCALEDENOM 50000
+    METADATA
+        "ows_include_items" "All"
+        "ows_extent" "4 57 32 75"
+        "ows_title" "Statsallmenningsgrense"
+        "gml_include_items" "All"
+        "wms_layer_group" "/kd_andre_grenser"
+    END
+    NAME "Statsallmenningsgrense"
+    PROCESSING "CLOSE_CONNECTION=DEFER"
+    PROJECTION
+        "init=epsg:4258"
+    END
+    STATUS ON
+    TEMPLATE "c:/ms4w/empty.txt"
+    TILEITEM "location"
+    TYPE LINE
+    UNITS METERS
+    CLASS
+        NAME "statsallmenningsgrense"
+        STYLE
+            COLOR 0 0 0
+            PATTERN
+                8.0 5.0
+                8.0 5.0
+                2.0 5.0
+            END
+        END
+    END
+END
