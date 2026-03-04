@@ -33,12 +33,12 @@ def build_yaml(layers, geopackage_path):
         'schema_description': filename,
         'args': {
             'minzoom': 0,
-            'maxzoom': 5
+            'maxzoom': 15
         },
         'sources': {
             'dataset': {
                 'type': 'geopackage',
-                'url': f"{Path(geopackage_path).name}",
+                'local_path': f"{Path(geopackage_path).name}",
                 'projection': projection
             }
         },

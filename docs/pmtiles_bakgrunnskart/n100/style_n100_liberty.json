@@ -1,0 +1,187 @@
+{
+  "version": 8,
+  "name": "Dark Matter N100",
+  "metadata": {
+    "maputnik:renderer": "mbgljs"
+  },
+  "glyphs": "https://demotiles.maplibre.org/font/{fontstack}/{range}.pbf",
+  "sources": {
+    "N100": {
+      "type": "vector",
+      "url": "pmtiles://https://kartaistorage.blob.core.windows.net/skygeo/vectortiles/n100.pmtiles"
+    }
+  },
+  "layers": [
+    {
+      "id": "background",
+      "type": "background",
+      "paint": {
+        "background-color": "#f3f1ec"
+      }
+    },
+    {
+      "id": "landuse-area-forest",
+      "type": "fill",
+      "source": "N100",
+      "source-layer": "N100_Arealdekke_omrade",
+      "filter": [
+        "any",
+        ["==", "objtype", "Skog"],
+        ["==", "objtype", "DyrketMark"]
+      ],
+      "paint": {
+        "fill-color": "#dbe8d0",
+        "fill-outline-color": "#d3e0c7"
+      }
+    },
+    {
+      "id": "landuse-area-builtup",
+      "type": "fill",
+      "source": "N100",
+      "source-layer": "N100_Arealdekke_omrade",
+      "filter": [
+        "any",
+        ["==", "objtype", "Tettbebyggelse"],
+        ["==", "objtype", "Industriområde"]
+      ],
+      "paint": {
+        "fill-color": "#efe5d6",
+        "fill-outline-color": "#e5dccf"
+      }
+    },
+    {
+      "id": "water-area",
+      "type": "fill",
+      "source": "N100",
+      "source-layer": "N100_Arealdekke_omrade",
+      "filter": [
+        "any",
+        ["==", "objtype", "Havflate"],
+        ["==", "objtype", "Innsjø"],
+        ["==", "objtype", "ElvBekk"]
+      ],
+      "paint": {
+        "fill-color": "#bcd6f1"
+      }
+    },
+    {
+      "id": "water-lines",
+      "type": "line",
+      "source": "N100",
+      "source-layer": "N100_Arealdekke_senterlinje",
+      "filter": [
+        "any",
+        ["==", "objtype", "ElvBekk"],
+        ["==", "objtype", "InnsjøMidtlinje"]
+      ],
+      "paint": {
+        "line-color": "#8fb8e8",
+        "line-width": 1
+      }
+    },
+    {
+      "id": "contour-lines",
+      "type": "line",
+      "source": "N100",
+      "source-layer": "N100_Høyde_senterlinje",
+      "minzoom": 10,
+      "paint": {
+        "line-color": "#c9b59a",
+        "line-width": 0.5,
+        "line-opacity": 0.7
+      }
+    },
+    {
+      "id": "transport-roads-minor",
+      "type": "line",
+      "source": "N100",
+      "source-layer": "N100_Samferdsel_senterlinje",
+      "filter": [
+        "all",
+        ["!=", "vegkategori", "E"],
+        ["!=", "vegkategori", "R"]
+      ],
+      "paint": {
+        "line-color": "#f2c76b",
+        "line-width": 0.6
+      }
+    },
+    {
+      "id": "transport-roads-major",
+      "type": "line",
+      "source": "N100",
+      "source-layer": "N100_Samferdsel_senterlinje",
+      "filter": [
+        "any",
+        ["==", "vegkategori", "E"],
+        ["==", "vegkategori", "R"]
+      ],
+      "paint": {
+        "line-color": "#e7a43d",
+        "line-width": 1.4
+      }
+    },
+    {
+      "id": "transport-rail",
+      "type": "line",
+      "source": "N100",
+      "source-layer": "N100_Samferdsel_senterlinje",
+      "filter": ["==", "objtype", "Bane"],
+      "paint": {
+        "line-color": "#9d9a95",
+        "line-width": 1,
+        "line-dasharray": [2, 2]
+      }
+    },
+    {
+      "id": "buildings-pos",
+      "type": "circle",
+      "source": "N100",
+      "source-layer": "N100_BygningerOgAnlegg_posisjon",
+      "minzoom": 12,
+      "paint": {
+        "circle-color": "#cfa48a",
+        "circle-radius": 2.2
+      }
+    },
+    {
+      "id": "admin-boundaries",
+      "type": "line",
+      "source": "N100",
+      "source-layer": "N100_AdministrativeOmråder_grense",
+      "paint": {
+        "line-color": "#a8a59f",
+        "line-width": 1,
+        "line-dasharray": [4, 4]
+      }
+    },
+    {
+      "id": "restrictions-area",
+      "type": "fill",
+      "source": "N100",
+      "source-layer": "N100_Restriksjonsområder_omrade",
+      "paint": {
+        "fill-color": "#e6c7b3",
+        "fill-opacity": 0.25
+      }
+    },
+    {
+      "id": "place-labels",
+      "type": "symbol",
+      "source": "N100",
+      "source-layer": "N100_Stedsnavn_tekstplassering",
+      "layout": {
+        "text-field": "{TextString}",
+        "text-font": ["Noto Sans Regular"],
+        "text-size": 11,
+        "text-max-width": 8
+      },
+      "paint": {
+        "text-color": "#4a4a44",
+        "text-halo-color": "#f7f4ee",
+        "text-halo-width": 1.5,
+        "text-halo-blur": 0.5
+      }
+    }
+  ]
+}

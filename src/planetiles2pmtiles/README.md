@@ -19,7 +19,14 @@ Disse sidene viser interaktivt kart med PMTiles uten behov for egen server.
 ## Arbeidsflyt
 
 ### 1. Konverter FGDB til GeoPackage
-Bruk GDAL Docker-image for å konvertere FGDB til GeoPackage:
+Bruk GDAL Docker-image for å konvertere FGDB til GeoPackage. OBS OBS!! sjekk paths og mounts. 
+
+**N100 fra zip til GeoPackage**
+```powershell
+docker run --rm -v "${PWD}/data:/data" ghcr.io/osgeo/gdal:ubuntu-full-latest `
+ogr2ogr --debug ON -gt 65536 -f GPKG /data/sources/Basisdata_0000_Norge_25833_N100Kartdata_FGDB.gpkg /data/sources/Basisdata_0000_Norge_25833_N100Kartdata_FGDB.gdb `
+-lco SPATIAL_INDEX=YES -lco GEOMETRY_NAME=geom -progress
+```
 
 **N5000 til GeoPackage:**
 ```powershell
@@ -42,6 +49,32 @@ python create_planetiler_yaml.py <geopackage_path> <output_yaml_path>
 ```
 
 ### 3. Generer PMTiles med Planetiler
+
+Bygg docker med planetiler
+```
+docker build -f Dockerfile -t gpkg-planetiler .
+```
+
+Flytt `n100.yml` til `/data/sources/`
+
+Gå inn i interaktivt shell
+```
+docker run --rm -it -v "${PWD}/data/sources/:/data" gpkg-planetiler
+```
+
+Last ned planetiler i workdir
+```
+
+```
+
+Kjør planetiler
+```
+java -Xmx4g -XX:+UseG1GC -XX:+ParallelRefProcEnabled -jar /app/planetiler.jar n100.yml --output=n100.pmtiles
+```
+
+
+
+**Gamle eksempler på bruk av planetiler sin docker**
 Eksempel for N5000:
 ```powershell
 docker run -e JAVA_TOOL_OPTIONS="-Xmx1g" -v "${PWD}\data:/data" ghcr.io/onthegomap/planetiler:latest generate-custom --schema=/data/n5000_dynamic.yaml --output=/data/n5000_dynamic.pmtiles
