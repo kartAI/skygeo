@@ -1,0 +1,11 @@
+services:
+  titiler:
+    build: ./server
+    ports:
+      - "8000:8000"
+  storage:
+    image: nginxinc/nginx-unprivileged:stable
+    ports:
+      - "8080:8080"
+    volumes:
+      - ./storage/data:/usr/share/nginx/html:ro
