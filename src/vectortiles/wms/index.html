@@ -1,0 +1,72 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta content="width=device-width, initial-scale=1.0" name="viewport">
+    <title>Vector Tiles → WMS</title>
+    <link href="https://cdn.jsdelivr.net/npm/ol@v10.9.0/ol.css" rel="stylesheet">
+    <style>
+        #container {
+            margin: auto;
+            width: 640px;
+        }
+        #title {
+            text-align: center;
+        }
+        #info {
+            align-items: center;
+            display: flex;
+            justify-content: space-between;
+        }
+        #toggle {
+            border: solid 1px #333;
+            padding: 5px 10px;
+        }
+        #position {
+            font-family: monospace;
+        }
+        #map {
+            border: solid 1px #333;
+            height: 480px;
+        }
+    </style>
+</head>
+<body>
+    <div id="container">
+        <h1 id="title">Vector Tiles → WMS</h1>
+        <div id="info">
+            <button id="toggle" type="button">Toggle</button>
+            <span id="position"></span>
+        </div>
+        <hr>
+        <div id="map"></div>
+    </div>
+    <script src="https://cdn.jsdelivr.net/npm/ol@v10.9.0/dist/ol.js"></script>
+    <script>
+        const osmLayer = new ol.layer.Tile({
+            source: new ol.source.OSM(),
+        });
+        const testLayer = new ol.layer.Image({
+            source: new ol.source.ImageWMS({
+                url: `${location.origin}/ows`,
+                // params: {'LAYERS': 'topo'},
+            }),
+        });
+        const map = new ol.Map({
+            layers: [osmLayer,testLayer],
+            target: 'map',
+            view: new ol.View({
+                center: ol.proj.fromLonLat([10.0, 60.0]),
+                zoom: 6,
+            }),
+        });
+        map.on('moveend', () => {
+            const view = map.getView();
+            const [ lon, lat ] = ol.proj.toLonLat(view.getCenter()).map(x => x.toFixed(7));
+            const zoom = view.getZoom().toFixed(2);
+            document.getElementById('position').innerText = `@${lat},${lon},${zoom}z`;
+        })
+        document.getElementById('toggle').addEventListener('click', () => testLayer.setVisible(!testLayer.getVisible()));
+    </script>
+</body>
+</html>
