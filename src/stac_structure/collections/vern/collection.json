@@ -1,0 +1,39 @@
+{
+  "type": "Collection",
+  "id": "vern",
+  "stac_version": "1.1.0",
+  "description": "Datasettet inneholder verneomr\u00e5der og vernede enkeltobjekt i Norge,\nherunder Svalbard og Jan Mayen. Verneomr\u00e5der opprettes f\u00f8rst og fremst\nfor \u00e5 bevare naturverdier av nasjonal betydning. Dette er verdier vi skal\nta vare p\u00e5 for all overskuelig framtid, ogs\u00e5 med tanke p\u00e5 naturopplevelse\nog kunnskap om naturen. Verneomr\u00e5dene forvaltes av fylkesmannen,\nkommunen, et nasjonalparkstyre eller et interkommunalt\nverneomr\u00e5destyre.",
+  "links": [
+    {
+      "rel": "root",
+      "href": "./collection.json",
+      "type": "application/json"
+    },
+    {
+      "rel": "item",
+      "href": "./vern_norge_20260615/vern_norge_20260615.json",
+      "type": "application/geo+json"
+    }
+  ],
+  "extent": {
+    "spatial": {
+      "bbox": [
+        [
+          27250.06038219,
+          6579917.07024015,
+          1167250.06038219,
+          7939917.07024015
+        ]
+      ]
+    },
+    "temporal": {
+      "interval": [
+        [
+          "2026-06-15T14:16:26.812667Z",
+          "2026-06-15T14:16:26.812667Z"
+        ]
+      ]
+    }
+  },
+  "license": "NLOD (https://data.norge.no/nlod)"
+}
