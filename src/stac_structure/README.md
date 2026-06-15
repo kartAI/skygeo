@@ -14,14 +14,14 @@ catalog
 Eksempel på tidsserie for rovdyrtetthet:
 
 ```txt
-catalog (geonorge/miljodir)
-├── rovdyrtetthet (collection)
-│   ├── rovdyrtetthet_2012 (item)
-│   │   ├── rovdyrtetthet_2012_25833_cog.tif
-│   │   ├── rovdyrtetthet_2012_25832_cog.tif
-│   │   └── rovdyrtetthet_2012_beregningsgrunnlag.parquet
-│   ├── rovdyrtetthet_2013 (item)
-│   └── rovdyrtetthet_2014 (item)
+catalog (miljodir)
+├── bjoernetetthet_2012 (collection)
+│   ├── bjoernetetthet_2012 (item)
+│   │   ├── bjoernetetthet_2012_25833_cog.tif
+│   │   ├── bjoernetetthet_2012_25832_cog.tif
+│   │   └── bjoernetetthet_2012_extent.parquet
+│   ├── bjoernetetthet_2013 (item)
+│   └── bjoernetetthet_2014 (item)
 ├── vern (collection)
 │   ├── vern_norge_2024 (item)
 │   │   ├── vern_norge_2024_25833_geoparquet
@@ -32,7 +32,7 @@ catalog (geonorge/miljodir)
 │   │   ├── vern_kristiansand_2024_25833_geoparquet
 │   │   └── vern_kristiansand_2024_25833_filegdb
 │   └── vern_kristiansand_2025 (item)
-└── grunnkart (collection)
+└── grunnkart_for_arealanalyse (collection)
 ```
 
 ### Parquet-partisjonering

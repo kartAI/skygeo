@@ -37,14 +37,14 @@
     7939917.07024015
   ],
   "properties": {
-    "generation_time": "2026-06-15T14:16:26.812667+00:00",
+    "generation_time": "2026-06-15T14:25:33.825797+00:00",
     "asset_count_expected": 6,
-    "datetime": "2026-06-15T14:16:26.812667Z"
+    "datetime": "2026-06-15T14:25:33.825797Z"
   },
   "links": [
     {
       "rel": "root",
-      "href": "../collection.json",
+      "href": "../../catalog.json",
       "type": "application/json"
     },
     {
@@ -60,7 +60,7 @@
   ],
   "assets": {
     "naturvern_omraade_lyrx": {
-      "href": "https://vsepublicstorage.blob.core.windows.net/vse-public/miljodir-stac/collections/vern/assets/lyrx/vern_0_naturvern_omraade.lyrx",
+      "href": "https://vsepublicstorage.blob.core.windows.net/vse-public/stac/miljodir-stac/collections/vern/assets/lyrx/vern_0_naturvern_omraade.lyrx",
       "type": "application/octet-stream",
       "title": "LYRX style for naturvern_omraade",
       "roles": [
@@ -69,7 +69,7 @@
       ]
     },
     "naturvern_klasser_omraade_lyrx": {
-      "href": "https://vsepublicstorage.blob.core.windows.net/vse-public/miljodir-stac/collections/vern/assets/lyrx/vern_1_naturvern_klasser_omraade.lyrx",
+      "href": "https://vsepublicstorage.blob.core.windows.net/vse-public/stac/miljodir-stac/collections/vern/assets/lyrx/vern_1_naturvern_klasser_omraade.lyrx",
       "type": "application/octet-stream",
       "title": "LYRX style for naturvern_klasser_omraade",
       "roles": [
@@ -78,7 +78,7 @@
       ]
     },
     "naturvern_teiggrensepunkt_lyrx": {
-      "href": "https://vsepublicstorage.blob.core.windows.net/vse-public/miljodir-stac/collections/vern/assets/lyrx/vern_2_naturvern_teiggrensepunkt.lyrx",
+      "href": "https://vsepublicstorage.blob.core.windows.net/vse-public/stac/miljodir-stac/collections/vern/assets/lyrx/vern_2_naturvern_teiggrensepunkt.lyrx",
       "type": "application/octet-stream",
       "title": "LYRX style for naturvern_teiggrensepunkt",
       "roles": [
@@ -87,7 +87,7 @@
       ]
     },
     "naturvern_grense_lyrx": {
-      "href": "https://vsepublicstorage.blob.core.windows.net/vse-public/miljodir-stac/collections/vern/assets/lyrx/vern_3_naturvern_grense.lyrx",
+      "href": "https://vsepublicstorage.blob.core.windows.net/vse-public/stac/miljodir-stac/collections/vern/assets/lyrx/vern_3_naturvern_grense.lyrx",
       "type": "application/octet-stream",
       "title": "LYRX style for naturvern_grense",
       "roles": [
@@ -96,7 +96,7 @@
       ]
     },
     "foreslaatt_naturvern_omraade_lyrx": {
-      "href": "https://vsepublicstorage.blob.core.windows.net/vse-public/miljodir-stac/collections/vern/assets/lyrx/vern_4_foreslaatt_naturvern_omraade.lyrx",
+      "href": "https://vsepublicstorage.blob.core.windows.net/vse-public/stac/miljodir-stac/collections/vern/assets/lyrx/vern_4_foreslaatt_naturvern_omraade.lyrx",
       "type": "application/octet-stream",
       "title": "LYRX style for foreslaatt_naturvern_omraade",
       "roles": [
@@ -105,7 +105,7 @@
       ]
     },
     "foreslaatt_naturvern_grense_lyrx": {
-      "href": "https://vsepublicstorage.blob.core.windows.net/vse-public/miljodir-stac/collections/vern/assets/lyrx/vern_5_foreslaatt_naturvern_grense.lyrx",
+      "href": "https://vsepublicstorage.blob.core.windows.net/vse-public/stac/miljodir-stac/collections/vern/assets/lyrx/vern_5_foreslaatt_naturvern_grense.lyrx",
       "type": "application/octet-stream",
       "title": "LYRX style for foreslaatt_naturvern_grense",
       "roles": [

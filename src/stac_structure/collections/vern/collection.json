@@ -6,13 +6,18 @@
   "links": [
     {
       "rel": "root",
-      "href": "./collection.json",
+      "href": "../catalog.json",
       "type": "application/json"
     },
     {
       "rel": "item",
       "href": "./vern_norge_20260615/vern_norge_20260615.json",
       "type": "application/geo+json"
+    },
+    {
+      "rel": "parent",
+      "href": "../catalog.json",
+      "type": "application/json"
     }
   ],
   "extent": {
@@ -29,8 +34,8 @@
     "temporal": {
       "interval": [
         [
-          "2026-06-15T14:16:26.812667Z",
-          "2026-06-15T14:16:26.812667Z"
+          "2026-06-15T14:25:33.825797Z",
+          "2026-06-15T14:25:33.825797Z"
         ]
       ]
     }
