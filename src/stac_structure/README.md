@@ -2,6 +2,15 @@
 
 ## Eksempel på grunnstruktur
 
+**Notater**
+- Collections representerer et dataprodukt, et prosjekt eller lignende
+- Collections bør ha rikelig med metadatainformasjon
+- Items definerer bbox og timestamp
+- Items bør ha definerte metadata-tags og navnekonvensjoner
+- Assets arver bbox og timestamp
+- Assets har data knyttet til item'et. 
+    - Fks forskjellige filformater, forskjellige projeksjoner, metadata-filer, klippepolygoner
+
 ```txt
 catalog
 └── collection
