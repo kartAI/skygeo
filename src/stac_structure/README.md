@@ -1,6 +1,6 @@
-# STAC struktur
+# STAC-struktur
 
-## Eksempler STAC strukturer til forksjellige use-cases
+## Eksempel på grunnstruktur
 
 ```txt
 catalog
@@ -9,9 +9,9 @@ catalog
         └── asset
 ```
 
-## Dataprodukt "Rovdyrtetthet"
+## Dataprodukt: Rovdyrtetthet
 
-Example Rovdyrtetthet tidserie:'
+Eksempel på tidsserie for rovdyrtetthet:
 
 ```txt
 catalog (geonorge/miljodir)
@@ -35,15 +35,20 @@ catalog (geonorge/miljodir)
 └── grunnkart (collection)
 ```
 
-Parquet-partisjonering
-Et mulig oppsett for partisjonering er:
+### Parquet-partisjonering
 
+Et mulig oppsett for partisjonering:
+
+```txt
 kommune/
-└── kommunenummer\_\*.parquet
+└── kommunenummer_*.parquet
+```
 
-Aktiv-valg: Hva hvis en verneområder ligger i to kommuner (to partioneringer?)
-per i dag: ligger "geometrier" dobbelt, 1 verneområde kan ligge i både partiotion kommune A og B
---> ikke optimalt heller bruk norge som fasit
+Avklaring: Hva gjør vi når et verneområde ligger i to kommuner (to partisjoner)?
+
+- Dagens løsning: Geometri lagres dobbelt. Ett verneområde kan ligge i både
+  partisjon kommune A og B.
+- Vurdering: Dette er ikke optimalt. Heller bruk Norge som fasit og unngå duplisering.
 
 ## Geovekst
 
@@ -51,15 +56,15 @@ Get geovekst prosjekt/dataprodukt from space x og time x?
 
 ```txt
 catalog (geovekst)
-└── geovekst_place_time_prosjekt (collection)
-    ├── sensor_place_time_1 (item)
-        ├── bilde_place_time_1_metadata (asset)
-        ├── bilde_place_time_1_tif (asset)
-        └── bilde_place_time_1_cog (asset)
-    ├── rgb_place_time_2
-    ├── lidar_place_time_1
-    ├── lidar_place_time_2
-    └── mosaic_place_time
+├── geovekst_place_time_prosjekt (collection)
+│   ├── sensor_place_time_1 (item)
+│   │   ├── bilde_place_time_1_metadata (asset)
+│   │   ├── bilde_place_time_1_tif (asset)
+│   │   └── bilde_place_time_1_cog (asset)
+│   ├── rgb_place_time_2 (item)
+│   ├── lidar_place_time_1 (item)
+│   ├── lidar_place_time_2 (item)
+│   └── mosaic_place_time (item)
 └── geovekst_place_time_prosjekt_2 (collection)
 ```
 
