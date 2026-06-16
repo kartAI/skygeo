@@ -2,12 +2,14 @@
 
 ## Hvorfor er STAC lurt?
 - Eksempler på bruk av STAC
-  - Integrasjon GeoNorge API
-  - Dynamisk oppslag / visning
-  - QGIS-integrasjon (gif)
-  - ArcGIS Pro (gif)
+  - Dynamisk oppslag / visning i standard browsers
+  - Egne klienter / plugins
   - Python-eksempel (notebook fks)
   - KI-agenter (claude-eksempel ++)
+  - Integrasjon GeoNorge API
+  - QGIS-integrasjon (gif)
+  - ArcGIS Pro (gif)
+
 
 **Hva er STAC og hvordan lære mer om det**
 
