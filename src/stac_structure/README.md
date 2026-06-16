@@ -3,12 +3,13 @@
 ## Hvorfor er STAC lurt?
 
 - Eksempler på bruk av STAC
-  - Integrasjon GeoNorge API
-  - Dynamisk oppslag / visning
-  - QGIS-integrasjon (gif)
-  - ArcGIS Pro (gif)
+  - Dynamisk oppslag / visning i standard browsers
+  - Egne klienter / plugins
   - Python-eksempel (notebook fks)
   - KI-agenter (claude-eksempel ++)
+  - Integrasjon GeoNorge API
+  - QGIS-integrasjon (gif)
+  - ArcGIS Pro (gif)
 
 **Hva er STAC og hvordan lære mer om det**
 
@@ -29,6 +30,10 @@ catalog
     └── item
         └── asset
 ```
+
+### Kompatibilitet med QGIS og ArcGIS
+
+> QGIS og ArcGIS har innebygde STAC-browsers. Disse er lagd mest for Satellitt og rasterdata og lister ikke mange "assets" per "item". Skal du publisere flere assets per item (fks vektordata, flere filformater, flere projeksjoner) så anbefales det å lage _**en item per asset**_. Både QGIS og ArcGIS har i hovedsak støtte for rasterformater og egner seg dårlig for visning av vektordata direkte fra STAC-kataloger. Det anbefales å lage egne visningsløsninger eller bruke standardløsninger for dette fks [STAC Browser](https://radiantearth.github.io/stac-browser/).
 
 ### Ansvar per nivå
 
@@ -58,19 +63,21 @@ Bruk konsistente, maskinlesbare navnekonvensjoner på alle nivå i hierarkiet
 # eks: bjoernetetthet_norge_2024_25833_cog
 ```
 
-## Dataprodukt: Rovdyrtetthet
+## Eksempler på implementasjoner
 
-Eksempel på tidsserie for rovdyrtetthet:
+### Dataprodukt: Rovdyrtetthet fra Miljødirektoratet
+
+Rovdyrtetthet er tidsserier med både raster og vektordata per år.
 
 ```txt
 catalog (miljodir)
 ├── bjoernetetthet (collection)
-│   ├── bjoernetetthet (item)
-│   │   ├── bjoernetetthet_2018_25833_cog.tif
-│   │   ├── bjoernetetthet_2018_25832_cog.tif
-│   │   └── bjoernetetthet_2018_extent.parquet
-│   ├── bjoernetetthet_2019 (item)
-│   └── bjoernetetthet_2020 (item)
+│   ├── bjoernetetthet_2012 (item)
+│   │   ├── bjoernetetthet_2012_25833_cog.tif
+│   │   ├── bjoernetetthet_2012_25832_cog.tif
+│   │   └── bjoernetetthet_2012_extent.parquet
+│   ├── bjoernetetthet_2013 (item)
+│   └── bjoernetetthet_2014 (item)
 ├── vern (collection)
 │   ├── vern_norge_2024 (item)
 │   │   ├── vern_norge_2024_25833_geoparquet
@@ -83,26 +90,6 @@ catalog (miljodir)
 │   └── vern_kristiansand_2025 (item)
 └── grunnkart_for_arealanalyse (collection)
 ```
-
-### Parquet-partisjonering
-
-**TODO: **
-
-- utdype - beskrive diskusjon - autoritative data
-- eksempler / guidelines for hive-partisjonering. "where - statistikk", "distinct-data"
-
-Et mulig oppsett for partisjonering:
-
-```txt
-kommune/
-└── kommunenummer_*.parquet
-```
-
-Avklaring: Hva gjør vi når et verneområde ligger i to kommuner (to partisjoner)?
-
-- Dagens løsning: Geometri lagres dobbelt. Ett verneområde kan ligge i både
-  partisjon kommune A og B.
-- Vurdering: Dette er ikke optimalt. Heller bruk Norge som fasit og unngå duplisering.
 
 ## Geovekst
 
@@ -121,3 +108,23 @@ catalog (geovekst)
 │   └── mosaic_place_time (item)
 └── geovekst_place_time_prosjekt_2 (collection)
 ```
+
+## Parquet-partisjonering og optimaliseringer
+
+**TODO: **
+
+- utdype - beskrive diskusjon - autoritative data
+- eksempler / guidelines for hive-partisjonering. "where - statistikk", "distinct-data"
+
+Et mulig oppsett for partisjonering:
+
+```txt
+kommune/
+└── kommunenummer_*.parquet
+```
+
+Avklaring: Hva gjør vi når et verneområde ligger i to kommuner (to partisjoner)?
+
+- Dagens løsning: Geometri lagres dobbelt. Ett verneområde kan ligge i både
+  partisjon kommune A og B.
+- Vurdering: Dette er ikke optimalt. Heller bruk Norge som fasit og unngå duplisering.
