@@ -93,20 +93,28 @@ catalog (miljodir)
 
 ## Geovekst
 
-Get geovekst prosjekt/dataprodukt from space x og time x?
+Eksempel på strukturering av flyprosjekter fra Geovekst. Enkeltbilder og prosjekt-mosaikk organisert under en collection per flyvning/prosjekt. 
 
 ```txt
-catalog (geovekst)
-├── geovekst_place_time_prosjekt (collection)
-│   ├── sensor_place_time_1 (item)
-│   │   ├── bilde_place_time_1_metadata (asset)
-│   │   ├── bilde_place_time_1_tif (asset)
-│   │   └── bilde_place_time_1_cog (asset)
-│   ├── rgb_place_time_2 (item)
-│   ├── lidar_place_time_1 (item)
-│   ├── lidar_place_time_2 (item)
-│   └── mosaic_place_time (item)
-└── geovekst_place_time_prosjekt_2 (collection)
+catalog (stac-catalog)
+├── FG-14588 (collection) — "Flight FG-14588"
+│   ├── FG-14588 (item) — flight mosaic item
+│   │   ├── cog (asset) — Mosaic COG (.tif)
+│   │   └── metadata (asset) — Coverage geometry (.geojson)
+│   ├── FG-14588_32-1-509-136-76o (item) — tile item
+│   │   └── rgb (asset) — RGB tile (.tif)
+│   ├── FG-14588_32-1-509-136-77o (item)
+│   │   └── rgb (asset) — RGB tile (.tif)
+│   └── ... (~N more tile items)
+└── FG-43122 (collection) — "Flight FG-43122"
+    ├── FG-43122 (item) — flight mosaic item
+    │   ├── cog (asset) — Mosaic COG (.tif)
+    │   └── metadata (asset) — Coverage geometry (.geojson)
+    ├── FG-43122_32-1-509-140-71o (item) — tile item
+    │   └── rgb (asset) — RGB tile (.tif)
+    ├── FG-43122_32-1-509-140-72o (item)
+    │   └── rgb (asset) — RGB tile (.tif)
+    └── ... (~200 more tile items)
 ```
 
 ## Parquet-partisjonering og optimaliseringer
