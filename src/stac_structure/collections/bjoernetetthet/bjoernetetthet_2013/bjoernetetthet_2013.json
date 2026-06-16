@@ -1,0 +1,92 @@
+{
+  "type": "Feature",
+  "stac_version": "1.1.0",
+  "stac_extensions": [],
+  "id": "bjoernetetthet_2013",
+  "geometry": {
+    "type": "Polygon",
+    "coordinates": [
+      [
+        [
+          27250.06038219,
+          6579917.07024015
+        ],
+        [
+          27250.06038219,
+          7939917.07024015
+        ],
+        [
+          1167250.06038219,
+          7939917.07024015
+        ],
+        [
+          1167250.06038219,
+          6579917.07024015
+        ],
+        [
+          27250.06038219,
+          6579917.07024015
+        ]
+      ]
+    ]
+  },
+  "bbox": [
+    27250.06038219,
+    6579917.07024015,
+    1167250.06038219,
+    7939917.07024015
+  ],
+  "properties": {
+    "year": 2013,
+    "generation_time": "2026-06-16T09:52:43.624001+00:00",
+    "title": "Bjoernetetthet 2013",
+    "datetime": "2013-01-01T00:00:00Z"
+  },
+  "links": [
+    {
+      "rel": "root",
+      "href": "../../catalog.json",
+      "type": "application/json",
+      "title": "Miljodir STAC"
+    },
+    {
+      "rel": "collection",
+      "href": "../collection.json",
+      "type": "application/json",
+      "title": "Bjoernetetthet"
+    },
+    {
+      "rel": "parent",
+      "href": "../collection.json",
+      "type": "application/json",
+      "title": "Bjoernetetthet"
+    }
+  ],
+  "assets": {
+    "cog": {
+      "href": "https://vsepublicstorage.blob.core.windows.net/rasterpublicdata/project_50ffcf1a-7b47-44ef-9167-658b8356244f/delivery_1f6dfb1a-03f1-4bfb-b2b8-e9d4fc546af2/test/cogs/bjorn_tetthet_5km_2013_25833_1000x_cog.tif",
+      "type": "image/tiff; application=geotiff; profile=cloud-optimized",
+      "title": "Bear density raster 2013 (5 km) COG",
+      "roles": [
+        "data"
+      ]
+    },
+    "tif": {
+      "href": "https://vsepublicstorage.blob.core.windows.net/rasterpublicdata/project_50ffcf1a-7b47-44ef-9167-658b8356244f/delivery_1f6dfb1a-03f1-4bfb-b2b8-e9d4fc546af2/test/cogs/bjorn_tetthet_5km_2013_25833_1000x_cog.tif",
+      "type": "image/tiff; application=geotiff; profile=cloud-optimized",
+      "title": "Bear density raster 2013 (5 km) GEOTIFF",
+      "roles": [
+        "data"
+      ]
+    },
+    "parquet": {
+      "href": "https://vsepublicstorage.blob.core.windows.net/vse-public/parquet_test/bjoernetetthet_2013.parquet",
+      "type": "application/vnd.apache.parquet",
+      "title": "Bear density parquet 2013",
+      "roles": [
+        "data"
+      ]
+    }
+  },
+  "collection": "bjoernetetthet"
+}

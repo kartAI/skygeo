@@ -7,7 +7,8 @@
     {
       "rel": "root",
       "href": "../catalog.json",
-      "type": "application/json"
+      "type": "application/json",
+      "title": "Miljodir STAC"
     },
     {
       "rel": "item",
@@ -17,7 +18,8 @@
     {
       "rel": "parent",
       "href": "../catalog.json",
-      "type": "application/json"
+      "type": "application/json",
+      "title": "Miljodir STAC"
     }
   ],
   "extent": {
@@ -34,8 +36,8 @@
     "temporal": {
       "interval": [
         [
-          "2026-06-15T14:25:33.825797Z",
-          "2026-06-15T14:25:33.825797Z"
+          "2026-06-16T09:52:43.534975Z",
+          "2026-06-16T09:52:43.534975Z"
         ]
       ]
     }

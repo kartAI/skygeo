@@ -1,6 +1,7 @@
 # STAC-struktur
 
 ## Hvorfor er STAC lurt?
+
 - Eksempler på bruk av STAC
   - Integrasjon GeoNorge API
   - Dynamisk oppslag / visning
@@ -11,12 +12,12 @@
 
 **Hva er STAC og hvordan lære mer om det**
 
-| Ressurs | Beskrivelse |
-|---------|-------------|
-| [stacspec.org](https://stacspec.org) | Offisiell spesifikasjon |
-| [Intro til STAC](https://stacspec.org/en/tutorials/intro-to-stac/) | Kom i gang-tutorial |
-| [stacindex.org](https://stacindex.org) | Oversikt over kataloger og verktøy |
-| [STAC Browser](https://radiantearth.github.io/stac-browser/) | Utforsk STAC-kataloger i nettleseren |
+| Ressurs                                                            | Beskrivelse                          |
+| ------------------------------------------------------------------ | ------------------------------------ |
+| [stacspec.org](https://stacspec.org)                               | Offisiell spesifikasjon              |
+| [Intro til STAC](https://stacspec.org/en/tutorials/intro-to-stac/) | Kom i gang-tutorial                  |
+| [stacindex.org](https://stacindex.org)                             | Oversikt over kataloger og verktøy   |
+| [STAC Browser](https://radiantearth.github.io/stac-browser/)       | Utforsk STAC-kataloger i nettleseren |
 
 ## Best practice
 
@@ -31,11 +32,11 @@ catalog
 
 ### Ansvar per nivå
 
-| Nivå | Representerer | Nøkkelansvar |
-|------|---------------|--------------|
-| **Collection** | Dataprodukt eller prosjekt | Rik metadata, lisensinformasjon, utstrekning |
-| **Item** | En konkret forekomst (tid/sted) | `bbox`, `datetime`, navnekonvensjoner, metadata-tags |
-| **Asset** | Én datafil knyttet til et item | Filformat, projeksjon, rolle (data/metadata/klipp) |
+| Nivå           | Representerer                   | Nøkkelansvar                                         |
+| -------------- | ------------------------------- | ---------------------------------------------------- |
+| **Collection** | Dataprodukt eller prosjekt      | Rik metadata, lisensinformasjon, utstrekning         |
+| **Item**       | En konkret forekomst (tid/sted) | `bbox`, `datetime`, navnekonvensjoner, metadata-tags |
+| **Asset**      | Én datafil knyttet til et item  | Filformat, projeksjon, rolle (data/metadata/klipp)   |
 
 Assets arver `bbox` og `datetime` fra sitt Item — ikke dupliser disse.
 
@@ -64,12 +65,12 @@ Eksempel på tidsserie for rovdyrtetthet:
 ```txt
 catalog (miljodir)
 ├── bjoernetetthet (collection)
-│   ├── bjoernetetthet_2012 (item)
-│   │   ├── bjoernetetthet_2012_25833_cog.tif
-│   │   ├── bjoernetetthet_2012_25832_cog.tif
-│   │   └── bjoernetetthet_2012_extent.parquet
-│   ├── bjoernetetthet_2013 (item)
-│   └── bjoernetetthet_2014 (item)
+│   ├── bjoernetetthet (item)
+│   │   ├── bjoernetetthet_2018_25833_cog.tif
+│   │   ├── bjoernetetthet_2018_25832_cog.tif
+│   │   └── bjoernetetthet_2018_extent.parquet
+│   ├── bjoernetetthet_2019 (item)
+│   └── bjoernetetthet_2020 (item)
 ├── vern (collection)
 │   ├── vern_norge_2024 (item)
 │   │   ├── vern_norge_2024_25833_geoparquet
@@ -83,10 +84,10 @@ catalog (miljodir)
 └── grunnkart_for_arealanalyse (collection)
 ```
 
-
 ### Parquet-partisjonering
 
 **TODO: **
+
 - utdype - beskrive diskusjon - autoritative data
 - eksempler / guidelines for hive-partisjonering. "where - statistikk", "distinct-data"
 
