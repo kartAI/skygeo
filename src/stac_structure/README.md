@@ -29,6 +29,10 @@ catalog
         └── asset
 ```
 
+### Kompatibilitet med QGIS og ArcGIS
+> QGIS og ArcGIS har innebygde STAC-browsers. Disse er lagd mest for Satellitt og rasterdata og lister ikke mange "assets" per "item". Skal du publisere flere assets per item (fks vektordata, flere filformater, flere projeksjoner) så anbefales det å lage _**en item per asset**_. Både QGIS og ArcGIS har i hovedsak støtte for rasterformater og egner seg dårlig for visning av vektordata direkte fra STAC-kataloger. Det anbefales å lage egne visningsløsninger eller bruke standardløsninger for dette fks [STAC Browser](https://radiantearth.github.io/stac-browser/). 
+
+
 ### Ansvar per nivå
 
 | Nivå | Representerer | Nøkkelansvar |
@@ -57,9 +61,11 @@ Bruk konsistente, maskinlesbare navnekonvensjoner på alle nivå i hierarkiet
 # eks: bjoernetetthet_norge_2024_25833_cog
 ```
 
-## Dataprodukt: Rovdyrtetthet
+## Eksempler på implementasjoner
 
-Eksempel på tidsserie for rovdyrtetthet:
+### Dataprodukt: Rovdyrtetthet fra Miljødirektoratet
+
+Rovdyrtetthet er tidsserier med både raster og vektordata per år.
 
 ```txt
 catalog (miljodir)
@@ -84,25 +90,6 @@ catalog (miljodir)
 ```
 
 
-### Parquet-partisjonering
-
-**TODO: **
-- utdype - beskrive diskusjon - autoritative data
-- eksempler / guidelines for hive-partisjonering. "where - statistikk", "distinct-data"
-
-Et mulig oppsett for partisjonering:
-
-```txt
-kommune/
-└── kommunenummer_*.parquet
-```
-
-Avklaring: Hva gjør vi når et verneområde ligger i to kommuner (to partisjoner)?
-
-- Dagens løsning: Geometri lagres dobbelt. Ett verneområde kan ligge i både
-  partisjon kommune A og B.
-- Vurdering: Dette er ikke optimalt. Heller bruk Norge som fasit og unngå duplisering.
-
 ## Geovekst
 
 Get geovekst prosjekt/dataprodukt from space x og time x?
@@ -120,3 +107,22 @@ catalog (geovekst)
 │   └── mosaic_place_time (item)
 └── geovekst_place_time_prosjekt_2 (collection)
 ```
+
+## Parquet-partisjonering og optimaliseringer
+
+**TODO: **
+- utdype - beskrive diskusjon - autoritative data
+- eksempler / guidelines for hive-partisjonering. "where - statistikk", "distinct-data"
+
+Et mulig oppsett for partisjonering:
+
+```txt
+kommune/
+└── kommunenummer_*.parquet
+```
+
+Avklaring: Hva gjør vi når et verneområde ligger i to kommuner (to partisjoner)?
+
+- Dagens løsning: Geometri lagres dobbelt. Ett verneområde kan ligge i både
+  partisjon kommune A og B.
+- Vurdering: Dette er ikke optimalt. Heller bruk Norge som fasit og unngå duplisering.
