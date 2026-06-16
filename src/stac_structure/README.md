@@ -9,19 +9,18 @@
   - Python-eksempel (notebook fks)
   - KI-agenter (claude-eksempel ++)
 
-- Hva er STAC og hvordan lære mer om det
+**Hva er STAC og hvordan lære mer om det**
+
+| Ressurs | Beskrivelse |
+|---------|-------------|
+| [stacspec.org](https://stacspec.org) | Offisiell spesifikasjon |
+| [Intro til STAC](https://stacspec.org/en/tutorials/intro-to-stac/) | Kom i gang-tutorial |
+| [stacindex.org](https://stacindex.org) | Oversikt over kataloger og verktøy |
+| [STAC Browser](https://radiantearth.github.io/stac-browser/) | Utforsk STAC-kataloger i nettleseren |
 
 ## Best practice
-- Ta inn lærdommer fra geonorge2stac
 
-**Notater**
-- Collections representerer et dataprodukt, et prosjekt eller lignende
-- Collections bør ha rikelig med metadatainformasjon
-- Items definerer bbox og timestamp
-- Items bør ha definerte metadata-tags og navnekonvensjoner
-- Assets arver bbox og timestamp
-- Assets har data knyttet til item'et. 
-    - Fks forskjellige filformater, forskjellige projeksjoner, metadata-filer, klippepolygoner
+### Hierarki
 
 ```txt
 catalog
@@ -30,13 +29,41 @@ catalog
         └── asset
 ```
 
+### Ansvar per nivå
+
+| Nivå | Representerer | Nøkkelansvar |
+|------|---------------|--------------|
+| **Collection** | Dataprodukt eller prosjekt | Rik metadata, lisensinformasjon, utstrekning |
+| **Item** | En konkret forekomst (tid/sted) | `bbox`, `datetime`, navnekonvensjoner, metadata-tags |
+| **Asset** | Én datafil knyttet til et item | Filformat, projeksjon, rolle (data/metadata/klipp) |
+
+Assets arver `bbox` og `datetime` fra sitt Item — ikke dupliser disse.
+
+### Navnekonvensjoner
+
+Bruk konsistente, maskinlesbare navnekonvensjoner på alle nivå i hierarkiet
+
+```
+# Collection-navn
+{produkt}
+# eks: bjoernetetthet, vern, grunnkart_for_arealanalyse
+
+# Item-navn
+{produkt}_{område}_{år}
+# eks: bjoernetetthet_2024, vern_kristiansand_2024
+
+# Asset-navn
+{produkt}_{område}_{år}_{epsg}_{format}
+# eks: bjoernetetthet_norge_2024_25833_cog
+```
+
 ## Dataprodukt: Rovdyrtetthet
 
 Eksempel på tidsserie for rovdyrtetthet:
 
 ```txt
 catalog (miljodir)
-├── bjoernetetthet_2012 (collection)
+├── bjoernetetthet (collection)
 │   ├── bjoernetetthet_2012 (item)
 │   │   ├── bjoernetetthet_2012_25833_cog.tif
 │   │   ├── bjoernetetthet_2012_25832_cog.tif
