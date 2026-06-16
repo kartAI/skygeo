@@ -1,0 +1,37 @@
+# pgstac database: PostgreSQL 17 + PostGIS 3, pgstac schema auto-applied on first
+# boot via /docker-entrypoint-initdb.d (bundled in the image). Persistent volume.
+#
+# Run standalone:  docker compose -f db/docker-compose.yml --env-file .env up -d
+# (Requires the shared network: docker network create pgstac)
+
+services:
+  db:
+    image: ghcr.io/stac-utils/pgstac:v0.9.11
+    environment:
+      POSTGRES_USER: ${POSTGRES_USER}
+      POSTGRES_PASSWORD: ${POSTGRES_PASSWORD}
+      POSTGRES_DB: ${POSTGRES_DB}
+      # The image's init script also reads the PG* vars.
+      PGUSER: ${POSTGRES_USER}
+      PGPASSWORD: ${POSTGRES_PASSWORD}
+      PGDATABASE: ${POSTGRES_DB}
+    command: postgres -N 500
+    ports:
+      - "${DB_HOST_PORT:-5439}:5432"
+    volumes:
+      - pgstac_data:/var/lib/postgresql/data
+    healthcheck:
+      test: ["CMD", "pg_isready", "-U", "${POSTGRES_USER}", "-d", "${POSTGRES_DB}"]
+      interval: 5s
+      timeout: 5s
+      retries: 10
+    networks:
+      - pgstac
+
+volumes:
+  pgstac_data:
+
+networks:
+  pgstac:
+    external: true
+    name: pgstac
