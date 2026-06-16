@@ -1,6 +1,18 @@
 # STAC-struktur
 
-## Eksempel på grunnstruktur
+## Hvorfor er STAC lurt?
+- Eksempler på bruk av STAC
+  - Integrasjon GeoNorge API
+  - Dynamisk oppslag / visning
+  - QGIS-integrasjon (gif)
+  - ArcGIS Pro (gif)
+  - Python-eksempel (notebook fks)
+  - KI-agenter (claude-eksempel ++)
+
+- Hva er STAC og hvordan lære mer om det
+
+## Best practice
+- Ta inn lærdommer fra geonorge2stac
 
 **Notater**
 - Collections representerer et dataprodukt, et prosjekt eller lignende
@@ -44,7 +56,12 @@ catalog (miljodir)
 └── grunnkart_for_arealanalyse (collection)
 ```
 
+
 ### Parquet-partisjonering
+
+**TODO: **
+- utdype - beskrive diskusjon - autoritative data
+- eksempler / guidelines for hive-partisjonering. "where - statistikk", "distinct-data"
 
 Et mulig oppsett for partisjonering:
 
@@ -76,10 +93,3 @@ catalog (geovekst)
 │   └── mosaic_place_time (item)
 └── geovekst_place_time_prosjekt_2 (collection)
 ```
-
-## Diskusjonspunkter
-
-- Kan asset har sub boundinbox?
-  --> model different spatial extens as separate items
-- Tidsserie på collection eller item?
-  --> item
