@@ -1,0 +1,48 @@
+{
+  "id": "auth-test",
+  "description": "for testing stac auth",
+  "stac_version": "1.0.0",
+  "links": [
+  ],
+  "stac_extensions": [],
+  "title": "Auth Test",
+  "type": "Collection",
+  "assets": {
+  },
+  "license": "proprietary",
+  "extent": {
+    "spatial": {
+      "bbox": [
+        [
+          -180,
+          -90,
+          180,
+          90
+        ]
+      ]
+    },
+    "temporal": {
+      "interval": [
+        [
+          "2026-06-15T10:41:07.993Z",
+          null
+        ]
+      ]
+    }
+  },
+  "keywords": [
+    "auth", "test"
+  ],
+  "providers": [
+    {
+      "name": "Skygeo",
+      "description": "For the cloud",
+      "roles": [
+        "publisher"
+      ],
+      "url": "https://github.com/kartAI/skygeo"
+    }
+  ],
+  "summaries": {
+  }
+}

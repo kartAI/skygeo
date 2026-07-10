@@ -1,0 +1,69 @@
+{
+  "bbox": [
+      -180,
+      -90,
+      180,
+      90
+  ],
+  "type": "Feature",
+  "geometry": {
+    "type": "Polygon",
+        "coordinates": [
+          [
+            [
+              10.443471396313623,
+              60.20395514925783
+            ],
+            [
+              10.443471396313623,
+              60.209497078619115
+            ],
+            [
+              10.428807703585424,
+              60.209497078619115
+            ],
+            [
+              10.428807703585424,
+              60.20395514925783
+            ],
+            [
+              10.443471396313623,
+              60.20395514925783
+            ]
+          ]
+        ]
+  },
+  "properties": {
+    "title": "secret message",
+    "description": "this is the protected message",
+    "datetime": "2026-06-15T11:25:59.408Z",
+    "created": "2026-06-15T11:25:59.408Z",
+    "updated": "2026-06-15T11:25:59.408Z",
+    "start_datetime": "2026-06-15T11:25:59.408Z",
+    "end_datetime": "2026-06-15T11:25:59.408Z",
+    "license": "proprietary",
+    "providers": [
+      {
+        "name": "Kartverket",
+        "roles": [
+          "owner"
+        ],
+        "url": "https://www.kartverket.no"
+      }
+    ]
+  },
+  "id": "the-message",
+  "stac_version": "1.0.0",
+  "assets": {
+    "cog": {
+      "href": "http://localhost:8000/test.txt",
+      "type": "txt",
+      "title": "Message",
+      "description": "A secret message"
+    }
+  },
+  "links": [
+  ],
+  "stac_extensions": [],
+  "collection": "auth-test"
+}
