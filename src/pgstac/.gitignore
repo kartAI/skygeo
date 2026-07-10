@@ -1,0 +1,13 @@
+# Secrets — never commit. Only example.env is tracked.
+.env
+*/.env
+# Re-include the placeholder template (repo-root .gitignore has a broad *.env rule).
+!example.env
+
+# Python
+__pycache__/
+*.py[cod]
+.venv/
+
+# OS
+.DS_Store

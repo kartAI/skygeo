@@ -1,0 +1,15 @@
+# Aggregate of every per-collection scan file. Add one `include:` line per collection.
+# `include:` does NOT support globs, so list each file explicitly.
+#
+# Run ALL collections (each container scans then exits):
+#   docker compose -f scanner/docker-compose-all-collections.yml --env-file .env up --abort-on-container-exit
+#
+# Or still run just one by service name:
+#   docker compose -f scanner/docker-compose-all-collections.yml --env-file .env run --rm nseries
+#
+# Note: `up` runs them in parallel. For sequential runs (gentler on S3/db), invoke each
+# file's `run --rm <service>` in a loop instead.
+
+include:
+  - collection-nseries.yml
+  # - collection-another.yml

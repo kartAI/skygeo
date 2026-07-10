@@ -1,0 +1,44 @@
+# One scan job = one Collection. Copy this file to collection-<name>.yml, rename the
+# service, and edit the values. Run it on its own:
+#
+#   docker compose -f scanner/collection-nvdb-vegnett-pluss.yml --env-file .env run --rm nvdb-vegnett-pluss
+#
+# Or add it to scanner/docker-compose-all-collections.yml to run with the others.
+# (db must be up + shared network: docker network create pgstac)
+# Secrets/endpoint/DB/asset-base come from .env — never put credentials here.
+
+services:
+  # Service name = how you invoke this scan (`run --rm nvdb-vegnett-pluss`). Keep it unique
+  # across all collection files so the aggregate file can include them together.
+  nvdb-vegnett-pluss:
+    build:
+      context: .
+    image: pgstac-scanner:dev
+    env_file: ../.env
+    networks:
+      - pgstac
+    command:
+      # --- REQUIRED ----------------------------------------------------------
+      - --bucket
+      - geolake                                  # bucket name only — NO trailing slash
+      - --prefix
+      - gold/kartverket/nvdb_vegnett_pluss/parquet/  # folder inside the bucket (trailing / is fine)
+      - --collection-id
+      - parquet-nvdb-vegnett-pluss               # stable id; reuse to re-scan (upsert + prune)
+      - --collection-title
+      - "NVDB vegnett pluss (parquet)"
+      # --- OPTIONAL (uncomment + edit) ---------------------------------------
+      # - --collection-description
+      # - "Longer description shown in the browser"
+      # - --datetime                  # force one ISO datetime on all items
+      # - "2024-01-01T00:00:00Z"
+      # - --no-recursive              # scan only the top level (single line)
+      # - --fail-on-error             # fail the run if any file errors (single line)
+      # - --no-prune                  # keep items removed from S3 (single line)
+      # - --region                    # override S3 signing region
+      # - us-east-1
+
+networks:
+  pgstac:
+    external: true
+    name: pgstac

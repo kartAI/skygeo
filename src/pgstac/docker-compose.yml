@@ -1,0 +1,26 @@
+# Main compose: brings up the long-running stack (db + api, viewer added later) as
+# one project on the shared `pgstac` network. The scanner is NOT here — it runs
+# on-demand (scanner/docker-compose.yml) so updating the catalogue never restarts
+# the database.
+#
+# One-time:   docker network create pgstac
+# Up:         docker compose --env-file .env up -d
+# Down:       docker compose down            (add -v to drop the DB volume)
+
+include:
+  - db/docker-compose.yml
+  - api/docker-compose.yml
+  - viewer/docker-compose.yml
+
+services:
+  # Add startup ordering for the integrated stack (kept out of api/ so that file
+  # can also run standalone without an undefined-service error).
+  api:
+    depends_on:
+      db:
+        condition: service_healthy
+
+networks:
+  pgstac:
+    external: true
+    name: pgstac

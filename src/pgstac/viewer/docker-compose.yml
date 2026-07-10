@@ -1,0 +1,24 @@
+# Viewer: STAC Browser SPA + signing /s3 asset proxy. Browser opens the STAC API
+# directly (catalogUrl); this container only serves the SPA + signs private-bucket
+# asset reads. Long-running; on the shared `pgstac` network.
+#
+# Run standalone:  docker compose -f viewer/docker-compose.yml --env-file .env up -d --build
+# Open http://localhost:8080
+
+services:
+  viewer:
+    build:
+      context: .
+      args:
+        STAC_BROWSER_VERSION: ${STAC_BROWSER_VERSION:-v4.0.1}
+    image: pgstac-viewer:dev
+    env_file: ../.env
+    ports:
+      - "${VIEWER_HOST_PORT:-8080}:8080"
+    networks:
+      - pgstac
+
+networks:
+  pgstac:
+    external: true
+    name: pgstac
