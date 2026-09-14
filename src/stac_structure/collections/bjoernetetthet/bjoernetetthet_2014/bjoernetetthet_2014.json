@@ -1,0 +1,76 @@
+{
+  "type": "Feature",
+  "stac_version": "1.1.0",
+  "stac_extensions": [],
+  "id": "bjoernetetthet_2014",
+  "geometry": {
+    "type": "Polygon",
+    "coordinates": [
+      [
+        [
+          27250.06038219,
+          6579917.07024015
+        ],
+        [
+          27250.06038219,
+          7939917.07024015
+        ],
+        [
+          1167250.06038219,
+          7939917.07024015
+        ],
+        [
+          1167250.06038219,
+          6579917.07024015
+        ],
+        [
+          27250.06038219,
+          6579917.07024015
+        ]
+      ]
+    ]
+  },
+  "bbox": [
+    27250.06038219,
+    6579917.07024015,
+    1167250.06038219,
+    7939917.07024015
+  ],
+  "properties": {
+    "year": 2014,
+    "generation_time": "2026-06-16T09:52:43.624999+00:00",
+    "title": "Bjoernetetthet 2014",
+    "datetime": "2014-01-01T00:00:00Z"
+  },
+  "links": [
+    {
+      "rel": "root",
+      "href": "../../catalog.json",
+      "type": "application/json",
+      "title": "Miljodir STAC"
+    },
+    {
+      "rel": "collection",
+      "href": "../collection.json",
+      "type": "application/json",
+      "title": "Bjoernetetthet"
+    },
+    {
+      "rel": "parent",
+      "href": "../collection.json",
+      "type": "application/json",
+      "title": "Bjoernetetthet"
+    }
+  ],
+  "assets": {
+    "raster": {
+      "href": "https://vsepublicstorage.blob.core.windows.net/rasterpublicdata/project_50ffcf1a-7b47-44ef-9167-658b8356244f/delivery_1f6dfb1a-03f1-4bfb-b2b8-e9d4fc546af2/test/cogs/bjorn_tetthet_5km_2014_25833_1000x_cog.tif",
+      "type": "image/tiff; application=geotiff; profile=cloud-optimized",
+      "title": "Bear density raster 2014 (5 km)",
+      "roles": [
+        "data"
+      ]
+    }
+  },
+  "collection": "bjoernetetthet"
+}

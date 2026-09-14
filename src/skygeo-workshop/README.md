@@ -9,3 +9,6 @@ Introduksjon til Cloud Native Geospatial i praksis. Du lærer å spørre mot sto
 
 ### [gran_canaria_accommodation_density.ipynb](gran_canaria_accommodation_density.ipynb)
 Analyserer tetthet av overnattingssteder på Gran Canaria ved hjelp av H3-heksagoner. Henter data fra Overture Maps, aggregerer per celle og visualiserer med interaktive kart.
+
+### [gran_canaria_overnatting_tetthet.ipynb](gran_canaria_overnatting_tetthet.ipynb)
+Norsk og forenklet workshop-versjon av tetthetsanalysen over. Henter overnattingssteder fra Overture Maps, aggregerer i H3-heksagoner, visualiserer på kart, og avsluttes med en liten CTF-oppgave hvor du graver i dataene for å finne skjulte "skatter".

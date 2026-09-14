@@ -1,0 +1,251 @@
+# ======================================================================================
+# file_name: vern_arcgis_map_service_definition.yml
+#
+# DESCRIPTION:
+#   ArcGIS map service definition for map layers.
+#   Maps layer names to service IDs and visible columns.
+#   The order here determines the final field order in the published map layer.
+#
+# NOTES:
+#   - Each layer maps to a list of field names in desired order.
+#   - Fields listed here will be reordered in the CIM definition.
+#   - Fields not listed will remain in their original order at the end and will not be visible by default.
+#   - Override database per entry with source.database when it deviates from map.database.
+# ======================================================================================
+
+map:
+  name: vern
+  epsg: 25833
+  reference_scale: null
+  metadata:
+    title: "Naturvernområder"
+    tags:
+      - natur
+      - vern
+      - naturvernområder
+    summary: |
+      Datasettet inneholder verneområder og vernede enkeltobjekt i Norge,
+      herunder Svalbard og Jan Mayen. Verneområder opprettes først og fremst
+      for å bevare naturverdier av nasjonal betydning. Dette er verdier vi skal
+      ta vare på for all overskuelig framtid, også med tanke på naturopplevelse
+      og kunnskap om naturen. Verneområdene forvaltes av fylkesmannen,
+      kommunen, et nasjonalparkstyre eller et interkommunalt
+      verneområdestyre.
+
+      Datasettet gir en oversikt over hvilke områder som er vernet etter
+      følgende lover:
+      - naturmangfoldloven av 2009
+      - biotopvern etter viltloven av 1981
+      - naturvernloven av 1970
+      - lov om naturvern av 1954
+      - lov om Jan Mayen av 1930
+      - lov om naturfredning av 1910.
+
+      I tillegg inneholder det områder vernet etter følgende lovverk på
+      Svalbard:
+      - Svalbardloven av 1925
+      - Svalbardmiljøloven av 2002.
+
+      For vernevedtak etter 1970 gir datasettet også tilgang til
+      verneforskriften som gjelder for hvert enkelt verneområde.
+    description: |
+      Datasettet inneholder verneområder og vernede enkeltobjekt i Norge,
+      herunder Svalbard og Jan Mayen. Verneområder opprettes først og fremst
+      for å bevare naturverdier av nasjonal betydning. Dette er verdier vi skal
+      ta vare på for all overskuelig framtid, også med tanke på naturopplevelse
+      og kunnskap om naturen. Verneområdene forvaltes av fylkesmannen,
+      kommunen, et nasjonalparkstyre eller et interkommunalt
+      verneområdestyre.
+    credits: "Miljødirektoratet"
+    license: "NLOD (https://data.norge.no/nlod)"
+  database: verndistsde
+  aprx_dir: \\path\\to\\aprx
+  lyrx_dir: \\path\\to\\lyrx
+
+# --- Layers ---
+naturvern_omraade:
+  type: feature_class
+  source:
+    feature_dataset: sde_feature_dataset
+    dataset: sde_dataset
+  service_id: 0
+  visible: true
+  display_field: naturvern_id
+  # Example of how to set a definition query
+  # definition_query: >-
+  #   verneform = 'Biotopvern'
+  #   Or verneform = 'BiotopvernSvalbard'
+  # Example of how to set manual field design. Only listed attributes are applied.
+  # field_design:
+  #   naturvern_id:
+  #     alias: "Naturvern ID"       # overrides auto-generated alias
+  #   cdda_id:
+  #     alias: "CDDA ID"
+  #     nullable: false             # only applied if listed
+  #     length: 50                  # only applied if listed
+  cols:
+    - naturvern_id
+    - cdda_id
+    - navn
+    - offisielt_navn
+    - faktaark
+    - verneform
+    - verneforskrift
+    - vernedato
+    - foerstegang_vernet
+    - verneplan
+    - kommune
+    - forvaltningsmyndighet
+    - forvaltningsmyndighet_type
+    - iucn
+    - revisjon
+    - truet_vurdering
+    - major_ecosystem_type
+    - verneform_aggregert
+    - objekttype
+    - objectid
+    - globalid
+    - shape
+    - st_area(shape)
+    - st_perimeter(shape)
+
+naturvern_klasser_omraade:
+  type: feature_class
+  source:
+    feature_dataset: sde_feature_dataset
+    dataset: sde_dataset
+  service_id: 1
+  visible: false
+  display_field: naturvern_id
+  cols:
+    - naturvern_id
+    - cdda_id
+    - navn
+    - offisielt_navn
+    - faktaark
+    - verneform
+    - verneforskrift
+    - vernedato
+    - foerstegang_vernet
+    - verneplan
+    - kommune
+    - forvaltningsmyndighet
+    - forvaltningsmyndighet_type
+    - iucn
+    - revisjon
+    - truet_vurdering
+    - major_ecosystem_type
+    - verneform_aggregert
+    - objekttype
+    - objectid
+    - globalid
+    - shape
+    - st_area(shape)
+    - st_perimeter(shape)
+
+naturvern_teiggrensepunkt:
+  type: feature_class
+  source:
+    feature_dataset: sde_feature_dataset
+    dataset: sde_dataset
+  service_id: 2
+  visible: false
+  display_field: teiggrensepunkt_id
+  cols:
+    - teiggrensepunkt_id
+    - grensepunktnummer
+    - grensepunkttype
+    - grensemerke_nedsatt_i
+    - informasjon
+    - jordskifteretten_saksnummer
+    - maalemetode
+    - noeyaktighet
+    - datafangstdato
+    - objekttype
+    - objectid
+    - globalid
+    - shape
+
+naturvern_grense:
+  type: feature_class
+  source:
+    feature_dataset: sde_feature_dataset
+    dataset: sde_dataset
+  service_id: 3
+  visible: false
+  display_field: naturverngrense_id
+  cols:
+    - naturverngrense_id
+    - administrativ_grense
+    - foelger_terrengdetalj
+    - jordskifteretten_saksnummer
+    - informasjon
+    - datafangstdato
+    - objekttype
+    - objectid
+    - globalid
+    - shape
+    - st_length(shape)
+
+foreslaatt_naturvern_omraade:
+  type: feature_class
+  source:
+    feature_dataset: sde_feature_dataset
+    dataset: sde_dataset
+  service_id: 4
+  visible: false
+  display_field: foreslaatt_vern_id
+  cols:
+    - foreslaatt_vern_id
+    - navn
+    - verneform
+    - verneplan
+    - kommune
+    - faktaark
+    - datafangstdato
+    - globalid
+    - objectid
+    - shape
+    - st_area(shape)
+    - st_perimeter(shape)
+
+foreslaatt_naturvern_grense:
+  type: feature_class
+  source:
+    feature_dataset: sde_feature_dataset
+    dataset: sde_dataset
+  service_id: 5
+  visible: false
+  display_field: foreslaatt_vern_id
+  cols:
+    - foreslaatt_vern_id
+    - navn
+    - verneform
+    - verneplan
+    - kommune
+    - faktaark
+    - datafangstdato
+    - globalid
+    - objectid
+    - shape
+    - st_area(shape)
+    - st_perimeter(shape)
+
+# --- Tables (all fields visible, no symbology or display field) ---
+naturvern_kommune:
+  type: table
+  source:
+    feature_dataset: null
+    dataset: sde_dataset
+  service_id: 10
+  visible: true
+  cols: "*"
+
+naturvern_nettverk:
+  type: table
+  source:
+    feature_dataset: null
+    dataset: sde_dataset
+  service_id: 11
+  visible: true
+  cols: "*"

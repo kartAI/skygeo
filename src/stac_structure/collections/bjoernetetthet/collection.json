@@ -1,0 +1,52 @@
+{
+  "type": "Collection",
+  "id": "bjoernetetthet",
+  "stac_version": "1.1.0",
+  "description": "Raster layers for estimated bear density in Norway (5 km grid).",
+  "links": [
+    {
+      "rel": "root",
+      "href": "../catalog.json",
+      "type": "application/json",
+      "title": "Miljodir STAC"
+    },
+    {
+      "rel": "item",
+      "href": "./bjoernetetthet_2013/bjoernetetthet_2013.json",
+      "type": "application/geo+json"
+    },
+    {
+      "rel": "item",
+      "href": "./bjoernetetthet_2014/bjoernetetthet_2014.json",
+      "type": "application/geo+json"
+    },
+    {
+      "rel": "parent",
+      "href": "../catalog.json",
+      "type": "application/json",
+      "title": "Miljodir STAC"
+    }
+  ],
+  "title": "Bjoernetetthet",
+  "extent": {
+    "spatial": {
+      "bbox": [
+        [
+          27250.06038219,
+          6579917.07024015,
+          1167250.06038219,
+          7939917.07024015
+        ]
+      ]
+    },
+    "temporal": {
+      "interval": [
+        [
+          "2013-01-01T00:00:00Z",
+          "2014-12-31T00:00:00Z"
+        ]
+      ]
+    }
+  },
+  "license": "proprietary"
+}
