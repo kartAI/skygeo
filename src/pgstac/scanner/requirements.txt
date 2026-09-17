@@ -1,0 +1,15 @@
+boto3
+click
+pystac[validation]
+rio-stac
+rasterio
+geopandas
+pyogrio
+shapely
+pyproj
+numpy
+pandas
+pyarrow
+pmtiles
+# Must match the pgstac DB schema (db image is pgstac v0.9.11).
+pypgstac[psycopg]>=0.9,<0.10

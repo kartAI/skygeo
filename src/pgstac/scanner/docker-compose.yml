@@ -1,0 +1,25 @@
+# On-demand scanner: scans one S3 folder -> one pgstac Collection. NOT part of the
+# always-up stack (not in the main compose's `up`), so updating the catalogue never
+# restarts the database. Reaches the db service over the shared `pgstac` network.
+#
+# One-time:  docker network create pgstac   (and the db must be running)
+# Run:
+#   docker compose -f scanner/docker-compose.yml --env-file .env run --rm scanner \
+#     --bucket my-bucket --prefix area/sub/ \
+#     --collection-id area-sub --collection-title "Area Sub"
+#
+# CLI args after `scanner` are passed to the entrypoint (see stac_scan/cli.py --help).
+
+services:
+  scanner:
+    build:
+      context: .
+    image: pgstac-scanner:dev
+    env_file: ../.env
+    networks:
+      - pgstac
+
+networks:
+  pgstac:
+    external: true
+    name: pgstac
